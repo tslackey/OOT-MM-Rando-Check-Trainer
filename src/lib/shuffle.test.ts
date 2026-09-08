@@ -14,4 +14,10 @@ describe("item placement", () => {
     const placement = placeItems(checks, 7);
     expect(Object.keys(placement).sort()).toEqual(checks.map((check) => check.id).sort());
   });
+
+  it("never places Majora's Mask items", () => {
+    const checks = enabledChecks(createConfig());
+    const placement = placeItems(checks, 99);
+    expect(Object.values(placement).some((item) => item.endsWith("_mm") || item === "hookshot_mm")).toBe(false);
+  });
 });

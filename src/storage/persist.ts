@@ -1,5 +1,6 @@
 import { PRESETS } from "../data/presets";
 import { MAX_ACTIVE_SESSIONS, type PersistedState, type PracticeSession, type RandoConfig } from "../data/types";
+import { CHECK_BY_ID, isMajoraItem, REGION_BY_ID } from "../data/world";
 
 export const STORAGE_KEY = "ootmm-check-trainer-v1";
 
@@ -9,7 +10,23 @@ type StoredState = Omit<Partial<PersistedState>, "version"> & {
 };
 
 function normalizeSession(session: PracticeSession): PracticeSession {
-  return { ...session, wrongIds: session.wrongIds ?? [] };
+  const region = REGION_BY_ID[session.currentRegionId];
+  const enabledCheckIds = session.enabledCheckIds.filter((id) => CHECK_BY_ID[id]?.game === "oot");
+  const collectedCheckIds = session.collectedCheckIds.filter((id) => enabledCheckIds.includes(id));
+  const placement = Object.fromEntries(
+    Object.entries(session.placement)
+      .filter(([id]) => CHECK_BY_ID[id]?.game === "oot")
+      .map(([id, item]) => [id, isMajoraItem(item) ? `junk_${id}` : item]),
+  );
+  return {
+    ...session,
+    currentRegionId: region?.game === "oot" ? session.currentRegionId : "oot-kokiri",
+    enabledCheckIds,
+    collectedCheckIds,
+    placement,
+    inventory: session.inventory.filter((item) => !isMajoraItem(item)),
+    wrongIds: session.wrongIds ?? [],
+  };
 }
 
 function normalizeConfig(config: RandoConfig): RandoConfig | null {

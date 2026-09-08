@@ -15,6 +15,7 @@ import {
   checkInLogic,
   enabledChecks,
   flagsFor,
+  itemLabel,
   REGION_BY_ID,
   spawnRegion,
   WORLD,
@@ -221,7 +222,7 @@ export function collectCheck(
   const done = collected.length >= session.enabledCheckIds.length;
   return succeed(
     session,
-    `Got ${item.startsWith("junk_") ? "junk" : item.replaceAll("_", " ")}`,
+    `Got ${item.startsWith("junk_") ? "junk" : itemLabel(item)}`,
     {
       collectedCheckIds: collected,
       inventory,

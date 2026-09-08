@@ -61,7 +61,7 @@ Fixture: `src/lib/fixtures/ootr-spoiler-sample.json`.
 2. **No tracker tells.** Practice check/travel buttons stay visually identical. `hideCompleted` / `hideLocked` are explicit easier-mode settings, off by default.
 3. **Peek is expensive.** Showing remaining checks must add `peekPenaltySeconds`.
 4. **Autosave everything** that the operator would lose if they closed the tab: configs, default preset, active run, history.
-5. **GitHub Pages, not GitLab.** `.github/workflows/pages.yml` tests, builds `dist/`, and deploys. Vite `base` is `./`.
+5. **Pages deploy.** `.github/workflows/pages.yml` tests, builds `dist/`, and deploys to GitHub Pages. `.gitlab-ci.yml` does the same for GitLab Pages. Vite `base` is `./`. The HTML template is stamped at the top with the GitLab Pages build number (`CI_PIPELINE_IID`, or the GitHub run number when that is the pipeline).
 6. **Logic stays approximate** unless someone is deliberately replacing it with a real solver. Do not pretend world.json is official OoTR.
 
 ## Commands

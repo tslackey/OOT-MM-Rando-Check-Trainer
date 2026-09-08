@@ -1,7 +1,33 @@
 import { describe, expect, it } from "vitest";
 import { createConfig } from "../data/presets";
+import type { PracticeSession } from "../data/types";
 import { createSession } from "../lib/session";
 import { emptyState, normalizeState } from "./persist";
+
+function staleSession(): PracticeSession {
+  return {
+    id: "stale",
+    configId: "preset-oot-songs",
+    configName: "OOT SONG MEMORY",
+    startedAt: 1,
+    updatedAt: 1,
+    pausedMs: 0,
+    currentRegionId: "mm-sct",
+    age: "child",
+    inventory: ["hookshot_mm", "ocarina"],
+    collectedCheckIds: ["mm-initial-song-of-healing"],
+    wrongIds: [],
+    placement: {
+      "oot-graveyard-royal-tomb-song": "hookshot_mm",
+      "mm-initial-song-of-healing": "soaring",
+    },
+    enabledCheckIds: ["oot-graveyard-royal-tomb-song", "mm-initial-song-of-healing"],
+    log: [],
+    penalties: 0,
+    penaltySeconds: 0,
+    peekUsed: 0,
+  };
+}
 
 describe("persisted run slots", () => {
   it("migrates a v1 activeSession into the in-progress list", () => {
@@ -43,5 +69,25 @@ describe("persisted run slots", () => {
 
     expect(next.activeSessions).toHaveLength(3);
     expect(next.currentSessionId).toBe(runs[2].id);
+  });
+
+  it("strips MM checks and items from an in-progress run", () => {
+    const next = normalizeState({
+      version: 1,
+      configs: [],
+      sessions: [],
+      activeSession: staleSession(),
+      lastConfigId: null,
+      defaultConfigId: null,
+      view: "practice",
+      editingConfigId: null,
+    });
+    const session = next.activeSessions[0];
+    expect(session?.currentRegionId).toBe("oot-kokiri");
+    expect(session?.enabledCheckIds).toEqual(["oot-graveyard-royal-tomb-song"]);
+    expect(session?.collectedCheckIds).toEqual([]);
+    expect(session?.inventory).toEqual(["ocarina"]);
+    expect(session?.placement["oot-graveyard-royal-tomb-song"]).toMatch(/^junk_/);
+    expect(session?.placement["mm-initial-song-of-healing"]).toBeUndefined();
   });
 });

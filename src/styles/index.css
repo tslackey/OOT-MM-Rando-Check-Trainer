@@ -23,18 +23,36 @@
 }
 
 html,
-body,
-#root {
+body {
   margin: 0;
-  height: 100%;
   min-height: 100%;
 }
 
 body {
+  display: flex;
+  flex-direction: column;
   background:
     radial-gradient(circle at top left, rgba(226, 193, 112, 0.16), transparent 32%),
     radial-gradient(circle at bottom right, rgba(80, 120, 70, 0.2), transparent 40%),
     var(--bg);
+}
+
+#root {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.build-stamp {
+  margin: 0;
+  padding: 0.28rem 0.8rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: #0c100b;
+  border-bottom: 1px solid var(--line);
 }
 
 button,
@@ -78,6 +96,7 @@ button.danger {
 .shell {
   min-height: 100%;
   height: 100%;
+  flex: 1;
   display: grid;
   grid-template-rows: auto 1fr;
 }
