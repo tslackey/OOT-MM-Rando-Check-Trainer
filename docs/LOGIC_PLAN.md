@@ -6,7 +6,7 @@ operator standing in this practice region, does this location or exit hold?**
 
 This is **not** a fill-time solver and **not** a claim of official OoTR.
 
-**Status:** Phase 0–3 is in the app. `src/logic/` evaluates vendored OoTR vanilla World JSON as the practice penalty oracle, including intra-dungeon BFS, `at()` gated on reachable subregions, stacked keys, visit-time events, and Door of Time / starting-age time travel. `world.json` remains the coarse Go to / Check map (OoT only). Compile coverage and `State.py` methods live in `src/logic/ootrPort.test.ts`. Later work: wrap a tracker search (`randomizer-graph-tool`), imported trick settings, MQ, entrance shuffle. Fill-style either-age checks are an optional config flag, off by default.
+**Status:** Phase 0–3 is in the app. `src/logic/` evaluates vendored OoTR vanilla World JSON as the practice penalty oracle, including intra-dungeon BFS, `at()` gated on reachable subregions, stacked keys, visit-time events, and Door of Time / starting-age time travel. `world.json` remains the coarse Go to / Check map (OoT only). Compile coverage and `State.py` methods live in `src/logic/ootrPort.test.ts`. Later work: wrap a tracker search (`randomizer-graph-tool`), imported trick settings, MQ, entrance shuffle. Claim slices in `docs/TASKS.md`. Fill-style either-age checks are an optional config flag, off by default.
 
 ## Status
 
@@ -180,6 +180,10 @@ Out-of-logic still only adds penalty seconds. It does not restyle the button.
 
 ## Next slices (do these, in order)
 
+**Claim a leaf in `docs/TASKS.md` before starting.** That file is the
+who-owns-what board (`L-A` is the wrap; `L-C*` is imported settings).
+Do not start a second wrap while `L-A` is claimed.
+
 ### Slice A — wrap a tracker search (the real next step)
 
 Preferred: `@mracsys/randomizer-graph-tool` (what TOoTR uses).
@@ -316,6 +320,7 @@ rewrite the practice graph; do not fake it with vanilla adjacencies.
 | Tracker search wrap (next) | new adapter in `src/logic/` around `@mracsys/randomizer-graph-tool` |
 | Ported tests | `src/logic/ootrPort.test.ts` |
 | Smoke cases | `src/logic/oracle.test.ts` |
+| Who owns which slice | `docs/TASKS.md` |
 | Agent notes | this file + `AGENTS.md` |
 
 ## Study list
