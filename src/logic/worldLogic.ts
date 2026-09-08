@@ -75,7 +75,7 @@ const files = [
   ice,
   gtg,
   ganon,
-] as RawRegion[][];
+] as unknown as RawRegion[][];
 
 export const LOGIC_REGIONS: LogicRegion[] = files.flat().map(compileRegion);
 

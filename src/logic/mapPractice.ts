@@ -59,7 +59,6 @@ const EXACT: Record<string, string> = {
   "Death Mountain Summit": "oot-dmt",
   "Goron City": "oot-gc",
   "GC Darunias Chamber": "oot-gc",
-  "GC Woods Warp": "oot-gc",
   "GC Shop": "oot-gc",
   "DMC Upper Nearby": "oot-dmc",
   "DMC Lower Nearby": "oot-dmc",
