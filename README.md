@@ -17,7 +17,7 @@ Majora's Mask will be a separate trainer later. This app is OoT only.
 - Graphs plot adjusted time, penalties, pace, and completion across attempts.
 - Runs, configs, and stats autosave to `localStorage` and Capacitor Preferences so you can pick the app up and put it down.
 
-The bundled location list is the vanilla always-shuffled OoT check set (no MQ, no junk grass/pots). **Go to** / **Check** buttons follow a coarse practice map. Whether a tap is in logic uses vendored OoT-Randomizer vanilla rules (helpers + World JSON) as a penalty oracle, including dungeon interiors and keys — not a full fill-time solver, and not a claim of official OoTR. Remaining work is in `docs/LOGIC_PLAN.md`.
+The bundled location list is the vanilla always-shuffled OoT check set (no MQ, no junk grass/pots). **Go to** / **Check** buttons follow a coarse practice map. Whether a tap is in logic uses vendored OoT-Randomizer vanilla rules (helpers + World JSON) as a penalty oracle, including dungeon interiors, keys, and visit-time events — not a full fill-time solver, and not a claim of official OoTR. Remaining work is in `docs/LOGIC_PLAN.md` (MQ, entrance shuffle, imported tricks).
 
 ## Import a rando JSON
 

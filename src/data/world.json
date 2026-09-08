@@ -1156,7 +1156,8 @@
       "regionId": "oot-kak",
       "type": "chest",
       "age": "any",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Kak Windmill Freestanding PoH"
     },
     {
       "id": "oot-windmill-song-of-storms",
