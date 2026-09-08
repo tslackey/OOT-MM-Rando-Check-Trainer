@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { createConfig } from "../data/presets";
-import { CHECK_BY_ID, canUseConnection, checkInLogic, WORLD } from "../data/world";
+import { CHECK_BY_ID, canSwitchAge, canUseConnection, checkInLogic, WORLD } from "../data/world";
 import { locationNamedInLogic } from "./oracle";
 
 function edge(from: string, to: string) {
@@ -59,6 +59,63 @@ describe("OoTR practice oracle", () => {
     expect(canUseConnection(toGanon, ["light_arrows"], "adult")).toBe(false);
     expect(
       canUseConnection(toGanon, ["light_arrows", "shadow_medallion", "spirit_medallion"], "adult"),
+    ).toBe(true);
+  });
+
+  it("lets a child leave closed forest after Defeat Queen Gohma", () => {
+    const closed = createConfig({ openForest: false });
+    const toBridge = edge("oot-kokiri", "oot-lost-woods-bridge");
+    expect(canUseConnection(toBridge, [], "child", closed)).toBe(false);
+    expect(canUseConnection(toBridge, [], "child", closed, ["Defeat Queen Gohma"])).toBe(true);
+  });
+
+  it("requires Mido or open forest to enter Deku as child", () => {
+    const closedDeku = createConfig({ openForest: true, openDeku: false });
+    const open = createConfig({ openForest: true, openDeku: true });
+    const toDeku = edge("oot-kokiri", "oot-deku");
+    expect(canUseConnection(toDeku, [], "child", closedDeku)).toBe(false);
+    expect(canUseConnection(toDeku, ["kokiri_sword", "deku_shield"], "child", closedDeku)).toBe(true);
+    expect(canUseConnection(toDeku, [], "child", open)).toBe(true);
+  });
+
+  it("drains the well as child with Song of Storms and remembers the event", () => {
+    const toWell = edge("oot-kak", "oot-well");
+    expect(canUseConnection(toWell, [], "child")).toBe(false);
+    expect(canUseConnection(toWell, ["ocarina", "song_of_storms"], "child")).toBe(true);
+    expect(canUseConnection(toWell, [], "child", undefined, ["Drain Well"])).toBe(true);
+    expect(canUseConnection(toWell, ["ocarina", "song_of_storms"], "adult")).toBe(false);
+  });
+
+  it("needs the Epona event to cross Gerudo Valley without longshot", () => {
+    const toFortress = edge("oot-gv", "oot-gf");
+    expect(canUseConnection(toFortress, ["ocarina", "epona"], "adult")).toBe(false);
+    expect(canUseConnection(toFortress, ["ocarina", "epona"], "adult", undefined, ["Epona"])).toBe(true);
+    expect(canUseConnection(toFortress, ["longshot"], "adult")).toBe(true);
+  });
+
+  it("opens the Door of Time with Song of Time when the door is closed", () => {
+    const closed = createConfig({ openDoorOfTime: false, startingAge: "child" });
+    const open = createConfig({ openDoorOfTime: true, startingAge: "child" });
+    expect(canSwitchAge(closed, [], "oot-tot")).toBe(false);
+    expect(canSwitchAge(closed, ["ocarina", "song_of_time"], "oot-tot")).toBe(true);
+    expect(canSwitchAge(open, [], "oot-tot")).toBe(true);
+    expect(canSwitchAge(closed, ["ocarina", "song_of_time"], "oot-kokiri")).toBe(false);
+    expect(canSwitchAge(createConfig({ startingAge: "adult" }), [], "oot-tot")).toBe(true);
+  });
+
+  it("does not give locked-Kokiri child the Know It All GS just because night is ignored", () => {
+    const closed = createConfig({ openForest: false });
+    const open = createConfig({ openForest: true });
+    expect(locationNamedInLogic("KF GS Know It All House", "oot-kokiri", ["kokiri_sword"], "child", closed)).toBe(
+      false,
+    );
+    expect(locationNamedInLogic("KF GS Know It All House", "oot-kokiri", ["kokiri_sword"], "child", open)).toBe(
+      true,
+    );
+    expect(
+      locationNamedInLogic("KF GS Know It All House", "oot-kokiri", ["kokiri_sword"], "child", closed, [
+        "Defeat Queen Gohma",
+      ]),
     ).toBe(true);
   });
 });

@@ -79,8 +79,25 @@ export function doorOfTimeOpen(inventory: string[], config?: RandoConfig, events
 }
 
 export function eventsAfterVisit(practiceId: string, state: LogicState): string[] {
+  const prior = new Set(state.events);
   expandLocal(practiceId, state);
-  return [...state.events];
+  const kept = new Set(prior);
+  for (const name of state.events) {
+    // Defeat events persist from collected boss checks, not from walking the room.
+    if (name.startsWith("Defeat ") && !prior.has(name)) continue;
+    kept.add(name);
+  }
+  return [...kept];
+}
+
+export function visitEvents(
+  practiceId: string,
+  inventory: string[],
+  age: LogicAge,
+  config?: RandoConfig,
+  events?: Iterable<string>,
+): string[] {
+  return eventsAfterVisit(practiceId, logicStateFor(inventory, age, config, events));
 }
 
 export function eventsFromCollected(collectedCheckIds: Iterable<string>, extra: Iterable<string> = []): string[] {

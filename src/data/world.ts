@@ -13,6 +13,7 @@ import {
   connectionInLogic,
   doorOfTimeOpen,
   eventsFromCollected,
+  visitEvents,
   warpInLogic,
 } from "../logic/oracle";
 import type { LogicAge } from "../logic/state";
@@ -131,6 +132,16 @@ export function hasAll(inventory: Iterable<string>, needs: string[]): boolean {
 
 export function sessionEvents(collectedCheckIds: Iterable<string> = [], extra: Iterable<string> = []): string[] {
   return eventsFromCollected(collectedCheckIds, extra);
+}
+
+export function collectVisitEvents(
+  regionId: string,
+  inventory: string[],
+  age: Exclude<Age, "any">,
+  config?: RandoConfig,
+  extra?: Iterable<string>,
+): string[] {
+  return visitEvents(regionId, inventory, age as LogicAge, config, extra);
 }
 
 export function canUseConnection(

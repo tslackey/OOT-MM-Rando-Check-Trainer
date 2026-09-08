@@ -1,7 +1,15 @@
 import { describe, expect, it } from "vitest";
 import { createConfig } from "../data/presets";
-import { collectCheck, createSession, respawnToSpawn, setFaroresWind, travelTo, warpFaroresWind } from "./session";
-import { CHECK_BY_ID, itemLabel, REGION_BY_ID } from "../data/world";
+import {
+  collectCheck,
+  createSession,
+  respawnToSpawn,
+  setFaroresWind,
+  switchAge,
+  travelTo,
+  warpFaroresWind,
+} from "./session";
+import { CHECK_BY_ID, itemLabel, REGION_BY_ID, sessionEvents } from "../data/world";
 
 describe("practice session", () => {
   it("penalizes travel with no connecting path", () => {
@@ -150,6 +158,67 @@ describe("practice session", () => {
       "small_key_forest",
       "small_key_forest",
     ]);
+  });
+
+  it("opens closed forest after the Gohma check is collected", () => {
+    const config = createConfig({ openForest: false, spawn: "oot-kokiri" });
+    let session = createSession(config, 1);
+    const blocked = travelTo(session, config, "oot-lost-woods-bridge");
+    expect(blocked.currentRegionId).toBe("oot-kokiri");
+    expect(blocked.penalties).toBe(1);
+
+    session = {
+      ...session,
+      collectedCheckIds: ["oot-deku-tree-boss"],
+      logicEvents: sessionEvents(["oot-deku-tree-boss"], session.logicEvents ?? []),
+    };
+    const escaped = travelTo(session, config, "oot-lost-woods-bridge");
+    expect(escaped.currentRegionId).toBe("oot-lost-woods-bridge");
+    expect(escaped.penalties).toBe(0);
+  });
+
+  it("records Drain Well when child visits Kakariko with Song of Storms", () => {
+    const config = createConfig({ spawn: "oot-kak", childSpawn: "oot-kak" });
+    let session = createSession(config, 1);
+    const dry = travelTo(session, config, "oot-well");
+    expect(dry.currentRegionId).toBe("oot-kak");
+    expect(dry.penalties).toBe(1);
+
+    session = { ...session, inventory: [...session.inventory, "ocarina", "song_of_storms"] };
+    const drained = travelTo(session, config, "oot-well");
+    expect(drained.currentRegionId).toBe("oot-well");
+    expect(drained.logicEvents).toContain("Drain Well");
+    expect(drained.penalties).toBe(0);
+  });
+
+  it("registers Epona at the ranch so Gerudo Valley can be crossed later", () => {
+    const config = createConfig({
+      startingAge: "adult",
+      adultSpawn: "oot-llr",
+      startingItems: ["ocarina", "epona"],
+    });
+    let session = createSession(config, 1);
+    expect(session.logicEvents).toContain("Epona");
+    session = travelTo(session, config, "oot-field");
+    session = travelTo(session, config, "oot-gv");
+    session = travelTo(session, config, "oot-gf");
+    expect(session.currentRegionId).toBe("oot-gf");
+    expect(session.penalties).toBe(0);
+  });
+
+  it("blocks age swap until the Door of Time can open at Temple of Time", () => {
+    const closed = createConfig({ openDoorOfTime: false, spawn: "oot-tot", childSpawn: "oot-tot" });
+    let session = createSession(closed, 1);
+    session = { ...session, currentRegionId: "oot-tot" };
+    const locked = switchAge(session, closed);
+    expect(locked.age).toBe("child");
+    expect(locked.penalties).toBe(1);
+
+    session = { ...session, inventory: [...session.inventory, "ocarina", "song_of_time"] };
+    const swapped = switchAge(session, closed);
+    expect(swapped.age).toBe("adult");
+    expect(swapped.logicEvents).toContain("Time_Travel");
+    expect(swapped.penalties).toBe(0);
   });
 
   it("keeps stacked keys when they are starting items", () => {

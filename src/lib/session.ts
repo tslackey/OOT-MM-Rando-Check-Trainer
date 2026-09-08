@@ -16,6 +16,7 @@ import {
   enabledChecks,
   flagsFor,
   itemLabel,
+  collectVisitEvents,
   REGION_BY_ID,
   sessionEvents,
   WORLD,
@@ -30,6 +31,30 @@ function event(partial: Omit<ActionEvent, "at"> & { at?: number }): ActionEvent 
 
 function logicEvents(session: PracticeSession): string[] {
   return sessionEvents(session.collectedCheckIds, session.logicEvents ?? []);
+}
+
+function refreshEvents(
+  session: PracticeSession,
+  config: RandoConfig,
+  patch: {
+    regionId?: string;
+    inventory?: string[];
+    age?: Exclude<Age, "any">;
+    collected?: string[];
+    extra?: Iterable<string>;
+  } = {},
+): string[] {
+  const inventory = patch.inventory ?? session.inventory;
+  const age = patch.age ?? session.age;
+  const regionId = patch.regionId ?? session.currentRegionId;
+  const collected = patch.collected ?? session.collectedCheckIds;
+  const seeded = sessionEvents(collected, [...(session.logicEvents ?? []), ...(patch.extra ?? [])]);
+  return collectVisitEvents(regionId, inventory, age, config, seeded);
+}
+
+function eventsAfterMove(session: PracticeSession, config: RandoConfig, regionId: string): string[] {
+  const leaving = refreshEvents(session, config);
+  return refreshEvents({ ...session, logicEvents: leaving }, config, { regionId });
 }
 
 export function startingInventory(config: RandoConfig): string[] {
@@ -51,6 +76,7 @@ export function createSession(config: RandoConfig, seed?: number): PracticeSessi
   const now = Date.now();
   const spoiler = generateSpoiler(config, seed ?? now);
   const start = startingRegion(spoiler);
+  const inventory = startingInventory(config);
   return {
     id: crypto.randomUUID(),
     configId: config.id,
@@ -64,11 +90,12 @@ export function createSession(config: RandoConfig, seed?: number): PracticeSessi
     adultSpawnId: spoiler.adultSpawnId,
     faroresRegionId: null,
     seed: spoiler.seed,
-    inventory: startingInventory(config),
+    inventory,
     collectedCheckIds: [],
     wrongIds: [],
     placement: spoiler.placement,
     enabledCheckIds: checks.map((check) => check.id),
+    logicEvents: collectVisitEvents(start, inventory, spoiler.startingAge, config),
     log: [
       {
         at: now,
@@ -181,7 +208,10 @@ export function travelTo(
   return succeed(
     session,
     `Arrived at ${name}`,
-    { currentRegionId: regionId },
+    {
+      currentRegionId: regionId,
+      logicEvents: eventsAfterMove(session, config, regionId),
+    },
     { kind: "travel", label: `Go to ${name}`, ok: true, regionId },
   );
 }
@@ -209,7 +239,10 @@ export function warpTo(
   return succeed(
     session,
     warp.label,
-    { currentRegionId: warp.regionId },
+    {
+      currentRegionId: warp.regionId,
+      logicEvents: eventsAfterMove(session, config, warp.regionId),
+    },
     { kind: "warp", label: warp.label, ok: true, regionId: warp.regionId, item: warpItem },
   );
 }
@@ -232,7 +265,10 @@ export function respawnToSpawn(session: PracticeSession, config: RandoConfig): P
   return succeed(
     session,
     `Respawned at ${name}`,
-    { currentRegionId: regionId },
+    {
+      currentRegionId: regionId,
+      logicEvents: eventsAfterMove(session, config, regionId),
+    },
     { kind: "warp", label: `Respawn to ${name}`, ok: true, regionId, item: "respawn" },
   );
 }
@@ -297,7 +333,10 @@ export function warpFaroresWind(session: PracticeSession, config: RandoConfig): 
   return succeed(
     session,
     `Warped to ${name}`,
-    { currentRegionId: regionId },
+    {
+      currentRegionId: regionId,
+      logicEvents: eventsAfterMove(session, config, regionId),
+    },
     { kind: "warp", label: `Farore's Wind (${name})`, ok: true, regionId, item: "farores-return" },
   );
 }
@@ -350,7 +389,7 @@ export function collectCheck(
     {
       collectedCheckIds: collected,
       inventory,
-      logicEvents: sessionEvents(collected, session.logicEvents ?? []),
+      logicEvents: refreshEvents(session, config, { inventory, collected }),
       finishedAt: done ? Date.now() : session.finishedAt,
     },
     { kind: "check", label, ok: true, checkId: check.id, item },
@@ -413,7 +452,10 @@ export function switchAge(session: PracticeSession, config: RandoConfig): Practi
   return succeed(
     session,
     `Now ${nextAge}`,
-    { age: nextAge },
+    {
+      age: nextAge,
+      logicEvents: refreshEvents(session, config, { age: nextAge, extra: ["Time_Travel"] }),
+    },
     { kind: "travel", label: `Become ${nextAge}`, ok: true },
   );
 }

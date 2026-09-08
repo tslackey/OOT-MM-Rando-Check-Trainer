@@ -21,6 +21,7 @@ export function emptySettings(config?: RandoConfig, inventory: Iterable<string> 
   const owned = new Set(inventory);
   const imported = config?.randoSettings ?? {};
   const openForest = config ? config.openForest : owned.has("open_forest");
+  const openDeku = config ? config.openDeku : owned.has("open_deku") || !owned.has("open_forest");
   const openZora = config ? config.openZora : owned.has("open_zora");
   const openDot = config ? config.openDoorOfTime : owned.has("open_door_of_time");
 
@@ -28,7 +29,7 @@ export function emptySettings(config?: RandoConfig, inventory: Iterable<string> 
   for (const trial of TRIALS) skipped[trial] = true;
 
   const settings: Record<string, unknown> = {
-    open_forest: openForest ? "open" : "closed",
+    open_forest: !openForest ? "closed" : openDeku ? "open" : "deku",
     open_kakariko: "open",
     zora_fountain: openZora ? "open" : "closed",
     open_door_of_time: openDot ? "open" : "sot",
@@ -56,7 +57,8 @@ export function emptySettings(config?: RandoConfig, inventory: Iterable<string> 
     chicken_count: 7,
     warp_songs: true,
     disable_trade_revert: false,
-    gold_skulls_ignore_daytime: true,
+    gold_skulls_ignore_daytime: false,
+    had_night_start: false,
     logic_grottos_without_agony: false,
     entrance_shuffle: false,
     triforce_goal_per_world: 0,
@@ -78,9 +80,11 @@ export function emptySettings(config?: RandoConfig, inventory: Iterable<string> 
   };
 
   applyImportedSettings(settings, imported);
-  if (owned.has("open_forest")) settings.open_forest = "open";
-  if (owned.has("open_zora")) settings.zora_fountain = "open";
-  if (owned.has("open_door_of_time")) settings.open_door_of_time = "open";
+  if (!config) {
+    if (owned.has("open_forest")) settings.open_forest = owned.has("open_deku") ? "open" : "deku";
+    if (owned.has("open_zora")) settings.zora_fountain = "open";
+    if (owned.has("open_door_of_time")) settings.open_door_of_time = "open";
+  }
   return settings;
 }
 

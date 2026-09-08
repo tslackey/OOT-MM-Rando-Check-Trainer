@@ -6,7 +6,7 @@ Harkinian’s randomizer
 ([HarbourMasters/Shipwright](https://github.com/HarbourMasters/Shipwright))
 actually compute reachability.
 
-**Status:** Phase 0–2 of this plan is in the app. `src/logic/` evaluates vendored OoTR vanilla World JSON as the practice penalty oracle, including intra-dungeon BFS, `at()` gated on reachable subregions, and stacked small/boss keys. `world.json` remains the coarse Go to / Check map (OoT only). Later phases (dual-age fill, imported trick settings, MQ, entrance shuffle) are still open.
+**Status:** Phase 0–3 (play-time events) of this plan is in the app. `src/logic/` evaluates vendored OoTR vanilla World JSON as the practice penalty oracle, including intra-dungeon BFS, `at()` gated on reachable subregions, stacked keys, and persisted visit/boss events (`Defeat Queen Gohma`, `Drain Well`, `Epona`, Door of Time, `Time_Travel`). Night-only Kokiri GS stay locked until the child can leave the forest or play Sun’s Song. `world.json` remains the coarse Go to / Check map (OoT only). Later work: fill-style either-age (off by default), imported trick settings, MQ, entrance shuffle.
 
 **This document is the plan.** Do not treat the trainer as official OoTR until later phases land and tests prove them.
 
@@ -272,21 +272,29 @@ sharing one requirement. That is the current oracle behavior.
 
 ### Phase 3 — events, dual age, time travel
 
-Goal: match play-time reachability the way SoH’s tracker does, without
-becoming a tracker.
+**Landed (play-time, this age / this room).** Fill-style either-age is still off.
 
-- `ReachabilitySearch`-style loop: process regions until events stop firing.
-- Collecting Gohma sets `'Defeat Queen Gohma'` → `can_leave_forest`.
-- Door of Time / starting age from settings (`can_open_door_of_time`).
+- Intra-practice search already loops until events and exits stop opening.
+- Visiting a practice region persists the events that fire there (`Showed Mido
+  Sword & Shield`, `Drain Well`, `Epona`, …). Travel writes both the region
+  you leave and the one you enter.
+- Collecting a dungeon boss check sets `'Defeat Queen Gohma'` (and the other
+  `Defeat *` events) so `can_leave_forest` can become true mid-run. Walking
+  the boss room without tapping the check does **not** persist a defeat.
+- Age swap at Temple of Time uses `can_open_door_of_time` (open door, or Song
+  of Time + ocarina). A successful swap records `Time_Travel`. Starting adult
+  can always swap at ToT.
+- `openDeku: false` with open forest maps to OoTR `open_forest == 'deku'`
+  (Mido still blocks Deku). Closed forest stays `closed`.
 - Optional: while standing in a region, also allow a check if the **other**
   age could do it *after swapping at ToT with current items* — **off by
   default**. Default stays “this age, this room.” A config flag can enable
   “fill-style either age” later if operators want it.
 
-Day/night skulls: trainer has no clock. Treat GS as reachable if the item
-rule holds ignoring `at_night`, or add a cheap “I waited until night” action.
-Do not silently mark night-only GS in logic for child locked in Kokiri
-without SoS / forest escape.
+Day/night skulls: trainer has no clock. `at_night` / `at_day` evaluate true
+(the operator can wait) **except** `gold_skulls_ignore_daytime` is off, so
+Kokiri night GS still need `had_night_start`, `can_leave_forest`, or Sun’s
+Song. Do not silently mark night-only GS in logic for child locked in Kokiri.
 
 ### Phase 4 — settings coverage (only what import already stores)
 

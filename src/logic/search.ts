@@ -6,6 +6,7 @@ import { REGION_BY_NAME } from "./worldLogic";
 
 const MAX_ITERS = 64;
 
+/** Intra-practice ReachabilitySearch: fire events and walk exits until nothing new opens. */
 export function expandLocal(practiceId: string, state: LogicState): Set<string> {
   const start = PRACTICE_ENTRY[practiceId];
   const seen = new Set<string>();
