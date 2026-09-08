@@ -53,7 +53,12 @@ export function deleteConfig(id: string): void {
     ...current,
     configs: current.configs.filter((entry) => entry.id !== id),
     lastConfigId: current.lastConfigId === id ? (current.configs.find((entry) => entry.id !== id)?.id ?? null) : current.lastConfigId,
+    defaultConfigId: current.defaultConfigId === id ? null : current.defaultConfigId,
   }));
+}
+
+export function setDefaultConfigId(id: string | null): void {
+  setState({ defaultConfigId: id, lastConfigId: id ?? state.lastConfigId });
 }
 
 export function setActiveSession(session: PracticeSession | null): void {

@@ -31,6 +31,7 @@ export function flagsFor(config: RandoConfig): string[] {
 
 export function spawnRegion(config: RandoConfig): string {
   if (config.spawn !== "auto" && REGION_BY_ID[config.spawn]) return config.spawn;
+  if (config.startingAge === "adult" && config.games.oot) return "oot-tot";
   if (config.games.oot) return "oot-kokiri";
   return "mm-sct";
 }
@@ -38,7 +39,9 @@ export function spawnRegion(config: RandoConfig): string {
 export function enabledChecks(config: RandoConfig): WorldCheck[] {
   return WORLD.checks.filter((check) => {
     if (!config.games[check.game]) return false;
-    return config.checkTypes[check.type];
+    if (!config.checkTypes[check.type]) return false;
+    if (config.importedCheckIds?.length) return config.importedCheckIds.includes(check.id);
+    return true;
   });
 }
 

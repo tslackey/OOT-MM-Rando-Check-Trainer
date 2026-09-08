@@ -6,7 +6,10 @@ import { REGION_BY_ID } from "../data/world";
 
 export function Home() {
   const state = useAppState();
-  const last = state.configs.find((config) => config.id === state.lastConfigId) ?? state.configs[0];
+  const last =
+    state.configs.find((config) => config.id === state.defaultConfigId) ??
+    state.configs.find((config) => config.id === state.lastConfigId) ??
+    state.configs[0];
   const active = state.activeSession;
   const recent = state.sessions[0];
 
@@ -52,7 +55,7 @@ export function Home() {
           Start {last ? last.name : "a config"}
         </button>
         <button type="button" className="ghost" onClick={() => setView("configs")}>
-          Configure presets
+          Import / configure presets
         </button>
       </section>
 

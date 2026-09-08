@@ -79,6 +79,14 @@ export interface RandoConfig {
   hideCompleted: boolean;
   hideLocked: boolean;
   spawn: "auto" | string;
+  startingItems: string[];
+  randoVersion?: string;
+  randoSeed?: string;
+  randoSettings?: Record<string, string>;
+  importedPlacement?: Record<string, string>;
+  importedCheckIds?: string[];
+  importSummary?: string;
+  sourceFileName?: string;
 }
 
 export interface ActionEvent {
@@ -135,6 +143,7 @@ export interface PersistedState {
   sessions: SessionSummary[];
   activeSession: PracticeSession | null;
   lastConfigId: string | null;
+  defaultConfigId: string | null;
   view: ViewId;
   editingConfigId: string | null;
 }

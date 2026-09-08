@@ -27,17 +27,18 @@ function event(partial: Omit<ActionEvent, "at"> & { at?: number }): ActionEvent 
 }
 
 export function startingInventory(config: RandoConfig): string[] {
-  const items = [...flagsFor(config)];
-  if (config.games.mm) {
-    items.push("ocarina", "song_of_time");
+  const items = [...flagsFor(config), ...(config.startingItems ?? [])];
+  if (!config.randoSettings) {
+    if (config.games.mm) items.push("ocarina", "song_of_time");
+    if (config.openDoorOfTime) items.push("ocarina");
   }
-  if (config.openDoorOfTime) items.push("ocarina");
   return [...new Set(items)];
 }
 
 export function createSession(config: RandoConfig, seed?: number): PracticeSession {
   const checks = enabledChecks(config);
   const now = Date.now();
+  const generated = placeItems(checks, seed ?? now);
   return {
     id: crypto.randomUUID(),
     configId: config.id,
@@ -49,7 +50,7 @@ export function createSession(config: RandoConfig, seed?: number): PracticeSessi
     age: config.startingAge,
     inventory: startingInventory(config),
     collectedCheckIds: [],
-    placement: placeItems(checks, seed ?? now),
+    placement: { ...generated, ...config.importedPlacement },
     enabledCheckIds: checks.map((check) => check.id),
     log: [
       {

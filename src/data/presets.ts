@@ -10,8 +10,21 @@ const ALL_TYPES: Record<CheckType, boolean> = {
   skullReward: false,
 };
 
-export function createConfig(partial: Partial<RandoConfig> = {}): RandoConfig {
+export function trainingDefaults(from?: RandoConfig): Pick<
+  RandoConfig,
+  "penaltySeconds" | "peekPenaltySeconds" | "hideCompleted" | "hideLocked"
+> {
+  return {
+    penaltySeconds: from?.penaltySeconds ?? 15,
+    peekPenaltySeconds: from?.peekPenaltySeconds ?? 45,
+    hideCompleted: from?.hideCompleted ?? false,
+    hideLocked: from?.hideLocked ?? false,
+  };
+}
+
+export function createConfig(partial: Partial<RandoConfig> = {}, defaults?: RandoConfig): RandoConfig {
   const now = Date.now();
+  const training = trainingDefaults(defaults);
   return {
     id: partial.id ?? crypto.randomUUID(),
     name: partial.name ?? "New preset",
@@ -23,11 +36,19 @@ export function createConfig(partial: Partial<RandoConfig> = {}): RandoConfig {
     openDeku: partial.openDeku ?? true,
     openZora: partial.openZora ?? true,
     openDoorOfTime: partial.openDoorOfTime ?? true,
-    penaltySeconds: partial.penaltySeconds ?? 15,
-    peekPenaltySeconds: partial.peekPenaltySeconds ?? 45,
-    hideCompleted: partial.hideCompleted ?? false,
-    hideLocked: partial.hideLocked ?? false,
+    penaltySeconds: partial.penaltySeconds ?? training.penaltySeconds,
+    peekPenaltySeconds: partial.peekPenaltySeconds ?? training.peekPenaltySeconds,
+    hideCompleted: partial.hideCompleted ?? training.hideCompleted,
+    hideLocked: partial.hideLocked ?? training.hideLocked,
     spawn: partial.spawn ?? "auto",
+    startingItems: partial.startingItems ?? [],
+    randoVersion: partial.randoVersion,
+    randoSeed: partial.randoSeed,
+    randoSettings: partial.randoSettings,
+    importedPlacement: partial.importedPlacement,
+    importedCheckIds: partial.importedCheckIds,
+    importSummary: partial.importSummary,
+    sourceFileName: partial.sourceFileName,
   };
 }
 

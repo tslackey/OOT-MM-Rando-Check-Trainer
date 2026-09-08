@@ -1,7 +1,20 @@
-import type { PersistedState } from "../data/types";
 import { PRESETS } from "../data/presets";
+import type { PersistedState, RandoConfig } from "../data/types";
 
 export const STORAGE_KEY = "ootmm-check-trainer-v1";
+
+function normalizeConfig(config: RandoConfig): RandoConfig {
+  return { ...config, startingItems: config.startingItems ?? [] };
+}
+
+function normalizeState(parsed: PersistedState): PersistedState {
+  return {
+    ...emptyState(),
+    ...parsed,
+    configs: (parsed.configs ?? []).map(normalizeConfig),
+    defaultConfigId: parsed.defaultConfigId ?? null,
+  };
+}
 
 export function emptyState(): PersistedState {
   return {
@@ -10,6 +23,7 @@ export function emptyState(): PersistedState {
     sessions: [],
     activeSession: null,
     lastConfigId: PRESETS[0]?.id ?? null,
+    defaultConfigId: null,
     view: "home",
     editingConfigId: null,
   };
@@ -28,7 +42,7 @@ export async function loadState(): Promise<PersistedState> {
   if (raw) {
     try {
       const parsed = JSON.parse(raw) as PersistedState;
-      if (parsed?.version === 1) return parsed;
+      if (parsed?.version === 1) return normalizeState(parsed);
     } catch {
       // fall through to capacitor / empty
     }
@@ -39,7 +53,7 @@ export async function loadState(): Promise<PersistedState> {
     const result = await Preferences.get({ key: STORAGE_KEY });
     if (result.value) {
       const parsed = JSON.parse(result.value) as PersistedState;
-      if (parsed?.version === 1) return parsed;
+      if (parsed?.version === 1) return normalizeState(parsed);
     }
   } catch {
     // web without native plugin

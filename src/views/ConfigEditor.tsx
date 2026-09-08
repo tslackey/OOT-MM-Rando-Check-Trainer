@@ -1,12 +1,14 @@
 import { CHECK_TYPES } from "../data/types";
 import type { RandoConfig } from "../data/types";
-import { WORLD } from "../data/world";
+import { WORLD, itemLabel } from "../data/world";
 import { useAppState } from "../state/useAppState";
-import { setView, upsertConfig } from "../state/store";
+import { setDefaultConfigId, setView, upsertConfig } from "../state/store";
+import { downloadText, exportRandoFile } from "../lib/importRando";
 
 export function ConfigEditor() {
   const state = useAppState();
   const config = state.configs.find((entry) => entry.id === state.editingConfigId);
+  const isDefault = Boolean(config && state.defaultConfigId === config.id);
 
   if (!config) {
     return (
@@ -29,6 +31,8 @@ export function ConfigEditor() {
     return false;
   });
 
+  const settingEntries = Object.entries(config.randoSettings ?? {});
+
   return (
     <div className="page">
       <header className="spread">
@@ -36,15 +40,72 @@ export function ConfigEditor() {
           <p className="eyebrow">Edit configuration</p>
           <h1>{config.name}</h1>
         </div>
-        <button type="button" className="ghost" onClick={() => setView("configs")}>
-          Done
-        </button>
+        <div className="row-actions">
+          <button
+            type="button"
+            className="ghost"
+            onClick={() => setDefaultConfigId(isDefault ? null : config.id)}
+          >
+            {isDefault ? "Clear default" : "Set as default"}
+          </button>
+          <button
+            type="button"
+            className="ghost"
+            onClick={() =>
+              downloadText(
+                `${config.name.replace(/[^\w.-]+/g, "-").toLowerCase()}.json`,
+                exportRandoFile(config),
+              )
+            }
+          >
+            Export JSON
+          </button>
+          <button type="button" className="ghost" onClick={() => setView("configs")}>
+            Done
+          </button>
+        </div>
       </header>
 
       <label className="field">
         Name
         <input value={config.name} onChange={(event) => update({ name: event.target.value })} />
       </label>
+
+      {config.randoSettings || config.importSummary ? (
+        <section className="card">
+          <p className="eyebrow">Imported rando file</p>
+          <p>
+            {config.randoVersion || "Settings JSON"}
+            {config.randoSeed ? ` · seed ${config.randoSeed}` : ""}
+            {config.sourceFileName ? ` · ${config.sourceFileName}` : ""}
+          </p>
+          {config.importSummary ? <p className="muted">{config.importSummary}</p> : null}
+          {config.startingItems?.length ? (
+            <div className="inventory">
+              {config.startingItems.map((item) => (
+                <span key={item} className="chip">
+                  {itemLabel(item)}
+                </span>
+              ))}
+            </div>
+          ) : (
+            <p className="muted">No starting items besides world flags.</p>
+          )}
+          {settingEntries.length ? (
+            <details>
+              <summary>Original settings ({settingEntries.length}) — used as generation defaults</summary>
+              <dl className="settings-list">
+                {settingEntries.map(([key, value]) => (
+                  <div key={key}>
+                    <dt>{key}</dt>
+                    <dd>{value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </details>
+          ) : null}
+        </section>
+      ) : null}
 
       <fieldset className="card">
         <legend>Games</legend>

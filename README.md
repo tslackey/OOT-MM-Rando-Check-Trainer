@@ -5,6 +5,8 @@ Practice [OoTMM](https://ootmm.com/) routing without a check tracker. The app is
 ## What it does
 
 - Save named rando configurations (games, check types, open-world flags, penalty times).
+- Import an OoTR spoiler/settings JSON and keep those settings as generation defaults.
+- Mark one preset as your default; new configs copy its training penalties.
 - Practice by tapping **Go to** / **Check** buttons, the same way you would walk a seed.
 - Invalid travels, already-collected checks, and out-of-logic actions add time penalties.
 - **Peek remaining** is the tracker crutch: it shows leftover checks and costs a larger penalty.
@@ -12,6 +14,25 @@ Practice [OoTMM](https://ootmm.com/) routing without a check tracker. The app is
 - Runs, configs, and stats autosave to `localStorage` and Capacitor Preferences so you can pick the app up and put it down.
 
 The bundled location list is the vanilla always-shuffled OoTMM check set (no MQ, no junk grass/pots). Logic is a training approximation, not the full randomizer solver.
+
+## Import a rando JSON
+
+On **Configs**, use **Import JSON** with an OoTR spoiler or settings file like:
+
+```json
+{
+  "version": "Ackbar Delta (9.2.3)",
+  "fileType": 3,
+  "seed": "6951318300",
+  "settings": {
+    "Closed Forest": "On",
+    "Door of Time": "Open",
+    "Starting Age": "Random"
+  }
+}
+```
+
+The importer stores the original `settings` object so you can **Export JSON** and reuse it as generation defaults. If the file also has `locations`, matched checks keep that seed's item placement. **Set as default** makes that preset the Home start button and the template for new configs.
 
 ## Scripts
 

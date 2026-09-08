@@ -29,9 +29,12 @@ describe("world logic", () => {
     expect(checks.every((check) => check.game === "oot" && check.type === "chest")).toBe(true);
   });
 
-  it("starts combined seeds in Kokiri", () => {
+  it("starts combined child seeds in Kokiri and adult OoT in Temple of Time", () => {
     expect(spawnRegion(createConfig({ games: { oot: true, mm: true } }))).toBe("oot-kokiri");
     expect(spawnRegion(createConfig({ games: { oot: false, mm: true } }))).toBe("mm-sct");
+    expect(spawnRegion(createConfig({ games: { oot: true, mm: false }, startingAge: "adult" }))).toBe(
+      "oot-tot",
+    );
   });
 
   it("injects open-world flags", () => {
