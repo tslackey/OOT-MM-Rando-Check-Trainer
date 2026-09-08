@@ -1,6 +1,8 @@
-import { afterEach, describe, expect, it } from "vitest";
-import { loadState, STORAGE_KEY } from "./persist";
+import { describe, expect, it } from "vitest";
+import { createConfig } from "../data/presets";
 import type { PracticeSession } from "../data/types";
+import { createSession } from "../lib/session";
+import { emptyState, normalizeState } from "./persist";
 
 function staleSession(): PracticeSession {
   return {
@@ -27,32 +29,65 @@ function staleSession(): PracticeSession {
   };
 }
 
-describe("persist normalize", () => {
-  afterEach(() => {
-    localStorage.removeItem(STORAGE_KEY);
+describe("persisted run slots", () => {
+  it("migrates a v1 activeSession into the in-progress list", () => {
+    const session = createSession(createConfig({ name: "legacy run" }), 1);
+    const next = normalizeState({
+      version: 1,
+      configs: [],
+      sessions: [],
+      activeSession: session,
+      lastConfigId: session.configId,
+      defaultConfigId: null,
+      view: "home",
+      editingConfigId: null,
+    });
+
+    expect(next.version).toBe(2);
+    expect(next.activeSessions).toEqual([session]);
+    expect(next.currentSessionId).toBe(session.id);
+    expect("activeSession" in next).toBe(false);
   });
 
-  it("strips MM checks and items from an in-progress run", async () => {
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify({
-        version: 1,
-        configs: [],
-        sessions: [],
-        activeSession: staleSession(),
-        lastConfigId: null,
-        defaultConfigId: null,
-        view: "practice",
-        editingConfigId: null,
-      }),
-    );
+  it("fills missing wrongIds on a migrated run", () => {
+    const session = createSession(createConfig({ name: "legacy run" }), 1);
+    const { wrongIds: _drop, ...withoutWrong } = session;
+    const next = normalizeState({
+      version: 1,
+      activeSession: withoutWrong as typeof session,
+    });
+    expect(next.activeSessions[0]?.wrongIds).toEqual([]);
+  });
 
-    const state = await loadState();
-    expect(state.activeSession?.currentRegionId).toBe("oot-kokiri");
-    expect(state.activeSession?.enabledCheckIds).toEqual(["oot-graveyard-royal-tomb-song"]);
-    expect(state.activeSession?.collectedCheckIds).toEqual([]);
-    expect(state.activeSession?.inventory).toEqual(["ocarina"]);
-    expect(state.activeSession?.placement["oot-graveyard-royal-tomb-song"]).toMatch(/^junk_/);
-    expect(state.activeSession?.placement["mm-initial-song-of-healing"]).toBeUndefined();
+  it("keeps up to three v2 in-progress runs", () => {
+    const runs = [1, 2, 3, 4].map((n) => createSession(createConfig({ name: `run ${n}` }), n));
+    const next = normalizeState({
+      ...emptyState(),
+      activeSessions: runs,
+      currentSessionId: runs[2].id,
+    });
+
+    expect(next.activeSessions).toHaveLength(3);
+    expect(next.currentSessionId).toBe(runs[2].id);
+  });
+
+  it("strips MM checks and items from an in-progress run", () => {
+    const next = normalizeState({
+      version: 1,
+      configs: [],
+      sessions: [],
+      activeSession: staleSession(),
+      lastConfigId: null,
+      defaultConfigId: null,
+      view: "practice",
+      editingConfigId: null,
+    });
+    const session = next.activeSessions[0];
+    expect(session?.currentRegionId).toBe("oot-kokiri");
+    expect(session?.enabledCheckIds).toEqual(["oot-graveyard-royal-tomb-song"]);
+    expect(session?.collectedCheckIds).toEqual([]);
+    expect(session?.inventory).toEqual(["ocarina"]);
+    expect(session?.placement["oot-graveyard-royal-tomb-song"]).toMatch(/^junk_/);
+    expect(session?.placement["mm-initial-song-of-healing"]).toBeUndefined();
   });
 });

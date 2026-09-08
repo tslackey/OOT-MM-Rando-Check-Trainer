@@ -1,21 +1,13 @@
 import { PRESETS } from "../data/presets";
-import type { PersistedState, PracticeSession, RandoConfig } from "../data/types";
+import { MAX_ACTIVE_SESSIONS, type PersistedState, type PracticeSession, type RandoConfig } from "../data/types";
 import { CHECK_BY_ID, isMajoraItem, REGION_BY_ID } from "../data/world";
 
 export const STORAGE_KEY = "ootmm-check-trainer-v1";
 
-function normalizeConfig(config: RandoConfig): RandoConfig | null {
-  if (config.id === "preset-mm-only" || (config.games && !config.games.oot && config.games.mm)) {
-    return null;
-  }
-  return {
-    ...config,
-    startingItems: config.startingItems ?? [],
-    games: { oot: true, mm: false },
-    spawn: config.spawn?.startsWith("mm-") ? "auto" : config.spawn,
-    name: config.name.replaceAll("OoTMM", "OoT"),
-  };
-}
+type StoredState = Omit<Partial<PersistedState>, "version"> & {
+  version?: number;
+  activeSession?: PracticeSession | null;
+};
 
 function normalizeSession(session: PracticeSession): PracticeSession {
   const region = REGION_BY_ID[session.currentRegionId];
@@ -37,7 +29,20 @@ function normalizeSession(session: PracticeSession): PracticeSession {
   };
 }
 
-function normalizeState(parsed: PersistedState): PersistedState {
+function normalizeConfig(config: RandoConfig): RandoConfig | null {
+  if (config.id === "preset-mm-only" || (config.games && !config.games.oot && config.games.mm)) {
+    return null;
+  }
+  return {
+    ...config,
+    startingItems: config.startingItems ?? [],
+    games: { oot: true, mm: false },
+    spawn: config.spawn?.startsWith("mm-") ? "auto" : config.spawn,
+    name: config.name.replaceAll("OoTMM", "OoT"),
+  };
+}
+
+export function normalizeState(parsed: StoredState): PersistedState {
   const configs = (parsed.configs ?? [])
     .map(normalizeConfig)
     .filter((config): config is RandoConfig => config !== null);
@@ -47,22 +52,33 @@ function normalizeState(parsed: PersistedState): PersistedState {
     }
   }
   const ids = new Set(configs.map((config) => config.id));
+  const fromList = parsed.activeSessions ?? [];
+  const fromLegacy = parsed.activeSession && fromList.length === 0 ? [parsed.activeSession] : [];
+  const activeSessions = [...fromList, ...fromLegacy].slice(0, MAX_ACTIVE_SESSIONS).map(normalizeSession);
+  const currentSessionId =
+    parsed.currentSessionId && activeSessions.some((session) => session.id === parsed.currentSessionId)
+      ? parsed.currentSessionId
+      : (activeSessions[0]?.id ?? null);
   return {
-    ...emptyState(),
-    ...parsed,
+    version: 2,
     configs,
+    sessions: parsed.sessions ?? [],
+    activeSessions,
+    currentSessionId,
     lastConfigId: parsed.lastConfigId && ids.has(parsed.lastConfigId) ? parsed.lastConfigId : PRESETS[0]?.id ?? null,
     defaultConfigId: parsed.defaultConfigId && ids.has(parsed.defaultConfigId) ? parsed.defaultConfigId : null,
-    activeSession: parsed.activeSession ? normalizeSession(parsed.activeSession) : null,
+    view: parsed.view ?? "home",
+    editingConfigId: parsed.editingConfigId ?? null,
   };
 }
 
 export function emptyState(): PersistedState {
   return {
-    version: 1,
+    version: 2,
     configs: PRESETS.map((preset) => ({ ...preset })),
     sessions: [],
-    activeSession: null,
+    activeSessions: [],
+    currentSessionId: null,
     lastConfigId: PRESETS[0]?.id ?? null,
     defaultConfigId: null,
     view: "home",
@@ -82,8 +98,8 @@ export async function loadState(): Promise<PersistedState> {
   const raw = canUseLocalStorage() ? localStorage.getItem(STORAGE_KEY) : null;
   if (raw) {
     try {
-      const parsed = JSON.parse(raw) as PersistedState;
-      if (parsed?.version === 1) return normalizeState(parsed);
+      const parsed = JSON.parse(raw) as StoredState;
+      if (parsed?.version === 1 || parsed?.version === 2) return normalizeState(parsed);
     } catch {
       // fall through to capacitor / empty
     }
@@ -93,8 +109,8 @@ export async function loadState(): Promise<PersistedState> {
     const { Preferences } = await import("@capacitor/preferences");
     const result = await Preferences.get({ key: STORAGE_KEY });
     if (result.value) {
-      const parsed = JSON.parse(result.value) as PersistedState;
-      if (parsed?.version === 1) return normalizeState(parsed);
+      const parsed = JSON.parse(result.value) as StoredState;
+      if (parsed?.version === 1 || parsed?.version === 2) return normalizeState(parsed);
     }
   } catch {
     // web without native plugin

@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { useAppState } from "../state/useAppState";
-import { archiveSession, setActiveSession, setView } from "../state/store";
+import { InProgressRuns } from "../components/InProgressRuns";
+import { archiveSession, replaceCurrentSession, setView, updateSession } from "../state/store";
+import { currentSession } from "../lib/runs";
 import {
   collectCheck,
   createSession,
@@ -28,7 +30,7 @@ import type { WorldCheck } from "../data/types";
 
 export function Practice() {
   const state = useAppState();
-  const session = state.activeSession;
+  const session = currentSession(state);
   const config = state.configs.find((entry) => entry.id === session?.configId);
   const [now, setNow] = useState(Date.now());
   const [peek, setPeek] = useState<WorldCheck[]>([]);
@@ -59,7 +61,8 @@ export function Practice() {
     return (
       <div className="page">
         <h1>No active run</h1>
-        <p className="muted">Pick a configuration and start practicing.</p>
+        <p className="muted">Pick a configuration and start practicing, or resume a listed run.</p>
+        <InProgressRuns />
         <button type="button" onClick={() => setView("configs")}>
           Open configs
         </button>
@@ -77,7 +80,7 @@ export function Practice() {
       setView("stats");
       return;
     }
-    setActiveSession(next);
+    updateSession(next);
   };
 
   return (
@@ -266,7 +269,7 @@ export function Practice() {
           type="button"
           className="ghost"
           onClick={() => {
-            setActiveSession(createSession(config));
+            replaceCurrentSession(createSession(config));
             setPeek([]);
             setTab("location");
           }}
