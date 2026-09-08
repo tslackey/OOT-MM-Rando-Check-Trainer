@@ -43,6 +43,9 @@ export function Home() {
         <button type="button" className="ghost" onClick={() => setView("configs")}>
           Import / configure presets
         </button>
+        <button type="button" className="ghost" onClick={() => setView("changelog")}>
+          Changes by build
+        </button>
       </section>
       {atCap ? (
         <p className="muted">

@@ -95,4 +95,9 @@ describe("persisted run slots", () => {
     expect(session?.placement["oot-graveyard-royal-tomb-song"]).toMatch(/^junk_/);
     expect(session?.placement["mm-initial-song-of-healing"]).toBeUndefined();
   });
+
+  it("keeps the changelog view and falls back for unknown views", () => {
+    expect(normalizeState({ ...emptyState(), view: "changelog" }).view).toBe("changelog");
+    expect(normalizeState({ ...emptyState(), view: "not-a-view" as "home" }).view).toBe("home");
+  });
 });

@@ -33,7 +33,8 @@ owner / agent / branch / PR in the same change. Do not touch a **claimed** slice
 
 ## Layout
 
-- `src/views/` — Home, Configs, editor, Practice, Stats (store-driven views, no React Router)
+- `src/views/` — Home, Configs, editor, Practice, Stats, Changelog (store-driven views, no React Router)
+- `src/data/changelog.ts` — operator-facing Changes list (prepend a row when a user-visible change ships)
 - `src/lib/session.ts` — practice mutations
 - `src/logic/` — OoTR vanilla-rule penalty oracle
 - `src/lib/importRando.ts` — OoTR JSON

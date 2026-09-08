@@ -9,7 +9,12 @@ export type CheckType =
   | "trade"
   | "skullReward";
 
-export type ViewId = "home" | "configs" | "editor" | "practice" | "stats";
+export const VIEW_IDS = ["home", "configs", "editor", "practice", "stats", "changelog"] as const;
+export type ViewId = (typeof VIEW_IDS)[number];
+
+export function isViewId(value: unknown): value is ViewId {
+  return typeof value === "string" && (VIEW_IDS as readonly string[]).includes(value);
+}
 
 export interface Region {
   id: string;

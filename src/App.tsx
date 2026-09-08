@@ -5,6 +5,8 @@ import { Configs } from "./views/Configs";
 import { ConfigEditor } from "./views/ConfigEditor";
 import { Practice } from "./views/Practice";
 import { Stats } from "./views/Stats";
+import { Changelog } from "./views/Changelog";
+import { formatBuildStamp } from "./lib/buildInfo";
 import { bootStore, flushSave, setView } from "./state/store";
 import { useAppState } from "./state/useAppState";
 
@@ -21,6 +23,16 @@ export function App() {
       window.removeEventListener("pagehide", onSave);
       window.removeEventListener("beforeunload", onSave);
     };
+  }, []);
+
+  useEffect(() => {
+    const stamp = document.getElementById("build-stamp");
+    if (!stamp) return;
+    stamp.textContent = formatBuildStamp();
+    stamp.setAttribute("title", "Open the changelog");
+    const onOpen = () => setView("changelog");
+    stamp.addEventListener("click", onOpen);
+    return () => stamp.removeEventListener("click", onOpen);
   }, []);
 
   if (!ready) {
@@ -40,6 +52,7 @@ export function App() {
         {state.view === "editor" ? <ConfigEditor /> : null}
         {state.view === "practice" ? <Practice /> : null}
         {state.view === "stats" ? <Stats /> : null}
+        {state.view === "changelog" ? <Changelog /> : null}
       </main>
     </div>
   );
