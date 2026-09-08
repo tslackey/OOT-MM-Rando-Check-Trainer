@@ -22,6 +22,7 @@ import {
 } from "../data/world";
 import { adjustedMs, sessionElapsedMs } from "./scoring";
 import { generateSpoiler, startingRegion } from "./spoiler";
+import { isStackableTrainerId } from "../logic/inventoryMap";
 
 function event(partial: Omit<ActionEvent, "at"> & { at?: number }): ActionEvent {
   return { at: partial.at ?? Date.now(), ...partial };
@@ -34,7 +35,15 @@ function logicEvents(session: PracticeSession): string[] {
 export function startingInventory(config: RandoConfig): string[] {
   const items = [...flagsFor(config), ...(config.startingItems ?? [])];
   if (!config.randoSettings && config.openDoorOfTime) items.push("ocarina");
-  return [...new Set(items)];
+  const out: string[] = [];
+  const seen = new Set<string>();
+  for (const item of items) {
+    if (isStackableTrainerId(item) || !seen.has(item)) {
+      out.push(item);
+      if (!isStackableTrainerId(item)) seen.add(item);
+    }
+  }
+  return out;
 }
 
 export function createSession(config: RandoConfig, seed?: number): PracticeSession {
@@ -330,7 +339,10 @@ export function collectCheck(
   }
   const item = session.placement[check.id] ?? "junk_1";
   const collected = [...session.collectedCheckIds, check.id];
-  const inventory = session.inventory.includes(item) ? session.inventory : [...session.inventory, item];
+  const inventory =
+    isStackableTrainerId(item) || !session.inventory.includes(item)
+      ? [...session.inventory, item]
+      : session.inventory;
   const done = collected.length >= session.enabledCheckIds.length;
   return succeed(
     session,

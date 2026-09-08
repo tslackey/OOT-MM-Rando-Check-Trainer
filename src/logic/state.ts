@@ -9,6 +9,10 @@ export interface LogicState {
   events: Set<string>;
   settings: Record<string, unknown>;
   bindings: Record<string, string>;
+  /** Logic-region names reached by the current intra-practice BFS. */
+  reachable?: Set<string>;
+  /** Practice region id the current BFS is expanding, for `at()` gating. */
+  searchPracticeId?: string;
 }
 
 const TRIALS = ["Forest", "Fire", "Water", "Shadow", "Spirit", "Light"] as const;
@@ -153,8 +157,18 @@ export function makeState(opts: {
       addItem(items, id.replace(/[^A-Za-z0-9]+/g, "_").replace(/^_|_$/g, ""), 1);
     }
   }
-  // Vanilla abilities the trainer does not shuffle.
-  for (const innate of ["Climb", "Grab", "Swim", "Crawl", "Open_Chest", "Speak_Kokiri"]) {
+  // Vanilla abilities the trainer does not shuffle. Tunics are innate because
+  // this app has no heat/dive timer and does not place tunic checks.
+  for (const innate of [
+    "Climb",
+    "Grab",
+    "Swim",
+    "Crawl",
+    "Open_Chest",
+    "Speak_Kokiri",
+    "Goron_Tunic",
+    "Zora_Tunic",
+  ]) {
     if (!items.has(innate)) items.set(innate, 1);
   }
   if (!opts.config?.randoSettings || (opts.config.randoSettings["Shuffle Ocarina Buttons"] ?? "Off").toLowerCase() !== "on") {

@@ -21,4 +21,20 @@ describe("OoTR rule parser", () => {
     const gohma = makeState({ age: "child", inventory: [], events: ["Defeat Queen Gohma"] });
     expect(evalText("can_leave_forest", gohma)).toBe(true);
   });
+
+  it("gates at() on reachable regions in the same practice dungeon", () => {
+    const state = makeState({ age: "adult", inventory: [] });
+    state.searchPracticeId = "oot-forest";
+    state.reachable = new Set(["Forest Temple Lobby"]);
+    expect(evalText("at('Forest Temple Falling Room', True)", state)).toBe(false);
+    state.reachable.add("Forest Temple Falling Room");
+    expect(evalText("at('Forest Temple Falling Room', True)", state)).toBe(true);
+  });
+
+  it("still evaluates cross-region at() as the inner rule", () => {
+    const child = makeState({ age: "child", inventory: [] });
+    child.searchPracticeId = "oot-sfm";
+    child.reachable = new Set(["Sacred Forest Meadow"]);
+    expect(evalText("at('HC Garden Skippable Locations', is_child)", child)).toBe(true);
+  });
 });

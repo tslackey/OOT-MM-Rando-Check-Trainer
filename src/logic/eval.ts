@@ -1,6 +1,7 @@
 import helpersJson from "../data/ootr/LogicHelpers.json";
 import type { Expr } from "./rules";
 import { parseRule } from "./rules";
+import { practiceIdFor } from "./mapPractice";
 import type { LogicState } from "./state";
 import { hasEvent, hasItem } from "./state";
 
@@ -122,7 +123,16 @@ function evalName(name: string, state: LogicState, depth: number): unknown {
 
 function evalCall(name: string, args: Expr[], state: LogicState, depth: number): unknown {
   if (name === "here" && args[0]) return evalRule(args[0], state, depth + 1);
-  if (name === "at" && args[1]) return evalRule(args[1], state, depth + 1);
+  if (name === "at") {
+    const dest = regionArg(args[0]);
+    const inner = args[1] ?? { type: "const" as const, value: true };
+    if (state.reachable && dest) {
+      if (state.reachable.has(dest)) return evalRule(inner, state, depth + 1);
+      const destPractice = practiceIdFor(dest);
+      if (!destPractice || destPractice === state.searchPracticeId) return false;
+    }
+    return evalRule(inner, state, depth + 1);
+  }
   if (name === "has_soul") return true;
   if (name === "has_all_notes_for_song") return true;
   if (name === "region_has_shortcuts") return false;
@@ -187,6 +197,13 @@ function itemName(value: unknown, expr: Expr): string {
   if (typeof value === "string") return value;
   if (expr.type === "name") return expr.name;
   return String(value);
+}
+
+function regionArg(expr: Expr | undefined): string {
+  if (!expr) return "";
+  if (expr.type === "const" && typeof expr.value === "string") return expr.value;
+  if (expr.type === "name") return expr.name.replaceAll("_", " ");
+  return "";
 }
 
 function countItems(state: LogicState, names: string[]): number {

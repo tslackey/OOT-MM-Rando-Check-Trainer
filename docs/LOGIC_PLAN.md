@@ -6,7 +6,7 @@ Harkinian’s randomizer
 ([HarbourMasters/Shipwright](https://github.com/HarbourMasters/Shipwright))
 actually compute reachability.
 
-**Status:** Phase 0–1 of this plan is in the app: `src/logic/` evaluates vendored OoTR vanilla World JSON as the practice penalty oracle. `world.json` remains the coarse Go to / Check map (OoT only). Later phases (dungeon keys, dual-age fill, imported trick settings) are still open.
+**Status:** Phase 0–2 of this plan is in the app. `src/logic/` evaluates vendored OoTR vanilla World JSON as the practice penalty oracle, including intra-dungeon BFS, `at()` gated on reachable subregions, and stacked small/boss keys. `world.json` remains the coarse Go to / Check map (OoT only). Later phases (dual-age fill, imported trick settings, MQ, entrance shuffle) are still open.
 
 **This document is the plan.** Do not treat the trainer as official OoTR until later phases land and tests prove them.
 
@@ -257,21 +257,18 @@ Practice UI unchanged. `hideLocked` can use the new oracle when enabled.
 
 ### Phase 2 — dungeon interiors without extra buttons
 
-Goal: Forest / Fire / Water / Shadow / Spirit / Well / GTG / Ganon stop
-sharing one requirement.
+**Landed.** Forest / Fire / Water / Shadow / Spirit / Well / GTG / Ganon checks no longer share one requirement.
 
-- Load dungeon World JSON.
-- When the operator is in `oot-forest`, checks still list as Forest Temple
-  checks, but each check evaluates from its logic region (lobby vs bow region
-  vs basement).
-- Intra-dungeon reachability: BFS of logic regions whose practice parent is
-  the current dungeon, starting from the dungeon entrance region, current age
-  + inventory + keys.
-- Small keys: count `Small_Key_Forest_Temple` from collected items (imported
-  spoilers already name them; shuffled runs need those items in the pool).
-- Boss keys similarly.
+- Dungeon World JSON is loaded. When the operator is in `oot-forest`, checks still list as Forest Temple checks, but each check evaluates from its logic region (lobby vs bow region vs basement) via BFS from the dungeon entrance.
+- `at(region, rule)` is true only when that logic region is already in the current dungeon’s reachable set. Cross-practice `at()` (Saria’s song looking at HC Garden) still uses the inner rule.
+- Small keys and boss keys stack (`small_key_forest` × N → `Small_Key_Forest_Temple`). Shuffled runs put vanilla key counts in the item pool; imported spoilers map `Small Key (Forest Temple)` etc.
+- Forest Temple Map is `Forest Temple Map Chest` (Song of Time from the lobby as adult), not the First Room Chest. First Room stays available via `locationNamedInLogic` for tests.
+- Fire Temple Hammer maps to `Fire Temple Megaton Hammer Chest`, not a crate.
 
 Still one **Go to Forest Temple** button from SFM.
+
+Goal was: Forest / Fire / Water / Shadow / Spirit / Well / GTG / Ganon stop
+sharing one requirement. That is the current oracle behavior.
 
 ### Phase 3 — events, dual age, time travel
 
@@ -315,8 +312,8 @@ rewrite the practice graph; do not fake it with vanilla adjacencies.
 - Restyle Go/Check buttons by in-logic vs out-of-logic except `hideLocked`.
 - Reintroduce MM regions, MM presets, or cross-game links.
 - Claim the trainer **is** OoTR. After phase 2 we can say “vanilla glitchless
-  rules from OoTR World JSON (subset).” Until then, keep the approximation
-  disclaimer.
+  rules from OoTR World JSON (subset).” Keep the approximation
+  disclaimer for dual-age fill, MQ, entrance shuffle, and tricks.
 - Vendor the entire SoH tree or run Python `Search.py` in the browser.
 
 ## File-level landing spots

@@ -1831,7 +1831,8 @@
       "regionId": "oot-deku",
       "type": "chest",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Deku Tree Queen Gohma Heart"
     },
     {
       "id": "oot-deku-tree-boss",
@@ -1918,7 +1919,8 @@
       "regionId": "oot-dc",
       "type": "chest",
       "age": "any",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Dodongos Cavern King Dodongo Heart"
     },
     {
       "id": "oot-dodongo-cavern-boss",
@@ -1982,7 +1984,8 @@
       "regionId": "oot-jabu",
       "type": "chest",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Jabu Jabus Belly Barinade Heart"
     },
     {
       "id": "oot-jabu-jabu-boss",
@@ -2044,7 +2047,8 @@
       "age": "adult",
       "needs": [
         "hookshot"
-      ]
+      ],
+      "ootrLocation": "Forest Temple Phantom Ganon Heart"
     },
     {
       "id": "oot-forest-temple-map",
@@ -2056,7 +2060,7 @@
       "needs": [
         "hookshot"
       ],
-      "ootrLocation": "Forest Temple First Room Chest"
+      "ootrLocation": "Forest Temple Map Chest"
     },
     {
       "id": "oot-forest-temple-garden",
@@ -2067,7 +2071,8 @@
       "age": "adult",
       "needs": [
         "hookshot"
-      ]
+      ],
+      "ootrLocation": "Forest Temple Raised Island Courtyard Chest"
     },
     {
       "id": "oot-forest-temple-maze",
@@ -2078,7 +2083,8 @@
       "age": "adult",
       "needs": [
         "hookshot"
-      ]
+      ],
+      "ootrLocation": "Forest Temple Eye Switch Chest"
     },
     {
       "id": "oot-forest-temple-bow",
@@ -2102,7 +2108,8 @@
       "age": "adult",
       "needs": [
         "hookshot"
-      ]
+      ],
+      "ootrLocation": "Forest Temple First Stalfos Chest"
     },
     {
       "id": "oot-forest-temple-checkerboard",
@@ -2113,7 +2120,8 @@
       "age": "adult",
       "needs": [
         "hookshot"
-      ]
+      ],
+      "ootrLocation": "Forest Temple Falling Ceiling Room Chest"
     },
     {
       "id": "oot-forest-temple-antichamber",
@@ -2124,7 +2132,8 @@
       "age": "adult",
       "needs": [
         "hookshot"
-      ]
+      ],
+      "ootrLocation": "Forest Temple Basement Chest"
     },
     {
       "id": "oot-fire-temple-boss-container",
@@ -2133,7 +2142,8 @@
       "regionId": "oot-fire",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Fire Temple Volvagia Heart"
     },
     {
       "id": "oot-fire-temple-boss",
@@ -2152,7 +2162,8 @@
       "regionId": "oot-fire",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Fire Temple Boss Key Chest"
     },
     {
       "id": "oot-fire-temple-map",
@@ -2194,7 +2205,7 @@
       "needs": [
         "hammer"
       ],
-      "ootrLocation": "Fire Temple Hammer Staircase Small Wooden Crate 1"
+      "ootrLocation": "Fire Temple Megaton Hammer Chest"
     },
     {
       "id": "oot-water-temple-boss-hc",
@@ -2205,7 +2216,8 @@
       "age": "adult",
       "needs": [
         "iron_boots"
-      ]
+      ],
+      "ootrLocation": "Water Temple Morpha Heart"
     },
     {
       "id": "oot-water-temple-boss",
@@ -2240,7 +2252,8 @@
       "age": "adult",
       "needs": [
         "iron_boots"
-      ]
+      ],
+      "ootrLocation": "Water Temple Central Pillar Chest"
     },
     {
       "id": "oot-water-temple-compass",
@@ -2274,7 +2287,8 @@
       "regionId": "oot-spirit",
       "type": "chest",
       "age": "any",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Spirit Temple Twinrova Heart"
     },
     {
       "id": "oot-spirit-temple-boss",
@@ -2293,7 +2307,8 @@
       "regionId": "oot-spirit",
       "type": "chest",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Spirit Temple Child Bridge Chest"
     },
     {
       "id": "oot-spirit-temple-child-climb-1",
@@ -2302,7 +2317,8 @@
       "regionId": "oot-spirit",
       "type": "chest",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Spirit Temple Child Climb North Chest"
     },
     {
       "id": "oot-spirit-temple-child-climb-2",
@@ -2311,7 +2327,8 @@
       "regionId": "oot-spirit",
       "type": "chest",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Spirit Temple Child Climb East Chest"
     },
     {
       "id": "oot-spirit-temple-adult-lullaby",
@@ -2320,7 +2337,8 @@
       "regionId": "oot-spirit",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Spirit Temple Compass Chest"
     },
     {
       "id": "oot-spirit-temple-adult-suns-on-wall-1",
@@ -2329,7 +2347,8 @@
       "regionId": "oot-spirit",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Spirit Temple Map Chest"
     },
     {
       "id": "oot-spirit-temple-adult-suns-on-wall-2",
@@ -2338,7 +2357,8 @@
       "regionId": "oot-spirit",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Spirit Temple Sun Block Room Chest"
     },
     {
       "id": "oot-spirit-temple-statue-base",
@@ -2347,7 +2367,8 @@
       "regionId": "oot-spirit",
       "type": "chest",
       "age": "any",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Spirit Temple Statue Room Hand Chest"
     },
     {
       "id": "oot-spirit-temple-statue-upper-right",
@@ -2356,7 +2377,8 @@
       "regionId": "oot-spirit",
       "type": "chest",
       "age": "any",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Spirit Temple Statue Room Northeast Chest"
     },
     {
       "id": "oot-spirit-temple-adult-invisible-1",
@@ -2365,7 +2387,8 @@
       "regionId": "oot-spirit",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Spirit Temple Hallway Left Invisible Chest"
     },
     {
       "id": "oot-spirit-temple-adult-invisible-2",
@@ -2374,7 +2397,8 @@
       "regionId": "oot-spirit",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Spirit Temple Hallway Right Invisible Chest"
     },
     {
       "id": "oot-spirit-temple-adult-topmost-sun-on-wall",
@@ -2383,7 +2407,8 @@
       "regionId": "oot-spirit",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Spirit Temple Topmost Chest"
     },
     {
       "id": "oot-spirit-temple-silver-gauntlets",
@@ -2412,7 +2437,8 @@
       "regionId": "oot-shadow",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Shadow Temple Bongo Bongo Heart"
     },
     {
       "id": "oot-shadow-temple-boss",
@@ -2463,7 +2489,8 @@
       "regionId": "oot-shadow",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Shadow Temple Invisible Blades Visible Chest"
     },
     {
       "id": "oot-shadow-temple-spinning-blades-invisible",
@@ -2472,7 +2499,8 @@
       "regionId": "oot-shadow",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Shadow Temple Invisible Blades Invisible Chest"
     },
     {
       "id": "oot-shadow-temple-falling-spikes-lower",
@@ -2491,7 +2519,8 @@
       "regionId": "oot-shadow",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Shadow Temple Falling Spikes Upper Chest"
     },
     {
       "id": "oot-shadow-temple-invisible-spike-room",
@@ -2500,7 +2529,8 @@
       "regionId": "oot-shadow",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Shadow Temple Invisible Spikes Chest"
     },
     {
       "id": "oot-shadow-temple-wind-room-hint",
@@ -2509,7 +2539,8 @@
       "regionId": "oot-shadow",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Shadow Temple Wind Hint Chest"
     },
     {
       "id": "oot-shadow-temple-after-wind",
@@ -2528,7 +2559,8 @@
       "regionId": "oot-shadow",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Shadow Temple Spike Walls Left Chest"
     },
     {
       "id": "oot-bottom-of-the-well-compass",
@@ -2547,7 +2579,8 @@
       "regionId": "oot-well",
       "type": "chest",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Bottom of the Well Front Center Bombable Chest"
     },
     {
       "id": "oot-bottom-of-the-well-back-west",
@@ -2556,7 +2589,8 @@
       "regionId": "oot-well",
       "type": "chest",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Bottom of the Well Front Left Fake Wall Chest"
     },
     {
       "id": "oot-bottom-of-the-well-underwater",
@@ -2565,8 +2599,7 @@
       "regionId": "oot-well",
       "type": "chest",
       "age": "child",
-      "needs": [],
-      "ootrLocation": "Bottom of the Well Underwater Pot"
+      "needs": []
     },
     {
       "id": "oot-bottom-of-the-well-east-cage",
@@ -2575,7 +2608,8 @@
       "regionId": "oot-well",
       "type": "chest",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Bottom of the Well Like Like Chest"
     },
     {
       "id": "oot-bottom-of-the-well-blood-chest",
@@ -2584,7 +2618,8 @@
       "regionId": "oot-well",
       "type": "chest",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Bottom of the Well Invisible Chest"
     },
     {
       "id": "oot-bottom-of-the-well-underwater-2",
@@ -2593,7 +2628,8 @@
       "regionId": "oot-well",
       "type": "chest",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Bottom of the Well Underwater Front Chest"
     },
     {
       "id": "oot-bottom-of-the-well-map",
@@ -2612,7 +2648,8 @@
       "regionId": "oot-well",
       "type": "chest",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Bottom of the Well Center Skulltula Chest"
     },
     {
       "id": "oot-bottom-of-the-well-lens",
@@ -2623,8 +2660,7 @@
       "age": "child",
       "needs": [
         "lens"
-      ],
-      "ootrLocation": "Bottom of the Well Lens of Truth Chest"
+      ]
     },
     {
       "id": "oot-bottom-of-the-well-lens-side-chest",
@@ -2635,7 +2671,8 @@
       "age": "child",
       "needs": [
         "lens"
-      ]
+      ],
+      "ootrLocation": "Bottom of the Well Fire Keese Chest"
     },
     {
       "id": "oot-ice-cavern-compass",
@@ -2654,7 +2691,8 @@
       "regionId": "oot-ice",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Ice Cavern Freestanding PoH"
     },
     {
       "id": "oot-ice-cavern-map",
@@ -2695,7 +2733,8 @@
       "regionId": "oot-gtg",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Gerudo Training Ground Lobby Left Chest"
     },
     {
       "id": "oot-gerudo-training-grounds-entrance-2",
@@ -2704,7 +2743,8 @@
       "regionId": "oot-gtg",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Gerudo Training Ground Lobby Right Chest"
     },
     {
       "id": "oot-gerudo-training-grounds-near-block",
@@ -2713,7 +2753,8 @@
       "regionId": "oot-gtg",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Gerudo Training Ground Stalfos Chest"
     },
     {
       "id": "oot-gerudo-training-grounds-behind-block-visible",
@@ -2722,7 +2763,8 @@
       "regionId": "oot-gtg",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Gerudo Training Ground Beamos Chest"
     },
     {
       "id": "oot-gerudo-training-grounds-behind-block-enemy-back",
@@ -2731,7 +2773,8 @@
       "regionId": "oot-gtg",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Gerudo Training Ground Before Heavy Block Chest"
     },
     {
       "id": "oot-gerudo-training-grounds-behind-block-enemy-front",
@@ -2740,7 +2783,8 @@
       "regionId": "oot-gtg",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Gerudo Training Ground Near Scarecrow Chest"
     },
     {
       "id": "oot-gerudo-training-maze-side-chest-1",
@@ -2749,7 +2793,8 @@
       "regionId": "oot-gtg",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Gerudo Training Ground Maze Right Central Chest"
     },
     {
       "id": "oot-gerudo-training-maze-side-chest-2",
@@ -2758,7 +2803,8 @@
       "regionId": "oot-gtg",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Gerudo Training Ground Maze Right Side Chest"
     },
     {
       "id": "oot-gerudo-training-grounds-hammer-room",
@@ -2769,7 +2815,8 @@
       "age": "adult",
       "needs": [
         "hammer"
-      ]
+      ],
+      "ootrLocation": "Gerudo Training Ground Hammer Room Clear Chest"
     },
     {
       "id": "oot-gerudo-training-maze-chest-1",
@@ -2778,7 +2825,8 @@
       "regionId": "oot-gtg",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Gerudo Training Ground Maze Path First Chest"
     },
     {
       "id": "oot-gerudo-training-maze-chest-2",
@@ -2787,7 +2835,8 @@
       "regionId": "oot-gtg",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Gerudo Training Ground Maze Path Second Chest"
     },
     {
       "id": "oot-gerudo-training-maze-chest-3",
@@ -2796,7 +2845,8 @@
       "regionId": "oot-gtg",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Gerudo Training Ground Maze Path Third Chest"
     },
     {
       "id": "oot-gerudo-training-maze-chest-4",
@@ -2805,7 +2855,8 @@
       "regionId": "oot-gtg",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Gerudo Training Ground Maze Path Final Chest"
     },
     {
       "id": "oot-ganon-castle-light-chest-around-1",
@@ -2814,7 +2865,8 @@
       "regionId": "oot-ganon",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Ganons Castle Light Trial First Left Chest"
     },
     {
       "id": "oot-ganon-castle-light-chest-around-2",
@@ -2823,7 +2875,8 @@
       "regionId": "oot-ganon",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Ganons Castle Light Trial Second Left Chest"
     },
     {
       "id": "oot-ganon-castle-light-chest-around-3",
@@ -2832,7 +2885,8 @@
       "regionId": "oot-ganon",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Ganons Castle Light Trial Third Left Chest"
     },
     {
       "id": "oot-ganon-castle-light-chest-around-4",
@@ -2841,7 +2895,8 @@
       "regionId": "oot-ganon",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Ganons Castle Light Trial First Right Chest"
     },
     {
       "id": "oot-ganon-castle-light-chest-around-5",
@@ -2850,7 +2905,8 @@
       "regionId": "oot-ganon",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Ganons Castle Light Trial Second Right Chest"
     },
     {
       "id": "oot-ganon-castle-light-chest-around-6",
@@ -2859,7 +2915,8 @@
       "regionId": "oot-ganon",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Ganons Castle Light Trial Third Right Chest"
     },
     {
       "id": "oot-ganon-castle-forest-chest",
@@ -2868,7 +2925,8 @@
       "regionId": "oot-ganon",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Ganons Castle Forest Trial Chest"
     },
     {
       "id": "oot-ganon-castle-water-chest-1",
@@ -2877,7 +2935,8 @@
       "regionId": "oot-ganon",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Ganons Castle Water Trial Left Chest"
     },
     {
       "id": "oot-ganon-castle-water-chest-2",
@@ -2886,7 +2945,8 @@
       "regionId": "oot-ganon",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Ganons Castle Water Trial Right Chest"
     },
     {
       "id": "oot-ganon-castle-spirit-chest-1",
@@ -2895,7 +2955,8 @@
       "regionId": "oot-ganon",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Ganons Castle Spirit Trial Crystal Switch Chest"
     },
     {
       "id": "oot-ganon-castle-spirit-chest-2",
@@ -2904,7 +2965,8 @@
       "regionId": "oot-ganon",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Ganons Castle Spirit Trial Invisible Chest"
     },
     {
       "id": "oot-ganon-castle-shadow-chest-1",
@@ -2913,7 +2975,8 @@
       "regionId": "oot-ganon",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Ganons Castle Shadow Trial Front Chest"
     },
     {
       "id": "oot-ganon-castle-shadow-chest-2",
@@ -2922,7 +2985,8 @@
       "regionId": "oot-ganon",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Ganons Castle Shadow Trial Golden Gauntlets Chest"
     }
   ],
   "itemPool": {
@@ -2974,7 +3038,56 @@
       "light_medallion",
       "deku_shield",
       "skull_mask",
-      "mask_of_truth"
+      "mask_of_truth",
+      "small_key_forest",
+      "small_key_forest",
+      "small_key_forest",
+      "small_key_forest",
+      "small_key_forest",
+      "small_key_fire",
+      "small_key_fire",
+      "small_key_fire",
+      "small_key_fire",
+      "small_key_fire",
+      "small_key_fire",
+      "small_key_fire",
+      "small_key_fire",
+      "small_key_water",
+      "small_key_water",
+      "small_key_water",
+      "small_key_water",
+      "small_key_water",
+      "small_key_water",
+      "small_key_shadow",
+      "small_key_shadow",
+      "small_key_shadow",
+      "small_key_shadow",
+      "small_key_shadow",
+      "small_key_spirit",
+      "small_key_spirit",
+      "small_key_spirit",
+      "small_key_spirit",
+      "small_key_spirit",
+      "small_key_well",
+      "small_key_well",
+      "small_key_well",
+      "small_key_gtg",
+      "small_key_gtg",
+      "small_key_gtg",
+      "small_key_gtg",
+      "small_key_gtg",
+      "small_key_gtg",
+      "small_key_gtg",
+      "small_key_gtg",
+      "small_key_gtg",
+      "small_key_ganon",
+      "small_key_ganon",
+      "boss_key_forest",
+      "boss_key_fire",
+      "boss_key_water",
+      "boss_key_shadow",
+      "boss_key_spirit",
+      "boss_key_ganon"
     ],
     "junk": [
       "junk_1",

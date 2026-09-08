@@ -110,16 +110,24 @@ export function visibleInventory(inventory: string[]): string[] {
   return inventory.filter((item) => !item.startsWith("open_") && !HIDDEN_INVENTORY.has(item));
 }
 
-export function inventoryGroups(inventory: string[]): { title: string; items: string[] }[] {
-  const groups: Record<string, string[]> = {
+export function inventoryGroups(inventory: string[]): { title: string; items: { id: string; count: number }[] }[] {
+  const groups: Record<string, { id: string; count: number }[]> = {
     Equipment: [],
     Songs: [],
     Rewards: [],
   };
+  const seen = new Map<string, { id: string; count: number }>();
   for (const item of visibleInventory(inventory)) {
-    if (SONG_ITEMS.has(item)) groups.Songs.push(item);
-    else if (REWARD_ITEMS.has(item)) groups.Rewards.push(item);
-    else groups.Equipment.push(item);
+    const existing = seen.get(item);
+    if (existing) {
+      existing.count += 1;
+      continue;
+    }
+    const entry = { id: item, count: 1 };
+    seen.set(item, entry);
+    if (SONG_ITEMS.has(item)) groups.Songs.push(entry);
+    else if (REWARD_ITEMS.has(item)) groups.Rewards.push(entry);
+    else groups.Equipment.push(entry);
   }
   return Object.entries(groups)
     .filter(([, items]) => items.length)

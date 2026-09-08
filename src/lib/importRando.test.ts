@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import sample from "./fixtures/ootr-spoiler-sample.json";
-import { exportRandoFile, ImportError, importRandoFile, matchLocation, parseRandoJson } from "./importRando";
+import { exportRandoFile, ImportError, importRandoFile, mapItem, matchLocation, parseRandoJson } from "./importRando";
 
 describe("OoTR JSON import", () => {
   it("maps closed forest, open door, adult start, and shuffle flags", () => {
@@ -31,6 +31,13 @@ describe("OoTR JSON import", () => {
     expect(result.config.importedPlacement?.["oot-deku-tree-boss"]).toBe("kokiri_emerald");
     expect(result.matchedLocations).toBeGreaterThanOrEqual(8);
     expect(result.config.importedCheckIds).toContain("oot-lost-woods-target");
+  });
+
+  it("maps dungeon small keys onto stackable trainer ids", () => {
+    expect(mapItem("Small Key (Forest Temple)")).toBe("small_key_forest");
+    expect(mapItem("Boss Key (Fire Temple)")).toBe("boss_key_fire");
+    expect(matchLocation("Forest Temple Map Chest")).toBe("oot-forest-temple-map");
+    expect(matchLocation("Fire Temple Megaton Hammer Chest")).toBe("oot-fire-temple-hammer");
   });
 
   it("round-trips trainer fields through export JSON", () => {

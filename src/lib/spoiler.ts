@@ -58,7 +58,7 @@ function resolveAge(config: RandoConfig, seed: number): "child" | "adult" {
 
 function locationName(checkId: string): string {
   const check = CHECK_BY_ID[checkId];
-  return LOCATION_NAMES[checkId] ?? check?.name ?? checkId;
+  return LOCATION_NAMES[checkId] ?? check?.ootrLocation ?? check?.name ?? checkId;
 }
 
 function itemName(itemId: string): string {

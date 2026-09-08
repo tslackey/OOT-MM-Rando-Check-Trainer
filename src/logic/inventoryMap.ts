@@ -50,6 +50,40 @@ export const TRAINER_TO_OOTR: Record<string, { name: string; count: number }> = 
   gs_tokens: { name: "Gold_Skulltula_Token", count: 1 },
   sticks: { name: "Deku_Stick_Drop", count: 1 },
   nuts: { name: "Deku_Nut_Drop", count: 1 },
+  small_key_forest: { name: "Small_Key_Forest_Temple", count: 1 },
+  small_key_forest_temple: { name: "Small_Key_Forest_Temple", count: 1 },
+  small_key_fire: { name: "Small_Key_Fire_Temple", count: 1 },
+  small_key_fire_temple: { name: "Small_Key_Fire_Temple", count: 1 },
+  small_key_water: { name: "Small_Key_Water_Temple", count: 1 },
+  small_key_water_temple: { name: "Small_Key_Water_Temple", count: 1 },
+  small_key_shadow: { name: "Small_Key_Shadow_Temple", count: 1 },
+  small_key_shadow_temple: { name: "Small_Key_Shadow_Temple", count: 1 },
+  small_key_spirit: { name: "Small_Key_Spirit_Temple", count: 1 },
+  small_key_spirit_temple: { name: "Small_Key_Spirit_Temple", count: 1 },
+  small_key_well: { name: "Small_Key_Bottom_of_the_Well", count: 1 },
+  small_key_bottom_of_the_well: { name: "Small_Key_Bottom_of_the_Well", count: 1 },
+  small_key_gtg: { name: "Small_Key_Gerudo_Training_Ground", count: 1 },
+  small_key_gerudo_training_ground: { name: "Small_Key_Gerudo_Training_Ground", count: 1 },
+  small_key_gerudo_training_grounds: { name: "Small_Key_Gerudo_Training_Ground", count: 1 },
+  small_key_ganon: { name: "Small_Key_Ganons_Castle", count: 1 },
+  small_key_ganons_castle: { name: "Small_Key_Ganons_Castle", count: 1 },
+  small_key_hideout: { name: "Hideout_Small_Key", count: 1 },
+  hideout_small_key: { name: "Hideout_Small_Key", count: 1 },
+  small_key_treasure: { name: "Small_Key_Treasure_Chest_Game", count: 1 },
+  boss_key_forest: { name: "Boss_Key_Forest_Temple", count: 1 },
+  boss_key_forest_temple: { name: "Boss_Key_Forest_Temple", count: 1 },
+  boss_key_fire: { name: "Boss_Key_Fire_Temple", count: 1 },
+  boss_key_fire_temple: { name: "Boss_Key_Fire_Temple", count: 1 },
+  boss_key_water: { name: "Boss_Key_Water_Temple", count: 1 },
+  boss_key_water_temple: { name: "Boss_Key_Water_Temple", count: 1 },
+  boss_key_shadow: { name: "Boss_Key_Shadow_Temple", count: 1 },
+  boss_key_shadow_temple: { name: "Boss_Key_Shadow_Temple", count: 1 },
+  boss_key_spirit: { name: "Boss_Key_Spirit_Temple", count: 1 },
+  boss_key_spirit_temple: { name: "Boss_Key_Spirit_Temple", count: 1 },
+  boss_key_ganon: { name: "Boss_Key_Ganons_Castle", count: 1 },
+  boss_key_ganons_castle: { name: "Boss_Key_Ganons_Castle", count: 1 },
+  silver_gauntlets: { name: "Progressive_Strength_Upgrade", count: 2 },
+  golden_gauntlets: { name: "Progressive_Strength_Upgrade", count: 3 },
 };
 
 export const WARP_SONGS: Record<string, { song: string; needsLeaveForest: boolean; dest: string }> = {
@@ -73,5 +107,24 @@ export const DEFEAT_EVENTS: Record<string, string> = {
 };
 
 export function addItem(items: Map<string, number>, name: string, count: number): void {
+  if (isStackableOotrName(name)) {
+    items.set(name, (items.get(name) ?? 0) + count);
+    return;
+  }
   items.set(name, Math.max(items.get(name) ?? 0, count));
+}
+
+const STACKABLE_OOTR = /^(Small_Key_|Boss_Key_|Hideout_Small_Key|Key_Ring_|Gold_Skulltula_Token|Triforce_Piece)/;
+
+export function isStackableOotrName(name: string): boolean {
+  return STACKABLE_OOTR.test(name);
+}
+
+export function isStackableTrainerId(id: string): boolean {
+  return (
+    id.startsWith("small_key_") ||
+    id.startsWith("boss_key_") ||
+    id === "hideout_small_key" ||
+    id === "gs_tokens"
+  );
 }
