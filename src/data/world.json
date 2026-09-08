@@ -12,6 +12,11 @@
       "game": "oot"
     },
     {
+      "id": "oot-deku-theater",
+      "name": "Deku Theater",
+      "game": "oot"
+    },
+    {
       "id": "oot-sfm",
       "name": "Sacred Forest Meadow",
       "game": "oot"
@@ -406,6 +411,18 @@
       "to": "oot-kokiri",
       "needs": [],
       "age": "any"
+    },
+    {
+      "from": "oot-lost-woods",
+      "to": "oot-deku-theater",
+      "needs": [],
+      "age": "child"
+    },
+    {
+      "from": "oot-deku-theater",
+      "to": "oot-lost-woods",
+      "needs": [],
+      "age": "child"
     },
     {
       "from": "oot-kokiri",
@@ -1690,7 +1707,7 @@
       "game": "oot",
       "regionId": "oot-lost-woods",
       "type": "chest",
-      "age": "any",
+      "age": "child",
       "needs": []
     },
     {
@@ -1708,7 +1725,7 @@
       "game": "oot",
       "regionId": "oot-lost-woods",
       "type": "chest",
-      "age": "any",
+      "age": "child",
       "needs": []
     },
     {
@@ -1749,20 +1766,20 @@
     },
     {
       "id": "oot-deku-theater-sticks-upgrade",
-      "name": "Deku Theater Sticks Upgrade",
+      "name": "Deku Theater Skull Mask",
       "game": "oot",
-      "regionId": "oot-lost-woods",
+      "regionId": "oot-deku-theater",
       "type": "chest",
-      "age": "any",
+      "age": "child",
       "needs": []
     },
     {
       "id": "oot-deku-theater-nuts-upgrade",
-      "name": "Deku Theater Nuts Upgrade",
+      "name": "Deku Theater Mask of Truth",
       "game": "oot",
-      "regionId": "oot-lost-woods",
+      "regionId": "oot-deku-theater",
       "type": "chest",
-      "age": "any",
+      "age": "child",
       "needs": []
     },
     {

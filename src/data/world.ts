@@ -109,12 +109,19 @@ export function checkInLogic(
   return hasAll(inventory, check.needs);
 }
 
-export function availableWarps(inventory: string[]): Warp[] {
+export function hasOcarina(inventory: Iterable<string>): boolean {
+  return new Set(inventory).has("ocarina");
+}
+
+export function warpSongOwned(inventory: Iterable<string>, warp: Warp): boolean {
   const owned = new Set(inventory);
-  return WORLD.warps.filter((warp) => {
-    if (warp.item.startsWith("soaring")) return owned.has("soaring");
-    return owned.has(warp.item);
-  });
+  if (warp.item.startsWith("soaring")) return owned.has("soaring");
+  return owned.has(warp.item);
+}
+
+export function availableWarps(inventory: string[]): Warp[] {
+  if (!hasOcarina(inventory)) return [];
+  return WORLD.warps.filter((warp) => warpSongOwned(inventory, warp));
 }
 
 export function adultAvailable(config: RandoConfig, inventory: string[]): boolean {

@@ -113,6 +113,7 @@ export interface PracticeSession {
   age: Exclude<Age, "any">;
   inventory: string[];
   collectedCheckIds: string[];
+  wrongIds: string[];
   placement: Record<string, string>;
   enabledCheckIds: string[];
   log: ActionEvent[];
