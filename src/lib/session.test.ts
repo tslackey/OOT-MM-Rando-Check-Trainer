@@ -27,6 +27,26 @@ describe("practice session", () => {
     expect(REGION_BY_ID[next.currentRegionId].name).toBe("Lost Woods");
   });
 
+  it("routes Kokiri to Hyrule Field through Lost Woods Bridge", () => {
+    const config = createConfig({ spawn: "oot-kokiri", openForest: true });
+    let session = createSession(config, 1);
+
+    const skipBridge = travelTo(session, config, "oot-field");
+    expect(skipBridge.currentRegionId).toBe("oot-kokiri");
+    expect(skipBridge.penalties).toBe(1);
+
+    const fromWoods = travelTo(travelTo(session, config, "oot-lost-woods"), config, "oot-field");
+    expect(fromWoods.currentRegionId).toBe("oot-lost-woods");
+    expect(fromWoods.penalties).toBe(1);
+
+    session = travelTo(session, config, "oot-lost-woods-bridge");
+    expect(session.currentRegionId).toBe("oot-lost-woods-bridge");
+    expect(REGION_BY_ID[session.currentRegionId].name).toBe("Lost Woods Bridge");
+    session = travelTo(session, config, "oot-field");
+    expect(session.currentRegionId).toBe("oot-field");
+    expect(session.penalties).toBe(0);
+  });
+
   it("marks a failed check red via wrongIds and clears it after a later success", () => {
     const config = createConfig({ spawn: "oot-kokiri", games: { oot: true, mm: false } });
     let session = createSession(config, 1);

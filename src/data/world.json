@@ -12,6 +12,11 @@
       "game": "oot"
     },
     {
+      "id": "oot-lost-woods-bridge",
+      "name": "Lost Woods Bridge",
+      "game": "oot"
+    },
+    {
       "id": "oot-deku-theater",
       "name": "Deku Theater",
       "game": "oot"
@@ -245,7 +250,19 @@
       "age": "any"
     },
     {
-      "from": "oot-lost-woods",
+      "from": "oot-kokiri",
+      "to": "oot-lost-woods-bridge",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-lost-woods-bridge",
+      "to": "oot-kokiri",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-lost-woods-bridge",
       "to": "oot-field",
       "needs": [
         "open_forest"
@@ -254,7 +271,7 @@
     },
     {
       "from": "oot-field",
-      "to": "oot-lost-woods",
+      "to": "oot-lost-woods-bridge",
       "needs": [
         "open_forest"
       ],
