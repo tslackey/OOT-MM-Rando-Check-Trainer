@@ -77,4 +77,13 @@ describe("practice UI filters", () => {
     expect(canShowWarpTab(session, config)).toBe(true);
     expect(visibleWarps(session, config).map((warp) => warp.item)).toEqual(["prelude"]);
   });
+
+  it("lists child-only checks for adult when either-age logic is on", () => {
+    const off = createConfig({ spawn: "oot-kokiri", eitherAgeLogic: false, openDoorOfTime: true });
+    const on = createConfig({ spawn: "oot-kokiri", eitherAgeLogic: true, openDoorOfTime: true });
+    const session = { ...createSession(off, 1), age: "adult" as const, currentRegionId: "oot-kokiri" };
+    const sword = "oot-kokiri-forest-kokiri-sword-chest";
+    expect(visibleRegionChecks(session, off).some((check) => check.id === sword)).toBe(false);
+    expect(visibleRegionChecks(session, on).some((check) => check.id === sword)).toBe(true);
+  });
 });

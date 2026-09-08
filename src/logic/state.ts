@@ -56,7 +56,10 @@ export function emptySettings(config?: RandoConfig, inventory: Iterable<string> 
     chicken_count: 7,
     warp_songs: true,
     disable_trade_revert: false,
-    gold_skulls_ignore_daytime: true,
+    // Trainer has no clock: at_night is treated as "waited." Do not also
+    // ignore daytime, or a closed-forest child can collect KF night GS.
+    gold_skulls_ignore_daytime: false,
+    had_night_start: false,
     logic_grottos_without_agony: false,
     entrance_shuffle: false,
     triforce_goal_per_world: 0,

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { createConfig } from "../data/presets";
-import { collectCheck, createSession, respawnToSpawn, setFaroresWind, travelTo, warpFaroresWind } from "./session";
+import { collectCheck, createSession, respawnToSpawn, setFaroresWind, switchAge, travelTo, warpFaroresWind } from "./session";
 import { CHECK_BY_ID, itemLabel, REGION_BY_ID } from "../data/world";
 
 describe("practice session", () => {
@@ -160,5 +160,61 @@ describe("practice session", () => {
     });
     const session = createSession(config, 1);
     expect(session.inventory.filter((item) => item === "small_key_forest")).toHaveLength(3);
+  });
+
+  it("opens closed forest after collecting Queen Gohma", () => {
+    const config = createConfig({ openForest: false, openDeku: true, spawn: "oot-kokiri" });
+    let session = createSession(config, 1);
+    const blocked = travelTo(session, config, "oot-lost-woods-bridge");
+    expect(blocked.currentRegionId).toBe("oot-kokiri");
+    expect(blocked.penalties).toBeGreaterThan(0);
+
+    const boss = CHECK_BY_ID["oot-deku-tree-boss"];
+    session = {
+      ...session,
+      currentRegionId: "oot-deku",
+      inventory: [...session.inventory, "slingshot", "nuts", "deku_shield", "kokiri_sword", "sticks"],
+    };
+    session = collectCheck(session, config, boss);
+    expect(session.collectedCheckIds).toContain(boss.id);
+    expect(session.logicEvents).toContain("Defeat Queen Gohma");
+
+    session = { ...session, currentRegionId: "oot-kokiri" };
+    const escaped = travelTo(session, config, "oot-lost-woods-bridge");
+    expect(escaped.penalties).toBe(session.penalties);
+    expect(escaped.currentRegionId).toBe("oot-lost-woods-bridge");
+  });
+
+  it("persists Dampe windmill access after visiting the grave as adult", () => {
+    const config = createConfig({ startingAge: "adult", spawn: "oot-kak" });
+    let session = createSession(config, 1);
+    session = {
+      ...session,
+      age: "adult",
+      currentRegionId: "oot-kak",
+      inventory: [...session.inventory, "ocarina", "song_of_time"],
+    };
+    const hp = CHECK_BY_ID["oot-windmill-hp"];
+    expect(collectCheck(session, config, hp).collectedCheckIds).not.toContain(hp.id);
+
+    session = travelTo(session, config, "oot-graveyard");
+    expect(session.logicEvents).toContain("Dampes Windmill Access");
+    session = travelTo(session, config, "oot-kak");
+    session = collectCheck(session, config, hp);
+    expect(session.collectedCheckIds).toContain(hp.id);
+  });
+
+  it("requires Song of Time to swap age when the Door of Time is closed", () => {
+    const config = createConfig({ openDoorOfTime: false, spawn: "oot-tot", startingAge: "child" });
+    let session = createSession(config, 1);
+    session = { ...session, currentRegionId: "oot-tot" };
+    const blocked = switchAge(session, config);
+    expect(blocked.age).toBe("child");
+    expect(blocked.penalties).toBeGreaterThan(0);
+
+    session = { ...session, inventory: [...session.inventory, "ocarina", "song_of_time"] };
+    const swapped = switchAge(session, config);
+    expect(swapped.age).toBe("adult");
+    expect(swapped.penalties).toBe(session.penalties);
   });
 });

@@ -6,7 +6,7 @@ Harkinian’s randomizer
 ([HarbourMasters/Shipwright](https://github.com/HarbourMasters/Shipwright))
 actually compute reachability.
 
-**Status:** Phase 0–2 of this plan is in the app. `src/logic/` evaluates vendored OoTR vanilla World JSON as the practice penalty oracle, including intra-dungeon BFS, `at()` gated on reachable subregions, and stacked small/boss keys. `world.json` remains the coarse Go to / Check map (OoT only). Later phases (dual-age fill, imported trick settings, MQ, entrance shuffle) are still open.
+**Status:** Phase 0–3 of this plan is in the app. `src/logic/` evaluates vendored OoTR vanilla World JSON as the practice penalty oracle, including intra-dungeon BFS, `at()` gated on reachable subregions, stacked keys, visit-time events, and Door of Time / starting-age time travel. `world.json` remains the coarse Go to / Check map (OoT only). Later phases (imported trick settings, MQ, entrance shuffle) are still open. Fill-style either-age checks are an optional config flag, off by default.
 
 **This document is the plan.** Do not treat the trainer as official OoTR until later phases land and tests prove them.
 
@@ -272,21 +272,14 @@ sharing one requirement. That is the current oracle behavior.
 
 ### Phase 3 — events, dual age, time travel
 
-Goal: match play-time reachability the way SoH’s tracker does, without
-becoming a tracker.
+**Landed.** Play-time reachability fires events until they stop, without turning Practice into a tracker.
 
-- `ReachabilitySearch`-style loop: process regions until events stop firing.
-- Collecting Gohma sets `'Defeat Queen Gohma'` → `can_leave_forest`.
-- Door of Time / starting age from settings (`can_open_door_of_time`).
-- Optional: while standing in a region, also allow a check if the **other**
-  age could do it *after swapping at ToT with current items* — **off by
-  default**. Default stays “this age, this room.” A config flag can enable
-  “fill-style either age” later if operators want it.
-
-Day/night skulls: trainer has no clock. Treat GS as reachable if the item
-rule holds ignoring `at_night`, or add a cheap “I waited until night” action.
-Do not silently mark night-only GS in logic for child locked in Kokiri
-without SoS / forest escape.
+- Intra-practice BFS still loops until events/exits stabilize, and also processes Root events plus `Time_Travel` when `can_open_door_of_time` (or adult start) is true. If the door is open, the other age’s events in the **same** practice region can fire (shared inventory) so windmill SoS / similar persist.
+- Collecting Gohma sets `'Defeat Queen Gohma'` → `can_leave_forest` for a closed-forest child. Uncollected `"Defeat …"` events from merely reaching a boss room are **not** persisted.
+- Visiting a region persists its events onto the run (`logicEvents`), so adult Dampe race (`Dampes Windmill Access`) still counts after walking back to Kakariko.
+- Door of Time / starting age use `can_open_door_of_time`. Adult start can always swap at ToT; child needs Open DoT or ocarina + Song of Time.
+- Optional config `eitherAgeLogic` (off by default): a check in this room is in logic if the other age could do it here after opening the Door of Time. Buttons stay visually identical. Go-to travel stays this age.
+- Day/night: `at_night` is treated as “waited.” `gold_skulls_ignore_daytime` is **false**, so a forest-locked child cannot collect KF night GS without SoS / forest escape / night start.
 
 ### Phase 4 — settings coverage (only what import already stores)
 
@@ -311,9 +304,9 @@ rewrite the practice graph; do not fake it with vanilla adjacencies.
   already have legal placement.
 - Restyle Go/Check buttons by in-logic vs out-of-logic except `hideLocked`.
 - Reintroduce MM regions, MM presets, or cross-game links.
-- Claim the trainer **is** OoTR. After phase 2 we can say “vanilla glitchless
+- Claim the trainer **is** OoTR. After phase 3 we can say “vanilla glitchless
   rules from OoTR World JSON (subset).” Keep the approximation
-  disclaimer for dual-age fill, MQ, entrance shuffle, and tricks.
+  disclaimer for MQ, entrance shuffle, and tricks.
 - Vendor the entire SoH tree or run Python `Search.py` in the browser.
 
 ## File-level landing spots

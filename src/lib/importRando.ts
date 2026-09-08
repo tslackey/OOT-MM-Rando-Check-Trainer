@@ -456,6 +456,7 @@ export function importRandoFile(raw: string, fileName = "imported.json", default
       peekPenaltySeconds: trainer.peekPenaltySeconds,
       hideCompleted: trainer.hideCompleted,
       hideLocked: trainer.hideLocked,
+      eitherAgeLogic: trainer.eitherAgeLogic,
     },
     defaults,
   );
@@ -527,6 +528,7 @@ export function exportRandoFile(config: RandoConfig): string {
         peekPenaltySeconds: config.peekPenaltySeconds,
         hideCompleted: config.hideCompleted,
         hideLocked: config.hideLocked,
+        eitherAgeLogic: config.eitherAgeLogic,
         importedPlacement: config.importedPlacement,
         importedCheckIds: config.importedCheckIds,
         importedEntrances: config.importedEntrances,
