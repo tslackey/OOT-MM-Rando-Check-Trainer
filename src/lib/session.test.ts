@@ -27,25 +27,28 @@ describe("practice session", () => {
     expect(REGION_BY_ID[next.currentRegionId].name).toBe("Lost Woods");
   });
 
-  it("penalizes collecting the same check twice", () => {
-    const config = createConfig({
-      spawn: "oot-kokiri",
-      checkTypes: {
-        chest: true,
-        song: false,
-        dungeonReward: false,
-        scrub: false,
-        shop: false,
-        trade: false,
-        skullReward: false,
-      },
-    });
-    const sword = CHECK_BY_ID["oot-kokiri-forest-kokiri-sword-chest"];
-    expect(sword).toBeTruthy();
+  it("marks a failed check red via wrongIds and clears it after a later success", () => {
+    const config = createConfig({ spawn: "oot-kokiri", games: { oot: true, mm: false } });
     let session = createSession(config, 1);
-    session = collectCheck(session, config, sword);
-    expect(session.collectedCheckIds).toContain(sword.id);
-    const again = collectCheck(session, config, sword);
+    session = travelTo(session, config, "oot-lost-woods");
+    const mushroom = CHECK_BY_ID["oot-lost-woods-odd-mushroom"];
+    const failed = collectCheck(session, config, mushroom);
+    expect(failed.penalties).toBeGreaterThan(0);
+    expect(failed.wrongIds).toContain(mushroom.id);
+
+    const legal = collectCheck(failed, config, CHECK_BY_ID["oot-lost-woods-skull-kid"]);
+    expect(legal.collectedCheckIds).toContain("oot-lost-woods-skull-kid");
+    expect(legal.wrongIds).toContain(mushroom.id);
+  });
+
+  it("penalizes collecting the same check twice", () => {
+    const config = createConfig({ spawn: "oot-kokiri", games: { oot: true, mm: false } });
+    let session = createSession(config, 1);
+    session = travelTo(session, config, "oot-lost-woods");
+    const skull = CHECK_BY_ID["oot-lost-woods-skull-kid"];
+    session = collectCheck(session, config, skull);
+    expect(session.collectedCheckIds).toContain(skull.id);
+    const again = collectCheck(session, config, skull);
     expect(again.penalties).toBeGreaterThan(session.penalties);
   });
 });

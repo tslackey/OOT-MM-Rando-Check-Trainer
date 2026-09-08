@@ -32,6 +32,7 @@ SKIP_TYPES = {
 REGION_IDS = {
     ("OOT", "Kokiri Forest"): "oot-kokiri",
     ("OOT", "Lost Woods"): "oot-lost-woods",
+    ("OOT", "Deku Theater"): "oot-deku-theater",
     ("OOT", "Sacred Forest Meadow"): "oot-sfm",
     ("OOT", "Hyrule Field"): "oot-field",
     ("OOT", "Market"): "oot-market",
@@ -110,6 +111,7 @@ REGION_IDS = {
 REGION_META = {
     "oot-kokiri": {"name": "Kokiri Forest", "game": "oot", "hub": True},
     "oot-lost-woods": {"name": "Lost Woods", "game": "oot"},
+    "oot-deku-theater": {"name": "Deku Theater", "game": "oot"},
     "oot-sfm": {"name": "Sacred Forest Meadow", "game": "oot"},
     "oot-field": {"name": "Hyrule Field", "game": "oot", "hub": True},
     "oot-market": {"name": "Market", "game": "oot"},
@@ -263,11 +265,16 @@ def needs_for(name: str, region_id: str, check_type: str) -> tuple[str, list[str
     if "shooting gallery adult" in n or "fishing pond adult" in n:
         age = "adult"
     if any(x in n for x in ["child", "frogs", "skull kid", "deku theater", "malon egg", "zelda", "kokiri sword", "bomb bag"]):
-        if "goron city bomb bag" in n or "fishing pond child" in n or "shooting gallery child" in n:
-            age = "child"
+        age = "child"
+        if "goron city bomb bag" in n:
+            age = "any"
     if "kokiri sword" in n or "mido's house" in n:
         age = "child"
     if "saria's song" in n or "lost woods skull kid" in n:
+        age = "child"
+    if "lost woods target" in n or "lost woods memory" in n:
+        age = "child"
+    if "deku theater" in n:
         age = "child"
     if "talon" in n or "malon song" in n:
         age = "child"
@@ -399,6 +406,7 @@ def connections():
     pairs = [
         # OoT overworld
         ("oot-kokiri", "oot-lost-woods"),
+        ("oot-lost-woods", "oot-deku-theater", {"age": "child"}),
         ("oot-kokiri", "oot-deku", {"needs": ["open_deku"]}),
         ("oot-lost-woods", "oot-sfm"),
         ("oot-lost-woods", "oot-field", {"needs": ["open_forest"]}),
@@ -586,6 +594,13 @@ def main():
     seen_ids = set()
     for game, region, name, typ in rows:
         region_id = REGION_IDS.get((game, region))
+        display_name = name
+        if "deku theater" in name.lower():
+            region_id = "oot-deku-theater"
+            if "sticks" in name.lower():
+                display_name = "Deku Theater Skull Mask"
+            elif "nuts" in name.lower():
+                display_name = "Deku Theater Mask of Truth"
         if not region_id:
             print("MISSING REGION", game, region, name)
             continue
@@ -598,7 +613,7 @@ def main():
         checks.append(
             {
                 "id": cid,
-                "name": name,
+                "name": display_name,
                 "game": game.lower(),
                 "regionId": region_id,
                 "type": check_type,

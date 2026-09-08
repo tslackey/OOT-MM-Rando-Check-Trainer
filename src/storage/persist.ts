@@ -32,6 +32,9 @@ function normalizeState(parsed: PersistedState): PersistedState {
     configs,
     lastConfigId: parsed.lastConfigId && ids.has(parsed.lastConfigId) ? parsed.lastConfigId : PRESETS[0]?.id ?? null,
     defaultConfigId: parsed.defaultConfigId && ids.has(parsed.defaultConfigId) ? parsed.defaultConfigId : null,
+    activeSession: parsed.activeSession
+      ? { ...parsed.activeSession, wrongIds: parsed.activeSession.wrongIds ?? [] }
+      : null,
   };
 }
 

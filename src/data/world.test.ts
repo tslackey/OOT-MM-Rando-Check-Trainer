@@ -3,12 +3,14 @@ import { createConfig } from "../data/presets";
 import {
   ageOk,
   canUseConnection,
+  CHECK_BY_ID,
   enabledChecks,
   flagsFor,
   hasAll,
   reachableRegionIds,
+  REGION_BY_ID,
   spawnRegion,
-} from "../data/world";
+} from "./world";
 
 describe("world logic", () => {
   it("filters checks by game and type", () => {
@@ -62,6 +64,7 @@ describe("world logic", () => {
     const inventory = ["open_forest", "open_deku", "open_zora", "ocarina", "song_of_time"];
     const reachable = reachableRegionIds("oot-kokiri", inventory, "child");
     expect(reachable.has("oot-lost-woods")).toBe(true);
+    expect(reachable.has("oot-deku-theater")).toBe(true);
     expect(reachable.has("oot-field")).toBe(true);
     expect(reachable.has("mm-sct")).toBe(false);
     expect(reachable.has("oot-forest")).toBe(false);
@@ -72,5 +75,17 @@ describe("world logic", () => {
     expect(ageOk("adult", "child")).toBe(false);
     expect(hasAll(["bow", "hookshot"], ["bow"])).toBe(true);
     expect(hasAll(["bow"], ["bow", "hookshot"])).toBe(false);
+  });
+
+  it("places Deku Theater next to Lost Woods with the mask checks", () => {
+    const sticks = CHECK_BY_ID["oot-deku-theater-sticks-upgrade"];
+    const nuts = CHECK_BY_ID["oot-deku-theater-nuts-upgrade"];
+    expect(sticks.regionId).toBe("oot-deku-theater");
+    expect(nuts.regionId).toBe("oot-deku-theater");
+    expect(sticks.age).toBe("child");
+    expect(nuts.age).toBe("child");
+    expect(sticks.name).toBe("Deku Theater Skull Mask");
+    expect(nuts.name).toBe("Deku Theater Mask of Truth");
+    expect(REGION_BY_ID["oot-deku-theater"].name).toBe("Deku Theater");
   });
 });

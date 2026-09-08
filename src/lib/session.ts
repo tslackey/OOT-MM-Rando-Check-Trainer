@@ -50,6 +50,7 @@ export function createSession(config: RandoConfig, seed?: number): PracticeSessi
     age: config.startingAge,
     inventory: startingInventory(config),
     collectedCheckIds: [],
+    wrongIds: [],
     placement: { ...generated, ...config.importedPlacement },
     enabledCheckIds: checks.map((check) => check.id),
     log: [
@@ -70,6 +71,24 @@ function bump(session: PracticeSession, patch: Partial<PracticeSession>): Practi
   return { ...session, ...patch, updatedAt: Date.now() };
 }
 
+function wrongKey(extra: Partial<ActionEvent>): string | undefined {
+  return extra.checkId ?? extra.item ?? extra.regionId;
+}
+
+function withWrong(session: PracticeSession, extra: Partial<ActionEvent>): string[] {
+  const current = session.wrongIds ?? [];
+  const key = wrongKey(extra);
+  if (!key || current.includes(key)) return current;
+  return [...current, key];
+}
+
+function withoutWrong(session: PracticeSession, extra: Partial<ActionEvent>): string[] {
+  const current = session.wrongIds ?? [];
+  const key = wrongKey(extra);
+  if (!key) return current;
+  return current.filter((id) => id !== key);
+}
+
 function penalize(
   session: PracticeSession,
   config: RandoConfig,
@@ -83,6 +102,7 @@ function penalize(
     penalties: session.penalties + 1,
     penaltySeconds: session.penaltySeconds + seconds,
     lastFlash: flash,
+    wrongIds: withWrong(session, extra),
     log: [
       ...session.log,
       event({
@@ -105,6 +125,7 @@ function succeed(
   return bump(session, {
     ...extra,
     lastFlash: { tone: "ok", text, at: Date.now() },
+    wrongIds: withoutWrong(session, log),
     log: [...session.log, event(log)],
   });
 }
@@ -161,13 +182,17 @@ export function warpTo(
   }
   const allowed = availableWarps(session.inventory).some((entry) => entry.item === warpItem);
   if (!allowed) {
-    return penalize(session, config, warp.label, "You don't have that song", { kind: "warp", regionId: warp.regionId });
+    return penalize(session, config, warp.label, "You don't have that song", {
+      kind: "warp",
+      regionId: warp.regionId,
+      item: warpItem,
+    });
   }
   return succeed(
     session,
     warp.label,
     { currentRegionId: warp.regionId },
-    { kind: "warp", label: warp.label, ok: true, regionId: warp.regionId },
+    { kind: "warp", label: warp.label, ok: true, regionId: warp.regionId, item: warpItem },
   );
 }
 
