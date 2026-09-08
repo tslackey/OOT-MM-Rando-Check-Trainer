@@ -121,7 +121,7 @@ export function travelTo(
       regionId,
     });
   }
-  const connection = allOutgoing(session.currentRegionId).find((edge) => edge.to === regionId);
+  const connection = allOutgoing(session.currentRegionId, config.games).find((edge) => edge.to === regionId);
   if (!connection) {
     return penalize(
       session,

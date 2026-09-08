@@ -65,7 +65,7 @@ export function Practice() {
   const region = REGION_BY_ID[session.currentRegionId];
   const elapsed = sessionElapsedMs({ ...session, now });
   const remaining = session.enabledCheckIds.length - session.collectedCheckIds.length;
-  const exits = allOutgoing(session.currentRegionId).filter((connection) => {
+  const exits = allOutgoing(session.currentRegionId, config.games).filter((connection) => {
     const ok = canUseConnection(connection, session.inventory, session.age);
     return config.hideLocked ? ok : true;
   });

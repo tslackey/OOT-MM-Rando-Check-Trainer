@@ -274,14 +274,6 @@ function mapItem(name: string): string {
   return ITEM_IDS[name] ?? name.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
 }
 
-function detectGames(settings: Settings, version: string): { oot: boolean; mm: boolean } {
-  const blob = `${version} ${Object.keys(settings).join(" ")}`.toLowerCase();
-  const mm = /\b(mm|majora|ootmm|clock town|termina)\b/.test(blob);
-  const oot = /\b(oot|ocarina|kokiri|ganon|hyrule)\b/.test(blob) || settings["Closed Forest"] != null;
-  if (!oot && !mm) return { oot: true, mm: false };
-  return { oot: oot || !mm, mm };
-}
-
 function checkTypesFromSettings(settings: Settings): Record<CheckType, boolean> {
   return {
     chest: true,
@@ -336,7 +328,7 @@ export function importRandoFile(raw: string, fileName = "imported.json", default
   const file = parseRandoJson(raw);
   const settings = stringifySettings(file.settings ?? {});
   const version = file.version ?? defaults?.randoVersion ?? "";
-  const games = detectGames(settings, version);
+  const games = { oot: true, mm: false } as const;
   const age = startingAge(file, settings);
   const locations = file.locations ?? {};
   const locationNames = Object.keys(locations);
@@ -346,6 +338,7 @@ export function importRandoFile(raw: string, fileName = "imported.json", default
   for (const [location, value] of Object.entries(locations)) {
     const checkId = matchLocation(location);
     if (!checkId || importedPlacement[checkId]) continue;
+    if (CHECK_BY_ID[checkId]?.game !== "oot") continue;
     importedPlacement[checkId] = mapItem(locationItem(value));
     importedCheckIds.push(checkId);
   }
@@ -359,7 +352,7 @@ export function importRandoFile(raw: string, fileName = "imported.json", default
   const config = createConfig(
     {
       name,
-      games: trainer.games ?? games,
+      games: { oot: true, mm: false },
       checkTypes: trainer.checkTypes ?? checkTypesFromSettings(settings),
       startingAge: trainer.startingAge ?? age,
       openForest: trainer.openForest ?? !on(settings["Closed Forest"]),
@@ -408,7 +401,7 @@ export function exportRandoFile(config: RandoConfig): string {
 
   return `${JSON.stringify(
     {
-      version: config.randoVersion || "OoTMM Check Trainer",
+      version: config.randoVersion || "OoT Check Trainer",
       fileType: 1,
       seed: config.randoSeed,
       settings,

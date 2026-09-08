@@ -25,15 +25,14 @@ export function flagsFor(config: RandoConfig): string[] {
   if (config.openDeku) flags.push("open_deku");
   if (config.openZora) flags.push("open_zora");
   if (config.openDoorOfTime) flags.push("open_door_of_time");
-  if (config.games.oot && config.games.mm) flags.push("cross_game");
   return flags;
 }
 
 export function spawnRegion(config: RandoConfig): string {
-  if (config.spawn !== "auto" && REGION_BY_ID[config.spawn]) return config.spawn;
-  if (config.startingAge === "adult" && config.games.oot) return "oot-tot";
-  if (config.games.oot) return "oot-kokiri";
-  return "mm-sct";
+  const requested = config.spawn !== "auto" ? REGION_BY_ID[config.spawn] : undefined;
+  if (requested?.game === "oot") return requested.id;
+  if (config.startingAge === "adult") return "oot-tot";
+  return "oot-kokiri";
 }
 
 export function enabledChecks(config: RandoConfig): WorldCheck[] {
@@ -72,8 +71,12 @@ export function outgoing(
   );
 }
 
-export function allOutgoing(regionId: string): Connection[] {
-  return WORLD.connections.filter((connection) => connection.from === regionId);
+export function allOutgoing(regionId: string, games: { oot: boolean; mm: boolean } = { oot: true, mm: false }): Connection[] {
+  return WORLD.connections.filter((connection) => {
+    if (connection.from !== regionId) return false;
+    const dest = REGION_BY_ID[connection.to];
+    return Boolean(dest && games[dest.game]);
+  });
 }
 
 export function reachableRegionIds(

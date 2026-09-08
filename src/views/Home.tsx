@@ -16,7 +16,7 @@ export function Home() {
   return (
     <div className="page">
       <header className="hero">
-        <p className="eyebrow">OoTMM check trainer</p>
+        <p className="eyebrow">OoT check trainer</p>
         <h1>Play the route. Do not open a tracker.</h1>
         <p>
           Save a rando configuration, then tap <strong>Go to</strong> buttons like you would walk the
@@ -72,7 +72,7 @@ export function Home() {
         <section className="card">
           <p className="eyebrow">How it scores</p>
           <ul className="plain">
-            <li>Travel with Go to Kokiri Forest, Go to Woodfall, and the rest of the map buttons.</li>
+            <li>Travel with Go to Kokiri Forest, Go to Kakariko, and the rest of the map buttons.</li>
             <li>Tapping a locked path, a collected check, or an out-of-logic chest is a penalty.</li>
             <li>Peek remaining checks if you are stuck — it is treated as opening a tracker.</li>
           </ul>

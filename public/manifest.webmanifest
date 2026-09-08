@@ -1,6 +1,6 @@
 {
-  "name": "OoTMM Check Trainer",
-  "short_name": "Check Trainer",
+  "name": "OoT Check Trainer",
+  "short_name": "OoT Trainer",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#10150f",

@@ -3,16 +3,35 @@ import type { PersistedState, RandoConfig } from "../data/types";
 
 export const STORAGE_KEY = "ootmm-check-trainer-v1";
 
-function normalizeConfig(config: RandoConfig): RandoConfig {
-  return { ...config, startingItems: config.startingItems ?? [] };
+function normalizeConfig(config: RandoConfig): RandoConfig | null {
+  if (config.id === "preset-mm-only" || (config.games && !config.games.oot && config.games.mm)) {
+    return null;
+  }
+  return {
+    ...config,
+    startingItems: config.startingItems ?? [],
+    games: { oot: true, mm: false },
+    spawn: config.spawn?.startsWith("mm-") ? "auto" : config.spawn,
+    name: config.name.replaceAll("OoTMM", "OoT"),
+  };
 }
 
 function normalizeState(parsed: PersistedState): PersistedState {
+  const configs = (parsed.configs ?? [])
+    .map(normalizeConfig)
+    .filter((config): config is RandoConfig => config !== null);
+  for (const preset of PRESETS) {
+    if (!configs.some((config) => config.id === preset.id)) {
+      configs.push({ ...preset });
+    }
+  }
+  const ids = new Set(configs.map((config) => config.id));
   return {
     ...emptyState(),
     ...parsed,
-    configs: (parsed.configs ?? []).map(normalizeConfig),
-    defaultConfigId: parsed.defaultConfigId ?? null,
+    configs,
+    lastConfigId: parsed.lastConfigId && ids.has(parsed.lastConfigId) ? parsed.lastConfigId : PRESETS[0]?.id ?? null,
+    defaultConfigId: parsed.defaultConfigId && ids.has(parsed.defaultConfigId) ? parsed.defaultConfigId : null,
   };
 }
 

@@ -85,8 +85,9 @@ export function Configs() {
       {notice ? <p className="flash ok">{notice}</p> : null}
 
       <p className="muted">
-        Import an OoTR spoiler or settings JSON (the Ackbar-style file with a <code>settings</code> object).
-        The settings are kept so you can export them later as your rando generation defaults.
+        Import an OoT Randomizer spoiler or settings JSON (the Ackbar-style file with a{" "}
+        <code>settings</code> object). The settings are kept so you can export them later as your
+        generation defaults.
       </p>
 
       <ul className="config-list">
@@ -101,10 +102,7 @@ export function Configs() {
                   {isDefault ? <span className="chip">Default</span> : null}
                 </h2>
                 <p className="muted">
-                  {config.games.oot ? "OoT" : ""}
-                  {config.games.oot && config.games.mm ? " + " : ""}
-                  {config.games.mm ? "MM" : ""} · {count} checks · +{config.penaltySeconds}s
-                  penalties
+                  OoT · {count} checks · +{config.penaltySeconds}s penalties
                   {config.randoSeed ? ` · seed ${config.randoSeed}` : ""}
                 </p>
                 {config.importSummary ? <p className="muted">{config.importSummary}</p> : null}

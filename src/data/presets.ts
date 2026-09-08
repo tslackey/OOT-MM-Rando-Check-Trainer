@@ -29,7 +29,7 @@ export function createConfig(partial: Partial<RandoConfig> = {}, defaults?: Rand
     id: partial.id ?? crypto.randomUUID(),
     name: partial.name ?? "New preset",
     updatedAt: now,
-    games: partial.games ?? { oot: true, mm: true },
+    games: { oot: true, mm: false },
     checkTypes: { ...ALL_TYPES, ...partial.checkTypes },
     startingAge: partial.startingAge ?? "child",
     openForest: partial.openForest ?? true,
@@ -54,29 +54,16 @@ export function createConfig(partial: Partial<RandoConfig> = {}, defaults?: Rand
 
 export const PRESETS: RandoConfig[] = [
   createConfig({
-    id: "preset-ootmm-standard",
-    name: "OoTMM standard",
-    games: { oot: true, mm: true },
-    checkTypes: { ...ALL_TYPES },
-  }),
-  createConfig({
-    id: "preset-oot-only",
-    name: "OoT only",
+    id: "preset-oot-standard",
+    name: "OoT standard",
     games: { oot: true, mm: false },
-    checkTypes: { ...ALL_TYPES, shop: false, skullReward: false },
+    checkTypes: { ...ALL_TYPES },
     spawn: "oot-kokiri",
   }),
   createConfig({
-    id: "preset-mm-only",
-    name: "MM only",
-    games: { oot: false, mm: true },
-    checkTypes: { ...ALL_TYPES, trade: false, skullReward: false },
-    spawn: "mm-sct",
-  }),
-  createConfig({
-    id: "preset-songs",
-    name: "Song memory drill",
-    games: { oot: true, mm: true },
+    id: "preset-oot-songs",
+    name: "OoT song memory",
+    games: { oot: true, mm: false },
     checkTypes: {
       chest: false,
       song: true,
@@ -87,11 +74,12 @@ export const PRESETS: RandoConfig[] = [
       skullReward: false,
     },
     penaltySeconds: 10,
+    spawn: "oot-kokiri",
   }),
   createConfig({
-    id: "preset-dungeons",
-    name: "Dungeon checks",
-    games: { oot: true, mm: true },
+    id: "preset-oot-dungeons",
+    name: "OoT dungeon checks",
+    games: { oot: true, mm: false },
     checkTypes: {
       chest: true,
       song: false,
@@ -101,5 +89,6 @@ export const PRESETS: RandoConfig[] = [
       trade: false,
       skullReward: false,
     },
+    spawn: "oot-kokiri",
   }),
 ];

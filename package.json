@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Practice OoTMM randomizer checks without a tracker.",
+  "description": "Practice Ocarina of Time randomizer checks without a tracker.",
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",

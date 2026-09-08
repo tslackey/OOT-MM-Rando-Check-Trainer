@@ -25,11 +25,7 @@ export function ConfigEditor() {
     upsertConfig({ ...config, ...patch });
   };
 
-  const spawnOptions = WORLD.regions.filter((region) => {
-    if (config.games.oot && region.game === "oot" && region.hub) return true;
-    if (config.games.mm && region.game === "mm" && region.hub) return true;
-    return false;
-  });
+  const spawnOptions = WORLD.regions.filter((region) => region.game === "oot" && region.hub);
 
   const settingEntries = Object.entries(config.randoSettings ?? {});
 
@@ -107,25 +103,10 @@ export function ConfigEditor() {
         </section>
       ) : null}
 
-      <fieldset className="card">
-        <legend>Games</legend>
-        <label>
-          <input
-            type="checkbox"
-            checked={config.games.oot}
-            onChange={(event) => update({ games: { ...config.games, oot: event.target.checked } })}
-          />
-          Ocarina of Time
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={config.games.mm}
-            onChange={(event) => update({ games: { ...config.games, mm: event.target.checked } })}
-          />
-          Majora's Mask
-        </label>
-      </fieldset>
+      <section className="card">
+        <p className="eyebrow">Game</p>
+        <p>Ocarina of Time only. Majora's Mask will be a separate trainer later.</p>
+      </section>
 
       <fieldset className="card">
         <legend>Check types</legend>

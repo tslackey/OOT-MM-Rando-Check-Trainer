@@ -2,7 +2,7 @@ import type { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
   appId: "dev.tslackey.ootmmchecktrainer",
-  appName: "OoTMM Check Trainer",
+  appName: "OoT Check Trainer",
   webDir: "dist",
   server: {
     androidScheme: "https",

@@ -29,21 +29,18 @@ describe("world logic", () => {
     expect(checks.every((check) => check.game === "oot" && check.type === "chest")).toBe(true);
   });
 
-  it("starts combined child seeds in Kokiri and adult OoT in Temple of Time", () => {
-    expect(spawnRegion(createConfig({ games: { oot: true, mm: true } }))).toBe("oot-kokiri");
-    expect(spawnRegion(createConfig({ games: { oot: false, mm: true } }))).toBe("mm-sct");
-    expect(spawnRegion(createConfig({ games: { oot: true, mm: false }, startingAge: "adult" }))).toBe(
-      "oot-tot",
-    );
+  it("starts child in Kokiri and adult in Temple of Time", () => {
+    expect(spawnRegion(createConfig({ startingAge: "child" }))).toBe("oot-kokiri");
+    expect(spawnRegion(createConfig({ startingAge: "adult" }))).toBe("oot-tot");
   });
 
-  it("injects open-world flags", () => {
+  it("injects open-world flags without cross-game", () => {
     const flags = flagsFor(
-      createConfig({ openForest: true, openDeku: false, openZora: true, games: { oot: true, mm: true } }),
+      createConfig({ openForest: true, openDeku: false, openZora: true }),
     );
     expect(flags).toContain("open_forest");
     expect(flags).not.toContain("open_deku");
-    expect(flags).toContain("cross_game");
+    expect(flags).not.toContain("cross_game");
   });
 
   it("blocks connections that need items", () => {
@@ -61,12 +58,12 @@ describe("world logic", () => {
     expect(open).toBe(true);
   });
 
-  it("walks reachable regions from spawn with open flags", () => {
-    const inventory = ["open_forest", "open_deku", "open_zora", "cross_game", "ocarina", "song_of_time"];
+  it("walks reachable OoT regions from spawn with open flags", () => {
+    const inventory = ["open_forest", "open_deku", "open_zora", "ocarina", "song_of_time"];
     const reachable = reachableRegionIds("oot-kokiri", inventory, "child");
     expect(reachable.has("oot-lost-woods")).toBe(true);
     expect(reachable.has("oot-field")).toBe(true);
-    expect(reachable.has("mm-sct")).toBe(true);
+    expect(reachable.has("mm-sct")).toBe(false);
     expect(reachable.has("oot-forest")).toBe(false);
   });
 
