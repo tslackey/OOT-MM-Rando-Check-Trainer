@@ -1,6 +1,7 @@
 import { createConfig } from "../data/presets";
 import type { CheckType, RandoConfig } from "../data/types";
-import { CHECK_BY_ID, WORLD } from "../data/world";
+import { CHECK_BY_ID, REGION_BY_ID, WORLD } from "../data/world";
+import { extractSpawnEntrances } from "./spawns";
 
 export class ImportError extends Error {
   constructor(message: string) {
@@ -25,6 +26,8 @@ interface RandoFile {
   settings?: Record<string, unknown>;
   SelectedStartingAge?: string;
   locations?: Record<string, LocationValue>;
+  entrances?: unknown;
+  entrancesMap?: unknown;
   trainer?: Partial<RandoConfig> & { name?: string };
 }
 
@@ -300,10 +303,21 @@ function startingAge(file: RandoFile, settings: Settings): "child" | "adult" {
   return selected.toLowerCase().includes("adult") ? "adult" : "child";
 }
 
+function isRandomStartingAge(settings: Settings): boolean {
+  return (settings["Starting Age"] ?? "").toLowerCase() === "random";
+}
+
 function isRandoFile(value: unknown): value is RandoFile {
   if (!value || typeof value !== "object") return false;
   const record = value as Record<string, unknown>;
-  return Boolean(record.settings || record.locations || record.trainer || record["Closed Forest"]);
+  return Boolean(
+    record.settings ||
+      record.locations ||
+      record.trainer ||
+      record.entrances ||
+      record.entrancesMap ||
+      record["Closed Forest"],
+  );
 }
 
 export function parseRandoJson(raw: string): RandoFile {
@@ -317,10 +331,17 @@ export function parseRandoJson(raw: string): RandoFile {
     throw new ImportError("Expected a settings or spoiler object, not an array.");
   }
   if (!isRandoFile(parsed)) {
-    throw new ImportError("JSON needs a settings object, locations, or trainer preset.");
+    throw new ImportError("JSON needs a settings object, locations, spoiler, or trainer preset.");
   }
   if (parsed.settings) return parsed;
-  if ((parsed as RandoFile).trainer || (parsed as RandoFile).locations) return parsed;
+  if (
+    (parsed as RandoFile).trainer ||
+    (parsed as RandoFile).locations ||
+    (parsed as RandoFile).entrances ||
+    (parsed as RandoFile).entrancesMap
+  ) {
+    return parsed;
+  }
   return { settings: parsed as Record<string, unknown> };
 }
 
@@ -328,7 +349,6 @@ export function importRandoFile(raw: string, fileName = "imported.json", default
   const file = parseRandoJson(raw);
   const settings = stringifySettings(file.settings ?? {});
   const version = file.version ?? defaults?.randoVersion ?? "";
-  const games = { oot: true, mm: false } as const;
   const age = startingAge(file, settings);
   const locations = file.locations ?? {};
   const locationNames = Object.keys(locations);
@@ -348,6 +368,29 @@ export function importRandoFile(raw: string, fileName = "imported.json", default
   const name =
     trainer.name ??
     (seed ? `${version || "Rando"} seed ${seed}` : fileName.replace(/\.json$/i, "") || "Imported preset");
+  const spawnShuffle = trainer.spawnShuffle ?? on(settings["Overworld Spawns"]);
+  const spawns = extractSpawnEntrances(file);
+  const childSpawn = trainer.childSpawn ?? spawns.child ?? "auto";
+  const adultSpawn = trainer.adultSpawn ?? spawns.adult ?? "auto";
+  const startSpawn =
+    trainer.spawn ??
+    (age === "adult"
+      ? adultSpawn !== "auto"
+        ? adultSpawn
+        : spawnShuffle
+          ? "auto"
+          : "oot-tot"
+      : childSpawn !== "auto"
+        ? childSpawn
+        : spawnShuffle
+          ? "auto"
+          : "auto");
+  const spawnNote =
+    childSpawn !== "auto" || adultSpawn !== "auto"
+      ? `Child spawn ${childSpawn === "auto" ? "vanilla" : childSpawn}; adult spawn ${adultSpawn === "auto" ? "vanilla" : adultSpawn}. `
+      : spawnShuffle
+        ? "Overworld spawns shuffled — each practice seed picks child/adult save warps. "
+        : "";
 
   const config = createConfig(
     {
@@ -355,20 +398,25 @@ export function importRandoFile(raw: string, fileName = "imported.json", default
       games: { oot: true, mm: false },
       checkTypes: trainer.checkTypes ?? checkTypesFromSettings(settings),
       startingAge: trainer.startingAge ?? age,
+      randomStartingAge: trainer.randomStartingAge ?? isRandomStartingAge(settings),
       openForest: trainer.openForest ?? !on(settings["Closed Forest"]),
       openDeku: trainer.openDeku ?? true,
       openZora: trainer.openZora ?? true,
       openDoorOfTime: trainer.openDoorOfTime ?? (settings["Door of Time"] ?? "Open").toLowerCase() === "open",
-      spawn: trainer.spawn ?? (age === "adult" && games.oot ? "oot-tot" : "auto"),
+      spawn: startSpawn,
+      childSpawn,
+      adultSpawn,
+      spawnShuffle,
       startingItems: trainer.startingItems ?? startingItemsFromSettings(settings),
       randoVersion: version || undefined,
       randoSeed: seed,
       randoSettings: Object.keys(settings).length ? settings : trainer.randoSettings,
       importedPlacement: Object.keys(importedPlacement).length ? importedPlacement : trainer.importedPlacement,
       importedCheckIds: importedCheckIds.length ? importedCheckIds : trainer.importedCheckIds,
+      importedEntrances: Object.keys(spawns.raw).length ? spawns.raw : trainer.importedEntrances,
       importSummary: locationNames.length
-        ? `Matched ${importedCheckIds.length} of ${locationNames.length} spoiler locations`
-        : "Settings only — no spoiler locations",
+        ? `${spawnNote}Matched ${importedCheckIds.length} of ${locationNames.length} spoiler locations`
+        : `${spawnNote || ""}Settings only — no spoiler locations`.trim(),
       sourceFileName: fileName,
       penaltySeconds: trainer.penaltySeconds,
       peekPenaltySeconds: trainer.peekPenaltySeconds,
@@ -392,29 +440,54 @@ export function exportRandoFile(config: RandoConfig): string {
       "Closed Forest": config.openForest ? "Off" : "On",
       "Door of Time": config.openDoorOfTime ? "Open" : "Closed",
       "Zora's Fountain": config.openZora ? "Open" : "Closed",
-      "Starting Age": config.startingAge === "adult" ? "Adult" : "Child",
+      "Starting Age": config.randomStartingAge ? "Random" : config.startingAge === "adult" ? "Adult" : "Child",
+      "Selected Starting Age": config.startingAge === "adult" ? "Adult" : "Child",
+      "Overworld Spawns": config.spawnShuffle ? "On" : "Off",
       "Shop Shuffle": config.checkTypes.shop ? "Specific Count" : "Off",
       "Scrubs Shuffle": config.checkTypes.scrub ? "On" : "Off",
       "Token Shuffle": config.checkTypes.skullReward ? "All Tokens" : "Off",
       "Shuffle Adult Trade": config.checkTypes.trade ? "On" : "Off",
     } satisfies Settings);
 
+  const locations: Record<string, string> = {};
+  if (config.importedPlacement) {
+    for (const [checkId, item] of Object.entries(config.importedPlacement)) {
+      locations[CHECK_BY_ID[checkId]?.name ?? checkId] = item;
+    }
+  }
+
+  const child = config.childSpawn !== "auto" ? config.childSpawn : "oot-kokiri";
+  const adult = config.adultSpawn !== "auto" ? config.adultSpawn : "oot-tot";
+
   return `${JSON.stringify(
     {
       version: config.randoVersion || "OoT Check Trainer",
-      fileType: 1,
+      fileType: config.importedPlacement ? 3 : 1,
       seed: config.randoSeed,
       settings,
+      SelectedStartingAge: config.startingAge === "adult" ? "Adult" : "Child",
+      ...(Object.keys(locations).length ? { locations } : {}),
+      entrancesMap: {
+        "sphere 00": {
+          "Child Spawn": REGION_BY_ID[child]?.name ?? "Kokiri Forest",
+          "Adult Spawn": REGION_BY_ID[adult]?.name ?? "Temple of Time",
+          ...config.importedEntrances,
+        },
+      },
       trainer: {
         name: config.name,
         games: config.games,
         checkTypes: config.checkTypes,
         startingAge: config.startingAge,
+        randomStartingAge: config.randomStartingAge,
         openForest: config.openForest,
         openDeku: config.openDeku,
         openZora: config.openZora,
         openDoorOfTime: config.openDoorOfTime,
         spawn: config.spawn,
+        childSpawn: config.childSpawn,
+        adultSpawn: config.adultSpawn,
+        spawnShuffle: config.spawnShuffle,
         startingItems: config.startingItems,
         penaltySeconds: config.penaltySeconds,
         peekPenaltySeconds: config.peekPenaltySeconds,
@@ -422,6 +495,7 @@ export function exportRandoFile(config: RandoConfig): string {
         hideLocked: config.hideLocked,
         importedPlacement: config.importedPlacement,
         importedCheckIds: config.importedCheckIds,
+        importedEntrances: config.importedEntrances,
         importSummary: config.importSummary,
       },
     },

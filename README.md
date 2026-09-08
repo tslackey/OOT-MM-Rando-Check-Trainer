@@ -8,6 +8,8 @@ Majora's Mask will be a separate trainer later. This app is OoT only.
 
 - Save named OoT rando configurations (check types, open-world flags, penalty times).
 - Import an OoTR spoiler/settings JSON and keep those settings as generation defaults.
+- Practice generates a spoiler from the config (item placement plus child/adult spawn). Imported spoilers keep their locations and shuffled overworld spawns.
+- Respawn (save/death warp) and Farore's Wind are available on the Warp tab.
 - Mark one preset as your default; new configs copy its training penalties.
 - Practice by tapping **Go to** / **Check** buttons, the same way you would walk a seed.
 - Invalid travels, already-collected checks, and out-of-logic actions add time penalties.
@@ -34,7 +36,9 @@ On **Configs**, use **Import JSON** with an OoTR spoiler or settings file like:
 }
 ```
 
-The importer stores the original `settings` object so you can **Export JSON** and reuse it as generation defaults. If the file also has `locations`, matched checks keep that seed's item placement. **Set as default** makes that preset the Home start button and the template for new configs.
+The importer stores the original `settings` object so you can **Export JSON** and reuse it as generation defaults. If the file also has `locations`, matched checks keep that seed's item placement. **Child Spawn** / **Adult Spawn** in `entrances` or `entrancesMap` become the child and adult save-warp points (so shuffled overworld spawns do not start you in Kokiri unless that is the spawn). **Set as default** makes that preset the Home start button and the template for new configs.
+
+During a run, **Warp** always includes **Respawn** to the current age's save warp. If you have Farore's Wind, you can set a dungeon point and warp back. **Spoiler** downloads the generated/imported log for that attempt.
 
 ## Scripts
 

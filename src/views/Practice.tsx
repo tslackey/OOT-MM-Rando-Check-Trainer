@@ -4,11 +4,15 @@ import { archiveSession, setActiveSession, setView } from "../state/store";
 import {
   collectCheck,
   createSession,
+  clearFaroresWind,
   peekRemaining,
+  respawnToSpawn,
+  setFaroresWind,
   summarize,
   switchAge,
   togglePause,
   travelTo,
+  warpFaroresWind,
   warpTo,
 } from "../lib/session";
 import {
@@ -16,14 +20,18 @@ import {
   inventoryGroups,
   isWrong,
   labeledItem,
+  specialWarps,
   visibleExits,
   visibleRegionChecks,
   visibleWarps,
   type PracticeTab,
+  type SpecialWarpId,
 } from "../lib/practiceUi";
 import { formatDuration, sessionElapsedMs } from "../lib/scoring";
 import { REGION_BY_ID } from "../data/world";
 import { hapticPenalty } from "../storage/persist";
+import { downloadText } from "../lib/importRando";
+import { exportSessionSpoiler } from "../lib/spoiler";
 import type { WorldCheck } from "../data/types";
 
 export function Practice() {
@@ -48,6 +56,7 @@ export function Practice() {
   const regionChecks = useMemo(() => (session ? visibleRegionChecks(session) : []), [session]);
   const exits = useMemo(() => (session && config ? visibleExits(session, config) : []), [session, config]);
   const warps = useMemo(() => (session && config ? visibleWarps(session, config) : []), [session, config]);
+  const extraWarps = useMemo(() => (session ? specialWarps(session) : []), [session]);
   const showWarpTab = Boolean(session && config && canShowWarpTab(session, config));
   const groups = useMemo(() => (session ? inventoryGroups(session.inventory) : []), [session]);
 
@@ -89,6 +98,9 @@ export function Practice() {
             <h1 className="location-name">{region?.name ?? session.currentRegionId}</h1>
             <p className="muted location-meta">
               <span className="age-pill">{session.age}</span>
+              <span>
+                spawn {REGION_BY_ID[session.age === "adult" ? session.adultSpawnId : session.childSpawnId]?.name ?? "?"}
+              </span>
               <span>
                 {session.collectedCheckIds.length}/{session.enabledCheckIds.length} · {remaining} left
               </span>
@@ -212,21 +224,48 @@ export function Practice() {
       ) : null}
 
       {tab === "warp" && showWarpTab ? (
-        <section>
-          <h2>Warp songs</h2>
-          <div className="btn-grid">
-            {warps.map((warp) => (
-              <button
-                key={warp.item}
-                type="button"
-                className={isWrong(session, warp.item) ? "go-btn wrong" : "go-btn"}
-                onClick={() => apply(warpTo(session, config, warp.item))}
-              >
-                {warp.label}
-              </button>
-            ))}
-          </div>
-        </section>
+        <>
+          <section>
+            <h2>Respawn & Farore's Wind</h2>
+            <div className="btn-grid">
+              {extraWarps.map((warp) => (
+                <button
+                  key={warp.id}
+                  type="button"
+                  className={isWrong(session, warp.id) ? "go-btn wrong" : "go-btn"}
+                  onClick={() => {
+                    const applySpecial = (id: SpecialWarpId) => {
+                      if (id === "respawn") return respawnToSpawn(session, config);
+                      if (id === "farores-set") return setFaroresWind(session, config);
+                      if (id === "farores-return") return warpFaroresWind(session, config);
+                      return clearFaroresWind(session, config);
+                    };
+                    apply(applySpecial(warp.id));
+                  }}
+                >
+                  {warp.label}
+                </button>
+              ))}
+            </div>
+          </section>
+          {warps.length ? (
+            <section>
+              <h2>Warp songs</h2>
+              <div className="btn-grid">
+                {warps.map((warp) => (
+                  <button
+                    key={warp.item}
+                    type="button"
+                    className={isWrong(session, warp.item) ? "go-btn wrong" : "go-btn"}
+                    onClick={() => apply(warpTo(session, config, warp.item))}
+                  >
+                    {warp.label}
+                  </button>
+                ))}
+              </div>
+            </section>
+          ) : null}
+        </>
       ) : null}
 
       {peek.length ? (
@@ -266,12 +305,24 @@ export function Practice() {
           type="button"
           className="ghost"
           onClick={() => {
+            downloadText(
+              `${session.configName.replace(/[^\w.-]+/g, "-").toLowerCase()}-spoiler.json`,
+              exportSessionSpoiler(session, config),
+            );
+          }}
+        >
+          Spoiler
+        </button>
+        <button
+          type="button"
+          className="ghost"
+          onClick={() => {
             setActiveSession(createSession(config));
             setPeek([]);
             setTab("location");
           }}
         >
-          Restart
+          New seed
         </button>
         <button
           type="button"

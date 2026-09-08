@@ -85,9 +85,10 @@ export function Configs() {
       {notice ? <p className="flash ok">{notice}</p> : null}
 
       <p className="muted">
-        Import an OoT Randomizer spoiler or settings JSON (the Ackbar-style file with a{" "}
-        <code>settings</code> object). The settings are kept so you can export them later as your
-        generation defaults.
+        Import an OoT Randomizer spoiler or settings JSON. Locations become the seed's item
+        placement; <code>Child Spawn</code> / <code>Adult Spawn</code> in <code>entrancesMap</code>{" "}
+        set save-warp points. Practice then generates a spoiler from the config (or keeps the
+        imported one).
       </p>
 
       <ul className="config-list">

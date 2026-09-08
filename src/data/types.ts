@@ -79,12 +79,17 @@ export interface RandoConfig {
   hideCompleted: boolean;
   hideLocked: boolean;
   spawn: "auto" | string;
+  childSpawn: "auto" | string;
+  adultSpawn: "auto" | string;
+  spawnShuffle: boolean;
+  randomStartingAge: boolean;
   startingItems: string[];
   randoVersion?: string;
   randoSeed?: string;
   randoSettings?: Record<string, string>;
   importedPlacement?: Record<string, string>;
   importedCheckIds?: string[];
+  importedEntrances?: Record<string, string>;
   importSummary?: string;
   sourceFileName?: string;
 }
@@ -111,6 +116,10 @@ export interface PracticeSession {
   pausedMs: number;
   currentRegionId: string;
   age: Exclude<Age, "any">;
+  childSpawnId: string;
+  adultSpawnId: string;
+  faroresRegionId?: string | null;
+  seed: number;
   inventory: string[];
   collectedCheckIds: string[];
   wrongIds: string[];

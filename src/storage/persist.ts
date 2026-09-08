@@ -12,6 +12,10 @@ function normalizeConfig(config: RandoConfig): RandoConfig | null {
     startingItems: config.startingItems ?? [],
     games: { oot: true, mm: false },
     spawn: config.spawn?.startsWith("mm-") ? "auto" : config.spawn,
+    childSpawn: config.childSpawn ?? "auto",
+    adultSpawn: config.adultSpawn ?? "auto",
+    spawnShuffle: config.spawnShuffle ?? false,
+    randomStartingAge: config.randomStartingAge ?? false,
     name: config.name.replaceAll("OoTMM", "OoT"),
   };
 }
@@ -33,7 +37,14 @@ function normalizeState(parsed: PersistedState): PersistedState {
     lastConfigId: parsed.lastConfigId && ids.has(parsed.lastConfigId) ? parsed.lastConfigId : PRESETS[0]?.id ?? null,
     defaultConfigId: parsed.defaultConfigId && ids.has(parsed.defaultConfigId) ? parsed.defaultConfigId : null,
     activeSession: parsed.activeSession
-      ? { ...parsed.activeSession, wrongIds: parsed.activeSession.wrongIds ?? [] }
+      ? {
+          ...parsed.activeSession,
+          wrongIds: parsed.activeSession.wrongIds ?? [],
+          childSpawnId: parsed.activeSession.childSpawnId ?? parsed.activeSession.currentRegionId,
+          adultSpawnId: parsed.activeSession.adultSpawnId ?? "oot-tot",
+          seed: parsed.activeSession.seed ?? parsed.activeSession.startedAt,
+          faroresRegionId: parsed.activeSession.faroresRegionId ?? null,
+        }
       : null,
   };
 }
