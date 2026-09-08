@@ -12,8 +12,8 @@ import well from "../data/ootr/Bottom of the Well.json";
 import ice from "../data/ootr/Ice Cavern.json";
 import gtg from "../data/ootr/Gerudo Training Ground.json";
 import ganon from "../data/ootr/Ganons Castle.json";
+import { tryCompile, type CompileError } from "./compile";
 import type { Expr } from "./rules";
-import { parseRule } from "./rules";
 
 export interface LogicRegion {
   name: string;
@@ -31,13 +31,13 @@ interface RawRegion {
   events?: Record<string, string>;
 }
 
+export const WORLD_COMPILE_ERRORS: CompileError[] = [];
+
 function compileRegion(raw: RawRegion): LogicRegion {
-  const parse = (text: string): Expr => {
-    try {
-      return parseRule(text);
-    } catch {
-      return { type: "const", value: false };
-    }
+  const parse = (text: string, where: string): Expr => {
+    const compiled = tryCompile(text, where);
+    if (compiled.error) WORLD_COMPILE_ERRORS.push(compiled.error);
+    return compiled.expr;
   };
   return {
     name: raw.region_name,
@@ -45,17 +45,17 @@ function compileRegion(raw: RawRegion): LogicRegion {
     locations: Object.entries(raw.locations ?? {}).map(([name, text]) => ({
       name,
       text,
-      rule: parse(text),
+      rule: parse(text, `${raw.region_name} location ${name}`),
     })),
     exits: Object.entries(raw.exits ?? {}).map(([to, text]) => ({
       to,
       text,
-      rule: parse(text),
+      rule: parse(text, `${raw.region_name} exit ${to}`),
     })),
     events: Object.entries(raw.events ?? {}).map(([name, text]) => ({
       name,
       text,
-      rule: parse(text),
+      rule: parse(text, `${raw.region_name} event ${name}`),
     })),
   };
 }
