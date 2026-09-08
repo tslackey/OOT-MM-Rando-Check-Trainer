@@ -1,7 +1,7 @@
-import { WORLD } from "../data/world";
+import { isMajoraItem, WORLD } from "../data/world";
 import type { WorldCheck } from "../data/types";
 
-function mulberry32(seed: number): () => number {
+export function mulberry32(seed: number): () => number {
   let t = seed >>> 0;
   return () => {
     t += 0x6d2b79f5;
@@ -11,7 +11,7 @@ function mulberry32(seed: number): () => number {
   };
 }
 
-function hashSeed(source: string): number {
+export function hashSeed(source: string): number {
   let h = 2166136261;
   for (let i = 0; i < source.length; i += 1) {
     h ^= source.charCodeAt(i);
@@ -30,7 +30,7 @@ function shuffleInPlace<T>(items: T[], rand: () => number): T[] {
 
 export function placeItems(checks: WorldCheck[], seed = Date.now()): Record<string, string> {
   const rand = mulberry32(hashSeed(String(seed)));
-  const progression = [...WORLD.itemPool.progression];
+  const progression = WORLD.itemPool.progression.filter((item) => !isMajoraItem(item));
   const junk = [...WORLD.itemPool.junk];
   shuffleInPlace(progression, rand);
   shuffleInPlace(junk, rand);

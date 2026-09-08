@@ -3,6 +3,7 @@ import { createConfig } from "../data/presets";
 import { CHECK_BY_ID, availableWarps } from "../data/world";
 import {
   canShowWarpTab,
+  specialWarps,
   visibleExits,
   visibleRegionChecks,
   visibleWarps,
@@ -29,6 +30,21 @@ describe("practice UI filters", () => {
     expect(after).not.toContain("oot-lost-woods-skull-kid");
   });
 
+  it("offers Lost Woods Bridge from Kokiri and not Hyrule Field from the woods", () => {
+    const config = createConfig({ spawn: "oot-kokiri", openForest: true, games: { oot: true, mm: false } });
+    let session = createSession(config, 1);
+    const kokiriExits = visibleExits(session, config).map((edge) => edge.to);
+    expect(kokiriExits).toContain("oot-lost-woods");
+    expect(kokiriExits).toContain("oot-lost-woods-bridge");
+    expect(kokiriExits).not.toContain("oot-field");
+
+    session = travelTo(session, config, "oot-lost-woods");
+    const woodsExits = visibleExits(session, config).map((edge) => edge.to);
+    expect(woodsExits).toContain("oot-kokiri");
+    expect(woodsExits).not.toContain("oot-field");
+    expect(woodsExits).not.toContain("oot-lost-woods-bridge");
+  });
+
   it("shows Deku Theater from Lost Woods only as child", () => {
     const config = createConfig({ spawn: "oot-kokiri", games: { oot: true, mm: false } });
     let session = createSession(config, 1);
@@ -39,7 +55,7 @@ describe("practice UI filters", () => {
     expect(visibleExits(session, config).some((edge) => edge.to === "oot-deku-theater")).toBe(false);
   });
 
-  it("keeps warp songs hidden without an ocarina", () => {
+  it("keeps warp songs hidden without an ocarina but still offers respawn", () => {
     const config = createConfig({ games: { oot: true, mm: false } });
     const session = {
       ...createSession(config, 1),
@@ -47,10 +63,11 @@ describe("practice UI filters", () => {
     };
     expect(availableWarps(session.inventory)).toEqual([]);
     expect(visibleWarps(session, config)).toEqual([]);
-    expect(canShowWarpTab(session, config)).toBe(false);
+    expect(canShowWarpTab(session, config)).toBe(true);
+    expect(specialWarps(session).some((warp) => warp.id === "respawn")).toBe(true);
   });
 
-  it("shows the warp tab only for owned songs plus ocarina", () => {
+  it("shows owned warp songs plus ocarina", () => {
     const config = createConfig({ games: { oot: true, mm: false } });
     const session = {
       ...createSession(config, 1),

@@ -9,7 +9,57 @@ import type {
   WorldData,
 } from "./types";
 
-export const WORLD = world as WorldData;
+const MM_ITEMS = new Set([
+  "deku_mask",
+  "goron_mask",
+  "zora_mask",
+  "song_of_healing",
+  "soaring",
+  "sonata",
+  "lullaby",
+  "nwbn",
+  "elegy",
+  "oath",
+  "bow_mm",
+  "hookshot_mm",
+  "fire_arrow",
+  "ice_arrow",
+  "light_arrow",
+  "powder_keg",
+  "lens_mm",
+  "garo_mask",
+  "stone_mask",
+  "seahorse",
+  "room_key",
+  "letter_kafei",
+  "odolwa",
+  "goht",
+  "gyorg",
+  "twinmold",
+  "cross_game",
+]);
+
+export function isMajoraItem(item: string): boolean {
+  if (item.endsWith("_mm") || item.startsWith("soaring")) return true;
+  return MM_ITEMS.has(item);
+}
+
+function ootOnlyWorld(data: WorldData): WorldData {
+  const regions = data.regions.filter((region) => region.game === "oot");
+  const regionIds = new Set(regions.map((region) => region.id));
+  return {
+    regions,
+    connections: data.connections.filter((connection) => regionIds.has(connection.from) && regionIds.has(connection.to)),
+    warps: data.warps.filter((warp) => regionIds.has(warp.regionId)),
+    checks: data.checks.filter((check) => check.game === "oot"),
+    itemPool: {
+      progression: data.itemPool.progression.filter((item) => !isMajoraItem(item)),
+      junk: data.itemPool.junk,
+    },
+  };
+}
+
+export const WORLD = ootOnlyWorld(world as WorldData);
 
 export const REGION_BY_ID: Record<string, Region> = Object.fromEntries(
   WORLD.regions.map((region) => [region.id, region]),
@@ -28,11 +78,29 @@ export function flagsFor(config: RandoConfig): string[] {
   return flags;
 }
 
-export function spawnRegion(config: RandoConfig): string {
+export function vanillaSpawn(age: Exclude<Age, "any">): string {
+  return age === "adult" ? "oot-tot" : "oot-kokiri";
+}
+
+export function overworldSpawnRegions(age: Exclude<Age, "any"> = "child"): Region[] {
+  return WORLD.regions.filter((region) => {
+    if (region.game !== "oot" || region.dungeon) return false;
+    if (age === "child" && region.id === "oot-ganon-out") return false;
+    if (age === "adult" && region.id === "oot-castle") return false;
+    return true;
+  });
+}
+
+export function spawnForAge(config: RandoConfig, age: Exclude<Age, "any">): string {
+  const pinned = age === "adult" ? config.adultSpawn : config.childSpawn;
+  if (pinned && pinned !== "auto" && REGION_BY_ID[pinned]?.game === "oot") return pinned;
   const requested = config.spawn !== "auto" ? REGION_BY_ID[config.spawn] : undefined;
   if (requested?.game === "oot") return requested.id;
-  if (config.startingAge === "adult") return "oot-tot";
-  return "oot-kokiri";
+  return vanillaSpawn(age);
+}
+
+export function spawnRegion(config: RandoConfig): string {
+  return spawnForAge(config, config.startingAge);
 }
 
 export function enabledChecks(config: RandoConfig): WorldCheck[] {
@@ -171,29 +239,7 @@ export const ITEM_LABELS: Record<string, string> = {
   prelude: "Prelude of Light",
   gerudo_card: "Gerudo Card",
   bottle: "Bottle",
-  deku_mask: "Deku Mask",
-  goron_mask: "Goron Mask",
-  zora_mask: "Zora Mask",
-  song_of_healing: "Song of Healing",
-  soaring: "Song of Soaring",
-  sonata: "Sonata of Awakening",
-  lullaby: "Goron Lullaby",
-  nwbn: "New Wave Bossa Nova",
-  elegy: "Elegy of Emptiness",
-  oath: "Oath to Order",
-  bow_mm: "Hero's Bow",
-  hookshot_mm: "Hookshot (MM)",
-  fire_arrow: "Fire Arrow",
-  ice_arrow: "Ice Arrow",
-  light_arrow: "Light Arrow",
   mirror_shield: "Mirror Shield",
-  powder_keg: "Powder Keg",
-  lens_mm: "Lens of Truth (MM)",
-  garo_mask: "Garo Mask",
-  stone_mask: "Stone Mask",
-  seahorse: "Seahorse",
-  room_key: "Room Key",
-  letter_kafei: "Letter to Kafei",
   kokiri_emerald: "Kokiri's Emerald",
   goron_ruby: "Goron's Ruby",
   zora_sapphire: "Zora's Sapphire",
@@ -203,19 +249,14 @@ export const ITEM_LABELS: Record<string, string> = {
   shadow_medallion: "Shadow Medallion",
   spirit_medallion: "Spirit Medallion",
   light_medallion: "Light Medallion",
-  odolwa: "Odolwa's Remains",
-  goht: "Goht's Remains",
-  gyorg: "Gyorg's Remains",
-  twinmold: "Twinmold's Remains",
   open_forest: "Open Forest",
   open_deku: "Open Deku",
   open_zora: "Open Zora",
   open_door_of_time: "Open Door of Time",
-  cross_game: "OoTMM",
   gs_tokens: "Skulltula tokens",
 };
 
 export function itemLabel(id: string): string {
-  if (id.startsWith("junk_")) return "Junk";
+  if (id.startsWith("junk_") || isMajoraItem(id)) return "Junk";
   return ITEM_LABELS[id] ?? id.replaceAll("_", " ");
 }

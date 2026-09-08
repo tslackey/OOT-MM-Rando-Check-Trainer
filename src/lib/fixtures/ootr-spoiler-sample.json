@@ -298,6 +298,12 @@
     "Start with Bunny Hood": "Off"
   },
   "SelectedStartingAge": "Adult",
+  "entrancesMap": {
+    "sphere 00": {
+      "Child Spawn": "Lake Hylia North Exit",
+      "Adult Spawn": "Kak Impas House"
+    }
+  },
   "locations": {
     "KF Kokiri Sword Chest": "Piece of Heart",
     "KF Mido Top Left Chest": "Gold Skulltula Token",

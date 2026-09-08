@@ -2,14 +2,17 @@ import { describe, expect, it } from "vitest";
 import { createConfig } from "../data/presets";
 import {
   ageOk,
+  allOutgoing,
   canUseConnection,
   CHECK_BY_ID,
   enabledChecks,
   flagsFor,
   hasAll,
+  isMajoraItem,
   reachableRegionIds,
   REGION_BY_ID,
   spawnRegion,
+  WORLD,
 } from "./world";
 
 describe("world logic", () => {
@@ -64,10 +67,34 @@ describe("world logic", () => {
     const inventory = ["open_forest", "open_deku", "open_zora", "ocarina", "song_of_time"];
     const reachable = reachableRegionIds("oot-kokiri", inventory, "child");
     expect(reachable.has("oot-lost-woods")).toBe(true);
+    expect(reachable.has("oot-lost-woods-bridge")).toBe(true);
     expect(reachable.has("oot-deku-theater")).toBe(true);
     expect(reachable.has("oot-field")).toBe(true);
     expect(reachable.has("mm-sct")).toBe(false);
     expect(reachable.has("oot-forest")).toBe(false);
+  });
+
+  it("leaves Kokiri to Hyrule Field via Lost Woods Bridge, not the woods", () => {
+    expect(REGION_BY_ID["oot-lost-woods-bridge"].name).toBe("Lost Woods Bridge");
+    expect(WORLD.connections.some((edge) => edge.from === "oot-lost-woods" && edge.to === "oot-field")).toBe(
+      false,
+    );
+    expect(allOutgoing("oot-kokiri").some((edge) => edge.to === "oot-lost-woods-bridge")).toBe(true);
+    expect(allOutgoing("oot-lost-woods-bridge").some((edge) => edge.to === "oot-field")).toBe(true);
+    expect(allOutgoing("oot-lost-woods").some((edge) => edge.to === "oot-field")).toBe(false);
+
+    const fromWoods = reachableRegionIds("oot-lost-woods", [], "child");
+    expect(fromWoods.has("oot-kokiri")).toBe(true);
+    expect(fromWoods.has("oot-lost-woods-bridge")).toBe(true);
+    expect(fromWoods.has("oot-field")).toBe(false);
+
+    const fromKokiri = reachableRegionIds("oot-kokiri", ["open_forest"], "child");
+    expect(fromKokiri.has("oot-lost-woods-bridge")).toBe(true);
+    expect(fromKokiri.has("oot-field")).toBe(true);
+
+    const closedForest = reachableRegionIds("oot-kokiri", [], "child");
+    expect(closedForest.has("oot-lost-woods-bridge")).toBe(true);
+    expect(closedForest.has("oot-field")).toBe(false);
   });
 
   it("treats any-age checks as always age-ok", () => {
@@ -87,5 +114,13 @@ describe("world logic", () => {
     expect(sticks.name).toBe("Deku Theater Skull Mask");
     expect(nuts.name).toBe("Deku Theater Mask of Truth");
     expect(REGION_BY_ID["oot-deku-theater"].name).toBe("Deku Theater");
+  });
+
+  it("drops Majora's Mask regions, checks, and items", () => {
+    expect(WORLD.regions.every((region) => region.game === "oot")).toBe(true);
+    expect(WORLD.checks.every((check) => check.game === "oot")).toBe(true);
+    expect(WORLD.itemPool.progression.some(isMajoraItem)).toBe(false);
+    expect(WORLD.checks.some((check) => check.id.startsWith("mm-"))).toBe(false);
+    expect(REGION_BY_ID["mm-sct"]).toBeUndefined();
   });
 });
