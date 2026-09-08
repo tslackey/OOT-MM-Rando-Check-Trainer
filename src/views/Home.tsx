@@ -1,8 +1,10 @@
-import { useAppState } from "../state/useAppState";
-import { setActiveSession, setView } from "../state/store";
+import { InProgressRuns } from "../components/InProgressRuns";
+import { MAX_ACTIVE_SESSIONS } from "../data/types";
 import { createSession } from "../lib/session";
-import { formatDuration, sessionElapsedMs } from "../lib/scoring";
-import { REGION_BY_ID } from "../data/world";
+import { canStartSession } from "../lib/runs";
+import { formatDuration } from "../lib/scoring";
+import { startSession, setView } from "../state/store";
+import { useAppState } from "../state/useAppState";
 
 export function Home() {
   const state = useAppState();
@@ -10,7 +12,7 @@ export function Home() {
     state.configs.find((config) => config.id === state.defaultConfigId) ??
     state.configs.find((config) => config.id === state.lastConfigId) ??
     state.configs[0];
-  const active = state.activeSession;
+  const atCap = !canStartSession(state);
   const recent = state.sessions[0];
 
   return (
@@ -25,31 +27,15 @@ export function Home() {
         </p>
       </header>
 
-      {active ? (
-        <section className="card resume">
-          <div>
-            <p className="eyebrow">In progress</p>
-            <h2>{active.configName}</h2>
-            <p className="muted">
-              {REGION_BY_ID[active.currentRegionId]?.name} · {active.age} ·{" "}
-              {active.collectedCheckIds.length}/{active.enabledCheckIds.length} checks ·{" "}
-              {formatDuration(sessionElapsedMs(active))}
-            </p>
-          </div>
-          <button type="button" onClick={() => setView("practice")}>
-            Resume run
-          </button>
-        </section>
-      ) : null}
+      <InProgressRuns />
 
       <section className="actions">
         <button
           type="button"
-          disabled={!last}
+          disabled={!last || atCap}
           onClick={() => {
             if (!last) return;
-            setActiveSession(createSession(last));
-            setView("practice");
+            if (startSession(createSession(last))) setView("practice");
           }}
         >
           Start {last ? last.name : "a config"}
@@ -58,6 +44,11 @@ export function Home() {
           Import / configure presets
         </button>
       </section>
+      {atCap ? (
+        <p className="muted">
+          You can keep {MAX_ACTIVE_SESSIONS} runs in progress. Resume or delete one to start another.
+        </p>
+      ) : null}
 
       {recent ? (
         <section className="card">
