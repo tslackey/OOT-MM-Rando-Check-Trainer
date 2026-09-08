@@ -26,6 +26,9 @@ function staleSession(): PracticeSession {
     penalties: 0,
     penaltySeconds: 0,
     peekUsed: 0,
+    childSpawnId: "mm-sct",
+    adultSpawnId: "mm-clock-town",
+    seed: 1,
   };
 }
 
@@ -84,6 +87,8 @@ describe("persisted run slots", () => {
     });
     const session = next.activeSessions[0];
     expect(session?.currentRegionId).toBe("oot-kokiri");
+    expect(session?.childSpawnId).toBe("oot-kokiri");
+    expect(session?.adultSpawnId).toBe("oot-tot");
     expect(session?.enabledCheckIds).toEqual(["oot-graveyard-royal-tomb-song"]);
     expect(session?.collectedCheckIds).toEqual([]);
     expect(session?.inventory).toEqual(["ocarina"]);
