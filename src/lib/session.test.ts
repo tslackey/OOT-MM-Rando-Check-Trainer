@@ -151,4 +151,14 @@ describe("practice session", () => {
       "small_key_forest",
     ]);
   });
+
+  it("keeps stacked keys when they are starting items", () => {
+    const config = createConfig({
+      spawn: "oot-sfm",
+      startingAge: "adult",
+      startingItems: ["hookshot", "small_key_forest", "small_key_forest", "small_key_forest", "strength"],
+    });
+    const session = createSession(config, 1);
+    expect(session.inventory.filter((item) => item === "small_key_forest")).toHaveLength(3);
+  });
 });

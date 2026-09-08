@@ -35,7 +35,15 @@ function logicEvents(session: PracticeSession): string[] {
 export function startingInventory(config: RandoConfig): string[] {
   const items = [...flagsFor(config), ...(config.startingItems ?? [])];
   if (!config.randoSettings && config.openDoorOfTime) items.push("ocarina");
-  return [...new Set(items)];
+  const out: string[] = [];
+  const seen = new Set<string>();
+  for (const item of items) {
+    if (isStackableTrainerId(item) || !seen.has(item)) {
+      out.push(item);
+      if (!isStackableTrainerId(item)) seen.add(item);
+    }
+  }
+  return out;
 }
 
 export function createSession(config: RandoConfig, seed?: number): PracticeSession {
