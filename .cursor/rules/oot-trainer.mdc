@@ -1,0 +1,37 @@
+---
+description: OoT check trainer steering — product, architecture, and constraints
+alwaysApply: true
+---
+
+# OoT Check Trainer
+
+This repository is a **Capacitor web app** that trains **Ocarina of Time randomizer** routing **without a check tracker**. Live site: GitHub Pages from `.github/workflows/pages.yml`.
+
+Read `AGENTS.md` before changing behavior.
+
+## Product
+
+- Operator taps **Go to …** and **Check …** like walking a seed.
+- Invalid actions cost time. Peeking remaining checks is the tracker crutch and costs more.
+- Configs and runs autosave (localStorage + Capacitor Preferences) for pick-up / put-down.
+- Import OoTR spoiler/settings JSON (`settings` + optional `locations`) and keep `settings` as generation defaults.
+- One preset can be the user default.
+
+## Hard limits
+
+- **OoT only.** Do not add Majora's Mask, OoTMM combo, or cross-game overworld links in the UI. MM is a future separate app.
+- **Do not turn Practice into a tracker.** Do not restyle buttons to reveal in-logic vs out-of-logic unless the operator enabled hide-locked / hide-completed easier modes.
+- **Do not claim official logic.** `src/data/world.json` is a training graph, not OoTR's solver.
+- **GitHub Pages, not GitLab.** Vite `base` stays `./`. Deploy `dist/` via the Pages workflow.
+
+## Layout
+
+- `src/views/` — Home, Configs, editor, Practice, Stats (store-driven views, no React Router)
+- `src/lib/session.ts` — practice mutations
+- `src/lib/importRando.ts` — OoTR JSON
+- `src/data/world.ts` + `world.json` — regions, connections, checks
+- `src/state/store.ts` + `src/storage/persist.ts` — persisted store
+
+## Before finishing a change
+
+Run `npm test` and `npm run lint`. Keep import, session, and OoT-only world tests passing.
