@@ -22,6 +22,7 @@ import {
 } from "../data/world";
 import { adjustedMs, sessionElapsedMs } from "./scoring";
 import { generateSpoiler, startingRegion } from "./spoiler";
+import { isStackableTrainerId } from "../logic/inventoryMap";
 
 function event(partial: Omit<ActionEvent, "at"> & { at?: number }): ActionEvent {
   return { at: partial.at ?? Date.now(), ...partial };
@@ -330,7 +331,10 @@ export function collectCheck(
   }
   const item = session.placement[check.id] ?? "junk_1";
   const collected = [...session.collectedCheckIds, check.id];
-  const inventory = session.inventory.includes(item) ? session.inventory : [...session.inventory, item];
+  const inventory =
+    isStackableTrainerId(item) || !session.inventory.includes(item)
+      ? [...session.inventory, item]
+      : session.inventory;
   const done = collected.length >= session.enabledCheckIds.length;
   return succeed(
     session,

@@ -130,4 +130,25 @@ describe("practice session", () => {
     expect(next.lastFlash?.text.toLowerCase()).not.toContain(" mm");
     expect(itemLabel("hookshot_mm")).toBe("Junk");
   });
+
+  it("stacks duplicate small keys in inventory", () => {
+    const config = createConfig({ spawn: "oot-kokiri", games: { oot: true, mm: false } });
+    let session = createSession(config, 1);
+    const sword = CHECK_BY_ID["oot-kokiri-forest-kokiri-sword-chest"];
+    const mido = CHECK_BY_ID["oot-mido-s-house-top-left"];
+    session = {
+      ...session,
+      placement: {
+        ...session.placement,
+        [sword.id]: "small_key_forest",
+        [mido.id]: "small_key_forest",
+      },
+    };
+    session = collectCheck(session, config, sword);
+    session = collectCheck(session, config, mido);
+    expect(session.inventory.filter((item) => item === "small_key_forest")).toEqual([
+      "small_key_forest",
+      "small_key_forest",
+    ]);
+  });
 });

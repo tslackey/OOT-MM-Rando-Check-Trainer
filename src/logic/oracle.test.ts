@@ -37,7 +37,8 @@ describe("OoTR practice oracle", () => {
   it("allows Forest Temple First Room without hookshot once adult is in Forest", () => {
     expect(locationNamedInLogic("Forest Temple First Room Chest", "oot-forest", [], "adult")).toBe(true);
     const map = CHECK_BY_ID["oot-forest-temple-map"];
-    expect(checkInLogic(map, [], "adult", "oot-forest")).toBe(true);
+    expect(map.ootrLocation).toBe("Forest Temple Map Chest");
+    expect(checkInLogic(map, [], "adult", "oot-forest")).toBe(false);
     expect(checkInLogic(CHECK_BY_ID["oot-forest-temple-bow"], [], "adult", "oot-forest")).toBe(false);
   });
 

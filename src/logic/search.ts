@@ -4,12 +4,14 @@ import type { LogicState } from "./state";
 import { addEvent } from "./state";
 import { REGION_BY_NAME } from "./worldLogic";
 
-const MAX_ITERS = 24;
+const MAX_ITERS = 64;
 
 export function expandLocal(practiceId: string, state: LogicState): Set<string> {
   const start = PRACTICE_ENTRY[practiceId];
   const seen = new Set<string>();
   if (start && REGION_BY_NAME[start]) seen.add(start);
+  state.reachable = seen;
+  state.searchPracticeId = practiceId;
 
   for (let iter = 0; iter < MAX_ITERS; iter += 1) {
     let changed = false;

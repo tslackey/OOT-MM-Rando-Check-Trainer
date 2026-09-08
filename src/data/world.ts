@@ -288,6 +288,23 @@ export const ITEM_LABELS: Record<string, string> = {
   open_zora: "Open Zora",
   open_door_of_time: "Open Door of Time",
   gs_tokens: "Skulltula tokens",
+  small_key_forest: "Forest Temple Small Key",
+  small_key_fire: "Fire Temple Small Key",
+  small_key_water: "Water Temple Small Key",
+  small_key_shadow: "Shadow Temple Small Key",
+  small_key_spirit: "Spirit Temple Small Key",
+  small_key_well: "Well Small Key",
+  small_key_gtg: "Training Ground Small Key",
+  small_key_ganon: "Ganon's Castle Small Key",
+  small_key_hideout: "Hideout Small Key",
+  boss_key_forest: "Forest Temple Boss Key",
+  boss_key_fire: "Fire Temple Boss Key",
+  boss_key_water: "Water Temple Boss Key",
+  boss_key_shadow: "Shadow Temple Boss Key",
+  boss_key_spirit: "Spirit Temple Boss Key",
+  boss_key_ganon: "Ganon's Castle Boss Key",
+  silver_gauntlets: "Silver Gauntlets",
+  golden_gauntlets: "Golden Gauntlets",
 };
 
 export function itemLabel(id: string): string {

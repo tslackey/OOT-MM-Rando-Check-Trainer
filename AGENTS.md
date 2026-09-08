@@ -66,7 +66,7 @@ Fixture: `src/lib/fixtures/ootr-spoiler-sample.json`.
 3. **Peek is expensive.** Showing remaining checks must add `peekPenaltySeconds`.
 4. **Autosave everything** that the operator would lose if they closed the tab: configs, default preset, active run, history.
 5. **Pages deploy.** `.github/workflows/pages.yml` tests, builds `dist/`, and deploys to GitHub Pages. `.gitlab-ci.yml` does the same for GitLab Pages. Vite `base` is `./`. The HTML template is stamped at the top with the GitLab Pages build number (`CI_PIPELINE_IID`, or the GitHub run number when that is the pipeline).
-6. **Logic stays a subset.** `world.json` is the coarse Go to / Check map. In-logic penalties come from vendored OoTR World JSON + helpers (`src/logic`). Do not claim the trainer **is** OoTR. Remaining gaps are in `docs/LOGIC_PLAN.md` (MQ, entrance shuffle, dual-age fill).
+6. **Logic stays a subset.** `world.json` is the coarse Go to / Check map. In-logic penalties come from vendored OoTR World JSON + helpers (`src/logic`), including intra-dungeon BFS and stacked keys. Do not claim the trainer **is** OoTR. Remaining gaps are in `docs/LOGIC_PLAN.md` (dual-age fill, MQ, entrance shuffle).
 
 ## Commands
 
