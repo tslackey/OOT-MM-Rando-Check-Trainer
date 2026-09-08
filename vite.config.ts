@@ -4,7 +4,7 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  // Relative base works for Capacitor file://, GitLab Pages unique domains, and project subpaths.
+  // Relative base works for Capacitor file:// and GitHub Pages project sites.
   base: "./",
   build: {
     outDir: "dist",

@@ -1,6 +1,6 @@
 # OoTMM Check Trainer
 
-Practice [OoTMM](https://ootmm.com/) routing without a check tracker. The app is a Capacitor web project you can run in a browser, wrap later as a native shell, and publish with GitLab Pages.
+Practice [OoTMM](https://ootmm.com/) routing without a check tracker. The app is a Capacitor web project you can run in a browser, wrap later as a native shell, and publish with GitHub Pages.
 
 ## What it does
 
@@ -23,11 +23,13 @@ npm run build        # typecheck + static build to dist/
 npx cap sync         # copy web build into native projects once you add them
 ```
 
-## GitLab Pages
+## GitHub Pages
 
-`.gitlab-ci.yml` builds the Vite app and publishes `dist/` as Pages on the default branch. The Vite `base` is `./`, so the site works on unique Pages domains and project subpaths.
+`.github/workflows/pages.yml` tests, builds, and publishes `dist/` on pushes to `main`. The Vite `base` is `./`, so it works as a project site at `/OOT-MM-Rando-Check-Trainer/`.
 
-After the first pipeline, enable Pages in the GitLab project if it is not already on.
+In the repo: **Settings → Pages → Source → GitHub Actions**. The live URL after the first successful deploy is:
+
+https://tslackey.github.io/OOT-MM-Rando-Check-Trainer/
 
 ## Capacitor
 
