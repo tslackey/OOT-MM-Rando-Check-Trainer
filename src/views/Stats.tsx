@@ -29,7 +29,7 @@ export function Stats() {
       <section className="card">
         <h2>Recent runs</h2>
         {sessions.length === 0 ? (
-          <p className="muted">Finish or end a run to store it. Active runs autosave separately.</p>
+          <p className="muted">Finish or end a run to store it. Up to 3 in-progress runs autosave separately.</p>
         ) : (
           <ol className="history">
             {sessions.slice(0, 20).map((session) => (

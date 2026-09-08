@@ -1,4 +1,12 @@
 import type { PersistedState, PracticeSession, RandoConfig, SessionSummary, ViewId } from "../data/types";
+import {
+  withArchivedSession,
+  withDeletedActiveSession,
+  withReplacedCurrentSession,
+  withResumedSession,
+  withStartedSession,
+  withUpdatedSession,
+} from "../lib/runs";
 import { bindAppPause, emptyState, loadState, saveState } from "../storage/persist";
 
 type Listener = () => void;
@@ -61,16 +69,38 @@ export function setDefaultConfigId(id: string | null): void {
   setState({ defaultConfigId: id, lastConfigId: id ?? state.lastConfigId });
 }
 
-export function setActiveSession(session: PracticeSession | null): void {
-  setState({ activeSession: session, lastConfigId: session?.configId ?? state.lastConfigId });
+export function startSession(session: PracticeSession): boolean {
+  let started = false;
+  setState((current) => {
+    if (current.activeSessions.some((entry) => entry.id === session.id)) {
+      started = true;
+      return withUpdatedSession(current, session);
+    }
+    const next = withStartedSession(current, session);
+    started = next !== current;
+    return next;
+  });
+  return started;
+}
+
+export function updateSession(session: PracticeSession): void {
+  setState((current) => withUpdatedSession(current, session));
+}
+
+export function replaceCurrentSession(session: PracticeSession): void {
+  setState((current) => withReplacedCurrentSession(current, session));
+}
+
+export function resumeSession(id: string): void {
+  setState((current) => withResumedSession(current, id));
+}
+
+export function deleteActiveSession(id: string): void {
+  setState((current) => withDeletedActiveSession(current, id));
 }
 
 export function archiveSession(summary: SessionSummary): void {
-  setState((current) => ({
-    ...current,
-    sessions: [summary, ...current.sessions].slice(0, 200),
-    activeSession: null,
-  }));
+  setState((current) => withArchivedSession(current, summary));
 }
 
 export function flushSave(): void {
