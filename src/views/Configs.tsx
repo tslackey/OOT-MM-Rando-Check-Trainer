@@ -1,7 +1,9 @@
 import { useRef, useState } from "react";
 import { useAppState } from "../state/useAppState";
-import { deleteConfig, setActiveSession, setDefaultConfigId, setView, upsertConfig } from "../state/store";
+import { deleteConfig, setDefaultConfigId, setView, startSession, upsertConfig } from "../state/store";
 import { cloneConfig, createSession } from "../lib/session";
+import { canStartSession } from "../lib/runs";
+import { MAX_ACTIVE_SESSIONS } from "../data/types";
 import { createConfig, PRESETS } from "../data/presets";
 import { enabledChecks } from "../data/world";
 import { downloadText, exportRandoFile, ImportError, importRandoFile } from "../lib/importRando";
@@ -89,6 +91,12 @@ export function Configs() {
         <code>settings</code> object). The settings are kept so you can export them later as your
         generation defaults.
       </p>
+      {canStartSession(state) ? null : (
+        <p className="muted">
+          You already have {MAX_ACTIVE_SESSIONS} runs in progress. Resume or delete one on Home
+          before starting another.
+        </p>
+      )}
 
       <ul className="config-list">
         {state.configs.map((config) => {
@@ -110,9 +118,9 @@ export function Configs() {
               <div className="row-actions">
                 <button
                   type="button"
+                  disabled={!canStartSession(state)}
                   onClick={() => {
-                    setActiveSession(createSession(config));
-                    setView("practice");
+                    if (startSession(createSession(config))) setView("practice");
                   }}
                 >
                   Practice

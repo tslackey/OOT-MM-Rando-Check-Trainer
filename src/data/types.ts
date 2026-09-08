@@ -138,11 +138,14 @@ export interface SessionSummary {
   completed: boolean;
 }
 
+export const MAX_ACTIVE_SESSIONS = 3;
+
 export interface PersistedState {
-  version: 1;
+  version: 2;
   configs: RandoConfig[];
   sessions: SessionSummary[];
-  activeSession: PracticeSession | null;
+  activeSessions: PracticeSession[];
+  currentSessionId: string | null;
   lastConfigId: string | null;
   defaultConfigId: string | null;
   view: ViewId;
