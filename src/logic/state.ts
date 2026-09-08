@@ -9,6 +9,10 @@ export interface LogicState {
   events: Set<string>;
   settings: Record<string, unknown>;
   bindings: Record<string, string>;
+  /** Logic regions reached inside the current practice node. Used by `at()`. */
+  reachable: Set<string>;
+  /** Practice region the operator is standing in while evaluating local rules. */
+  practiceId?: string;
 }
 
 const TRIALS = ["Forest", "Fire", "Water", "Shadow", "Spirit", "Light"] as const;
@@ -43,6 +47,8 @@ export function emptySettings(config?: RandoConfig, inventory: Iterable<string> 
     lacs_condition: "vanilla",
     shuffle_ganon_bosskey: "dungeon",
     dungeon_shortcuts: [],
+    // Trainer default: skip Ganon trials so tower access is not a hidden lock.
+    // Vanilla OoTR leaves these false; tests that care set them explicitly.
     skipped_trials: skipped,
     damage_multiplier: "normal",
     deadly_bonks: "none",
@@ -168,6 +174,7 @@ export function makeState(opts: {
     events: new Set(opts.events ?? []),
     settings: opts.settings ?? emptySettings(opts.config, opts.inventory ?? []),
     bindings: {},
+    reachable: new Set(),
   };
 }
 
@@ -184,5 +191,5 @@ export function addEvent(state: LogicState, name: string): void {
 }
 
 export function withAge(state: LogicState, age: LogicAge): LogicState {
-  return { ...state, age, bindings: { ...state.bindings } };
+  return { ...state, age, bindings: { ...state.bindings }, reachable: new Set(state.reachable) };
 }

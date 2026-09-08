@@ -1,4 +1,6 @@
 import helpersJson from "../data/ootr/LogicHelpers.json";
+import { tryCompile, type CompileError } from "./compile";
+import { practiceIdFor } from "./mapPractice";
 import type { Expr } from "./rules";
 import { parseRule } from "./rules";
 import type { LogicState } from "./state";
@@ -10,24 +12,37 @@ interface Helper {
 }
 
 const helpers: Record<string, Helper> = {};
+export const HELPER_COMPILE_ERRORS: CompileError[] = [];
 for (const [key, body] of Object.entries(helpersJson as Record<string, string>)) {
   const open = key.indexOf("(");
-  try {
-    if (open >= 0) {
-      const name = key.slice(0, open);
-      const params = key
-        .slice(open + 1, -1)
-        .split(",")
-        .map((p) => p.trim())
-        .filter(Boolean);
-      helpers[name] = { params, body: parseRule(body) };
-    } else {
-      helpers[key] = { params: [], body: parseRule(body) };
-    }
-  } catch {
-    // Skip helpers the restricted parser cannot compile; rules that need them stay false.
-  }
+  const name = open >= 0 ? key.slice(0, open) : key;
+  const params =
+    open >= 0
+      ? key
+          .slice(open + 1, -1)
+          .split(",")
+          .map((p) => p.trim())
+          .filter(Boolean)
+      : [];
+  const compiled = tryCompile(body, `helper:${key}`);
+  if (compiled.error) HELPER_COMPILE_ERRORS.push(compiled.error);
+  helpers[name] = { params, body: compiled.expr };
 }
+
+/** Bottles recognized by OoTR `State.has_bottle`. */
+const BOTTLE_ITEMS = [
+  "Bottle",
+  "Bottle_with_Milk",
+  "Bottle_with_Red_Potion",
+  "Bottle_with_Green_Potion",
+  "Bottle_with_Blue_Potion",
+  "Bottle_with_Fairy",
+  "Bottle_with_Fish",
+  "Bottle_with_Blue_Fire",
+  "Bottle_with_Bugs",
+  "Bottle_with_Poe",
+  "Bottle_with_Big_Poe",
+];
 
 const MAX_DEPTH = 48;
 
@@ -62,7 +77,8 @@ export function evalRule(expr: Expr, state: LogicState, depth = 0): unknown {
       return expr.items.map((item) => evalRule(item, state, depth + 1));
     case "index": {
       const value = evalRule(expr.value, state, depth + 1);
-      const index = evalRule(expr.index, state, depth + 1);
+      // OoTR writes `skipped_trials[Forest]`. Forest is a dict key, not an item.
+      const index = expr.index.type === "name" ? resolveIdent(expr.index.name, state) : evalRule(expr.index, state, depth + 1);
       if (value && typeof value === "object") {
         const rec = value as Record<string, unknown>;
         return rec[String(index)];
@@ -103,6 +119,7 @@ function evalName(name: string, state: LogicState, depth: number): unknown {
   }
   if (name === "is_child") return state.age === "child";
   if (name === "is_adult") return state.age === "adult";
+  if (name === "has_bottle") return hasBottle(state);
   if (name === "age") return state.age;
   if (name === "True") return true;
   if (name === "False") return false;
@@ -122,11 +139,12 @@ function evalName(name: string, state: LogicState, depth: number): unknown {
 
 function evalCall(name: string, args: Expr[], state: LogicState, depth: number): unknown {
   if (name === "here" && args[0]) return evalRule(args[0], state, depth + 1);
-  if (name === "at" && args[1]) return evalRule(args[1], state, depth + 1);
+  if (name === "at") return evalAt(args, state, depth);
+  if (name === "has_bottle") return hasBottle(state);
   if (name === "has_soul") return true;
-  if (name === "has_all_notes_for_song") return true;
+  if (name === "has_all_notes_for_song") return !state.settings.shuffle_individual_ocarina_notes;
   if (name === "region_has_shortcuts") return false;
-  if (name === "can_live_dmg") return state.settings.damage_multiplier !== "ohko";
+  if (name === "can_live_dmg") return canLiveDmg(args, state, depth);
   if (name === "has_stones") return countItems(state, ["Kokiri_Emerald", "Goron_Ruby", "Zora_Sapphire"]) >= num(evalRule(args[0], state, depth + 1));
   if (name === "has_medallions") {
     return (
@@ -155,7 +173,7 @@ function evalCall(name: string, args: Expr[], state: LogicState, depth: number):
       ]) >= num(evalRule(args[0], state, depth + 1))
     );
   }
-  if (name === "has_hearts") return true;
+  if (name === "has_hearts") return heartCount(state) >= num(evalRule(args[0], state, depth + 1));
 
   const helper = helpers[name];
   if (helper) {
@@ -170,6 +188,51 @@ function evalCall(name: string, args: Expr[], state: LogicState, depth: number):
     return evalRule(helper.body, next, depth + 1);
   }
   return false;
+}
+
+function evalAt(args: Expr[], state: LogicState, depth: number): boolean {
+  const dest = regionName(args[0], state);
+  const rule = args[1];
+  if (!dest || !rule) return false;
+  const destPractice = practiceIdFor(dest);
+  if (destPractice && state.practiceId && destPractice === state.practiceId && !state.reachable.has(dest)) {
+    return false;
+  }
+  return asBool(evalRule(rule, state, depth + 1), state);
+}
+
+function regionName(expr: Expr | undefined, state: LogicState): string | undefined {
+  if (!expr) return undefined;
+  if (expr.type === "const" && typeof expr.value === "string") return expr.value;
+  if (expr.type === "name") return resolveIdent(expr.name, state);
+  const value = evalRule(expr, state);
+  return typeof value === "string" ? value : undefined;
+}
+
+function hasBottle(state: LogicState): boolean {
+  if (BOTTLE_ITEMS.some((name) => hasItem(state, name))) return true;
+  return (state.items.get("Rutos_Letter") ?? 0) >= 2;
+}
+
+function heartCount(state: LogicState): number {
+  const pieces = state.items.get("Piece_of_Heart") ?? 0;
+  const containers = state.items.get("Heart_Container") ?? 0;
+  return 3 + Math.floor(pieces / 4) + containers;
+}
+
+function canLiveDmg(args: Expr[], state: LogicState, depth: number): boolean {
+  const hearts = num(evalRule(args[0], state, depth + 1));
+  const allowRevive = args[1] ? Boolean(evalRule(args[1], state, depth + 1)) : true;
+  const allowNayrus = args[2] ? Boolean(evalRule(args[2], state, depth + 1)) : true;
+  const mult = String(state.settings.damage_multiplier ?? "normal");
+  const nayrus = allowNayrus && hasItem(state, "Nayrus_Love") && hasItem(state, "Magic_Meter");
+  const fairy = allowRevive && asBool(evalName("Fairy", state, depth + 1), state);
+  if (nayrus || fairy) return true;
+  if (mult === "ohko") return false;
+  if (mult === "quad") return hearts < 0.75;
+  if (mult === "double") return hearts < 1.5;
+  if (mult === "half") return hearts < 6;
+  return hearts < 3;
 }
 
 function hasResolved(state: LogicState, name: string, count: number, depth: number): boolean {

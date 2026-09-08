@@ -7,13 +7,13 @@ import { REGION_BY_NAME } from "./worldLogic";
 const MAX_ITERS = 24;
 
 export function expandLocal(practiceId: string, state: LogicState): Set<string> {
+  state.practiceId = practiceId;
   const start = PRACTICE_ENTRY[practiceId];
-  const seen = new Set<string>();
-  if (start && REGION_BY_NAME[start]) seen.add(start);
+  if (start && REGION_BY_NAME[start]) state.reachable.add(start);
 
   for (let iter = 0; iter < MAX_ITERS; iter += 1) {
     let changed = false;
-    for (const name of [...seen]) {
+    for (const name of [...state.reachable]) {
       const region = REGION_BY_NAME[name];
       if (!region) continue;
       for (const event of region.events) {
@@ -25,17 +25,17 @@ export function expandLocal(practiceId: string, state: LogicState): Set<string> 
       for (const exit of region.exits) {
         const destPractice = practiceIdFor(exit.to);
         if (destPractice !== practiceId) continue;
-        if (seen.has(exit.to)) continue;
+        if (state.reachable.has(exit.to)) continue;
         if (!REGION_BY_NAME[exit.to]) continue;
         if (asBool(evalRule(exit.rule, state), state)) {
-          seen.add(exit.to);
+          state.reachable.add(exit.to);
           changed = true;
         }
       }
     }
     if (!changed) break;
   }
-  return seen;
+  return state.reachable;
 }
 
 export function canExitTo(fromPractice: string, toPractice: string, state: LogicState): boolean {

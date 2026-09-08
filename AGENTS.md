@@ -85,7 +85,7 @@ CI is the Pages workflow on `main` (test + lint, then build, then deploy).
 - Keep this repo OoT-focused.
 - MM trainer: new app, same Capacitor/Pages pattern, not a second game toggle here.
 - Native shells (`npx cap add android|ios`) only when asked.
-- **Logic:** Practice travel/check penalties use the OoTR vanilla oracle in `src/logic/` (phase 0–1 of `docs/LOGIC_PLAN.md`). `world.json` is still the coarse practice map, not the full solver. Do not claim official OoTR. Dual-age fill, MQ, and entrance shuffle are later phases.
+- **Logic:** Practice travel/check penalties use the OoTR vanilla oracle in `src/logic/` (see `docs/LOGIC_PLAN.md`). `world.json` is still the coarse practice map, not the full solver. Do not claim official OoTR. Port World JSON + LogicHelpers + `State.py` cases into `src/logic/ootrPort.test.ts` instead of inventing heuristic fixtures. Dual-age fill, dungeon keys, MQ, and entrance shuffle are later slices.
 - Optional later: MQ, entrance shuffle, junk sanity types, tighter aliases.
 
 ## Tests that must stay green
@@ -95,4 +95,5 @@ CI is the Pages workflow on `main` (test + lint, then build, then deploy).
 - `src/lib/session.test.ts` — illegal travel penalty, legal adjacent travel, double-check penalty, respawn, Farore's Wind
 - `src/data/world.test.ts` — OoT spawn, no cross-game flag
 - `src/logic/oracle.test.ts` — masks, windmill SoS, closed forest, Forest lobby, KF sword
+- `src/logic/ootrPort.test.ts` — every vendored helper/World rule compiles; State.py + LogicHelpers + World JSON cases
 - `src/lib/scoring.test.ts`, `src/lib/shuffle.test.ts`
