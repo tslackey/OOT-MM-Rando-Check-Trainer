@@ -6,7 +6,7 @@ operator standing in this practice region, does this location or exit hold?**
 
 This is **not** a fill-time solver and **not** a claim of official OoTR.
 
-**Status:** Phase 0–3 is in the app. `src/logic/` evaluates vendored OoTR vanilla World JSON as the practice penalty oracle, including intra-dungeon BFS, `at()` gated on reachable subregions, stacked keys, visit-time events, and Door of Time / starting-age time travel. `world.json` remains the coarse Go to / Check map (OoT only). Compile coverage and `State.py` methods live in `src/logic/ootrPort.test.ts`. Practice penalties wrap `@mracsys/randomizer-graph-tool` (8.3.0 Release cache). Later: imported trick settings, MQ, entrance shuffle. Claim slices in `docs/TASKS.md`. Fill-style either-age checks are an optional config flag, off by default.
+**Status:** Phase 0–3 is in the app. Practice penalties wrap `@mracsys/randomizer-graph-tool` (8.3.0 Release cache) with a here-and-now BFS. The restricted TypeScript evaluator remains for compile coverage (`ootrPort.test.ts`). `world.json` remains the coarse Go to / Check map (OoT only). Later: imported trick settings, MQ, entrance shuffle. Claim slices in `docs/TASKS.md`. Fill-style either-age checks are an optional config flag, off by default.
 
 ## Status
 
@@ -22,8 +22,8 @@ What is actually true today:
   World JSON + LogicHelpers + `State.py` methods are compiled and evaluated in
   `src/logic/ootrPort.test.ts`. OoTR’s own `tests/` folder is fill/plando
   generation — do not port that into the browser.
-- The next architectural step is wrapping a tracker search, not adding another
-  helper stub. MQ and entrance shuffle stay later.
+- The tracker-search wrap is in `src/logic/graphPlugin.ts` + `graphSearch.ts`.
+  MQ and entrance shuffle stay later.
 
 ## Yes — logic trackers already implement this
 
