@@ -1,4 +1,4 @@
-import { WORLD } from "../data/world";
+import { isMajoraItem, WORLD } from "../data/world";
 import type { WorldCheck } from "../data/types";
 
 export function mulberry32(seed: number): () => number {
@@ -30,7 +30,7 @@ function shuffleInPlace<T>(items: T[], rand: () => number): T[] {
 
 export function placeItems(checks: WorldCheck[], seed = Date.now()): Record<string, string> {
   const rand = mulberry32(hashSeed(String(seed)));
-  const progression = [...WORLD.itemPool.progression];
+  const progression = WORLD.itemPool.progression.filter((item) => !isMajoraItem(item));
   const junk = [...WORLD.itemPool.junk];
   shuffleInPlace(progression, rand);
   shuffleInPlace(junk, rand);

@@ -1,5 +1,6 @@
 import { PRESETS } from "../data/presets";
 import { MAX_ACTIVE_SESSIONS, type PersistedState, type PracticeSession, type RandoConfig } from "../data/types";
+import { CHECK_BY_ID, isMajoraItem, REGION_BY_ID } from "../data/world";
 
 export const STORAGE_KEY = "ootmm-check-trainer-v1";
 
@@ -9,11 +10,27 @@ type StoredState = Omit<Partial<PersistedState>, "version"> & {
 };
 
 function normalizeSession(session: PracticeSession): PracticeSession {
+  const region = REGION_BY_ID[session.currentRegionId];
+  const currentRegionId = region?.game === "oot" ? session.currentRegionId : "oot-kokiri";
+  const enabledCheckIds = session.enabledCheckIds.filter((id) => CHECK_BY_ID[id]?.game === "oot");
+  const collectedCheckIds = session.collectedCheckIds.filter((id) => enabledCheckIds.includes(id));
+  const placement = Object.fromEntries(
+    Object.entries(session.placement)
+      .filter(([id]) => CHECK_BY_ID[id]?.game === "oot")
+      .map(([id, item]) => [id, isMajoraItem(item) ? `junk_${id}` : item]),
+  );
+  const ootRegion = (id: string | undefined, fallback: string) =>
+    id && REGION_BY_ID[id]?.game === "oot" ? id : fallback;
   return {
     ...session,
+    currentRegionId,
+    enabledCheckIds,
+    collectedCheckIds,
+    placement,
+    inventory: session.inventory.filter((item) => !isMajoraItem(item)),
     wrongIds: session.wrongIds ?? [],
-    childSpawnId: session.childSpawnId ?? session.currentRegionId,
-    adultSpawnId: session.adultSpawnId ?? "oot-tot",
+    childSpawnId: ootRegion(session.childSpawnId, currentRegionId),
+    adultSpawnId: ootRegion(session.adultSpawnId, "oot-tot"),
     seed: session.seed ?? session.startedAt,
     faroresRegionId: session.faroresRegionId ?? null,
   };

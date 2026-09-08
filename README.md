@@ -50,9 +50,11 @@ npm run build        # typecheck + static build to dist/
 npx cap sync         # copy web build into native projects once you add them
 ```
 
-## GitHub Pages
+## GitHub Pages / GitLab Pages
 
-`.github/workflows/pages.yml` tests, builds, and publishes `dist/` on pushes to `main`. The Vite `base` is `./`, so it works as a project site at `/OOT-MM-Rando-Check-Trainer/`.
+`.github/workflows/pages.yml` tests, builds, and publishes `dist/` on pushes to `main`. `.gitlab-ci.yml` publishes the same `dist/` as GitLab Pages. The Vite `base` is `./`, so it works as a project site at `/OOT-MM-Rando-Check-Trainer/`.
+
+The HTML template is stamped at the top with the current GitLab Pages build number (`CI_PIPELINE_IID`). GitHub Actions fills the same stamp from the workflow run number.
 
 https://tslackey.github.io/OOT-MM-Rando-Check-Trainer/
 

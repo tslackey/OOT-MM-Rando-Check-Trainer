@@ -1,0 +1,35 @@
+image: node:22
+
+stages:
+  - test
+  - deploy
+
+cache:
+  key:
+    files:
+      - package-lock.json
+    prefix: npm
+  paths:
+    - node_modules/
+
+test:
+  stage: test
+  script:
+    - npm ci
+    - npm test
+    - npm run lint
+
+pages:
+  stage: deploy
+  script:
+    - npm ci
+    - export GITLAB_PAGES_BUILD="${CI_PIPELINE_IID}"
+    - npm run build
+    - rm -rf public
+    - mv dist public
+  pages: true
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

@@ -7,9 +7,11 @@ import {
   enabledChecks,
   flagsFor,
   hasAll,
+  isMajoraItem,
   reachableRegionIds,
   REGION_BY_ID,
   spawnRegion,
+  WORLD,
 } from "./world";
 
 describe("world logic", () => {
@@ -87,5 +89,13 @@ describe("world logic", () => {
     expect(sticks.name).toBe("Deku Theater Skull Mask");
     expect(nuts.name).toBe("Deku Theater Mask of Truth");
     expect(REGION_BY_ID["oot-deku-theater"].name).toBe("Deku Theater");
+  });
+
+  it("drops Majora's Mask regions, checks, and items", () => {
+    expect(WORLD.regions.every((region) => region.game === "oot")).toBe(true);
+    expect(WORLD.checks.every((check) => check.game === "oot")).toBe(true);
+    expect(WORLD.itemPool.progression.some(isMajoraItem)).toBe(false);
+    expect(WORLD.checks.some((check) => check.id.startsWith("mm-"))).toBe(false);
+    expect(REGION_BY_ID["mm-sct"]).toBeUndefined();
   });
 });

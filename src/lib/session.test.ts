@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { createConfig } from "../data/presets";
 import { collectCheck, createSession, respawnToSpawn, setFaroresWind, travelTo, warpFaroresWind } from "./session";
-import { CHECK_BY_ID, REGION_BY_ID } from "../data/world";
+import { CHECK_BY_ID, itemLabel, REGION_BY_ID } from "../data/world";
 
 describe("practice session", () => {
   it("penalizes travel with no connecting path", () => {
@@ -88,5 +88,17 @@ describe("practice session", () => {
     const warped = warpFaroresWind(session, config);
     expect(warped.currentRegionId).toBe("oot-deku");
     expect(warped.penalties).toBe(0);
+  });
+
+  it("never announces leftover MM item ids", () => {
+    const config = createConfig({ spawn: "oot-kokiri", games: { oot: true, mm: false } });
+    let session = createSession(config, 1);
+    session = travelTo(session, config, "oot-lost-woods");
+    const skull = CHECK_BY_ID["oot-lost-woods-skull-kid"];
+    session = { ...session, placement: { ...session.placement, [skull.id]: "hookshot_mm" } };
+    const next = collectCheck(session, config, skull);
+    expect(next.lastFlash?.text).toBe("Got Junk");
+    expect(next.lastFlash?.text.toLowerCase()).not.toContain(" mm");
+    expect(itemLabel("hookshot_mm")).toBe("Junk");
   });
 });

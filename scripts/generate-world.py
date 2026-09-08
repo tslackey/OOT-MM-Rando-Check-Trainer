@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate src/data/world.json from the parsed OoTMM wiki check dump."""
+"""Generate src/data/world.json from the parsed OoT check dump. MM rows are ignored."""
 
 from __future__ import annotations
 
@@ -381,7 +381,7 @@ def needs_for(name: str, region_id: str, check_type: str) -> tuple[str, list[str
 def parse_rows():
     rows = []
     for line in WIKI.read_text().splitlines():
-        if not line.startswith("| OOT") and not line.startswith("| MM"):
+        if not line.startswith("| OOT"):
             continue
         parts = [p.strip() for p in line.strip().strip("|").split("|")]
         if len(parts) < 4:
@@ -491,7 +491,7 @@ def connections():
             a, b, extra = item
         out.append({"from": a, "to": b, "needs": extra.get("needs", []), "age": extra.get("age", "any")})
         out.append({"from": b, "to": a, "needs": extra.get("needs", []), "age": extra.get("age", "any")})
-    return out
+    return [edge for edge in out if edge["from"].startswith("oot-") and edge["to"].startswith("oot-")]
 
 
 def warp_points():
@@ -502,11 +502,6 @@ def warp_points():
         {"item": "nocturne", "regionId": "oot-graveyard", "label": "Nocturne of Shadow"},
         {"item": "requiem", "regionId": "oot-colossus", "label": "Requiem of Spirit"},
         {"item": "prelude", "regionId": "oot-tot", "label": "Prelude of Light"},
-        {"item": "soaring", "regionId": "mm-sct", "label": "Song of Soaring (Clock Town)"},
-        {"item": "soaring-woodfall", "regionId": "mm-woodfall", "label": "Soar to Woodfall"},
-        {"item": "soaring-snowhead", "regionId": "mm-snowhead-road", "label": "Soar to Snowhead"},
-        {"item": "soaring-gbc", "regionId": "mm-gbc", "label": "Soar to Great Bay"},
-        {"item": "soaring-ikana", "regionId": "mm-ikana", "label": "Soar to Ikana"},
     ]
 
 
@@ -547,29 +542,7 @@ def item_pool():
         "prelude",
         "gerudo_card",
         "bottle",
-        "deku_mask",
-        "goron_mask",
-        "zora_mask",
-        "song_of_healing",
-        "soaring",
-        "sonata",
-        "lullaby",
-        "nwbn",
-        "elegy",
-        "oath",
-        "bow_mm",
-        "hookshot_mm",
-        "fire_arrow",
-        "ice_arrow",
-        "light_arrow",
         "mirror_shield",
-        "powder_keg",
-        "lens_mm",
-        "garo_mask",
-        "stone_mask",
-        "seahorse",
-        "room_key",
-        "letter_kafei",
         "kokiri_emerald",
         "goron_ruby",
         "zora_sapphire",
@@ -579,10 +552,6 @@ def item_pool():
         "shadow_medallion",
         "spirit_medallion",
         "light_medallion",
-        "odolwa",
-        "goht",
-        "gyorg",
-        "twinmold",
     ]
     junk = [f"junk_{i}" for i in range(1, 80)]
     return {"progression": progression, "junk": junk}
@@ -593,6 +562,8 @@ def main():
     checks = []
     seen_ids = set()
     for game, region, name, typ in rows:
+        if game != "OOT":
+            continue
         region_id = REGION_IDS.get((game, region))
         display_name = name
         if "deku theater" in name.lower():
@@ -622,9 +593,7 @@ def main():
             }
         )
 
-    regions = []
-    for rid, meta in REGION_META.items():
-        regions.append({"id": rid, **meta})
+    regions = [{"id": rid, **meta} for rid, meta in REGION_META.items() if meta.get("game") == "oot"]
 
     world = {
         "regions": regions,
