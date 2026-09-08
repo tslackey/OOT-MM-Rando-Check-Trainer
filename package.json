@@ -12,7 +12,8 @@
     "test:watch": "vitest",
     "lint": "tsc --noEmit",
     "cap:sync": "npm run build && cap sync",
-    "generate:world": "python3 scripts/generate-world.py"
+    "generate:world": "python3 scripts/generate-world.py",
+    "vendor:graph-cache": "node scripts/vendor-graph-cache.mjs"
   },
   "dependencies": {
     "@capacitor/app": "^7.1.0",

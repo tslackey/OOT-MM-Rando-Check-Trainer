@@ -26,5 +26,15 @@ export default defineConfig({
   },
   test: {
     environment: "jsdom",
+    testTimeout: 30000,
+    hookTimeout: 30000,
+    server: {
+      deps: {
+        inline: ["@mracsys/randomizer-graph-tool"],
+      },
+    },
+  },
+  optimizeDeps: {
+    include: ["@mracsys/randomizer-graph-tool"],
   },
 });

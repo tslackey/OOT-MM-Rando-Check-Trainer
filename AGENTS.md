@@ -36,7 +36,7 @@ Practice loop: configure or import a seed, tap **Go to …** / **Check …** lik
 | Views (no URL router) | `src/views/` — Home, Configs, ConfigEditor, Practice, Stats |
 | App state + autosave | `src/state/store.ts` → `src/storage/persist.ts` (localStorage + Capacitor Preferences) |
 | World graph + checks | `src/data/world.json` + `src/data/world.ts` (practice graph) |
-| Logic oracle | `src/logic/` + vendored `src/data/ootr/` (OoTR vanilla rules) |
+| Logic oracle | `src/logic/` + vendored `src/data/ootr/` (OoTR vanilla rules). Practice penalties use `@mracsys/randomizer-graph-tool` + `src/data/ootr-graph/` (8.3.0 Release cache). |
 | Who owns which slice | `docs/TASKS.md` (claim a leaf before starting) |
 | Built-in presets | `src/data/presets.ts` (OoT only) |
 | Practice rules | `src/lib/session.ts` (travel, collect, peek, pause, age swap, respawn, Farore's Wind) |

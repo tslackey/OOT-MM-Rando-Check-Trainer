@@ -200,9 +200,11 @@ Preferred: `@mracsys/randomizer-graph-tool` (what TOoTR uses).
 - Keep `ootrPort.test.ts` as a regression gate while swapping the backend.
 - Do not import TOoTR’s React map or paint availability.
 
-Until that lands, the restricted `src/logic/` evaluator stays as the
-penalty oracle. Do not add more helper stubs unless a practice bug needs
-them.
+The wrap lives in `src/logic/graphPlugin.ts` + `graphSearch.ts`. Practice
+penalties use the graph-tool `access_rule` functions with a here-and-now
+BFS that stays inside the current practice node. The restricted evaluator
+stays for compile coverage (`ootrPort.test.ts`) and leftover heuristic
+edges. Do not add more helper stubs unless a practice bug needs them.
 
 ### Slice B — keep the ported suite green
 
