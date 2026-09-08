@@ -9,7 +9,12 @@ export type CheckType =
   | "trade"
   | "skullReward";
 
-export type ViewId = "home" | "configs" | "editor" | "practice" | "stats";
+export const VIEW_IDS = ["home", "configs", "editor", "practice", "stats", "changelog"] as const;
+export type ViewId = (typeof VIEW_IDS)[number];
+
+export function isViewId(value: unknown): value is ViewId {
+  return typeof value === "string" && (VIEW_IDS as readonly string[]).includes(value);
+}
 
 export interface Region {
   id: string;
@@ -79,6 +84,8 @@ export interface RandoConfig {
   peekPenaltySeconds: number;
   hideCompleted: boolean;
   hideLocked: boolean;
+  /** Off by default. If on, a check is in logic when the other age could do it here after Door of Time. */
+  eitherAgeLogic?: boolean;
   spawn: "auto" | string;
   childSpawn: "auto" | string;
   adultSpawn: "auto" | string;

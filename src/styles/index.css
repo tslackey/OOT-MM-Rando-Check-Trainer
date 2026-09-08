@@ -52,7 +52,19 @@ body {
   text-transform: uppercase;
   color: var(--muted);
   background: #0c100b;
+  border: 0;
   border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  width: 100%;
+  text-align: left;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button.build-stamp:hover:not(:disabled) {
+  background: #141b12;
+  color: var(--gold);
+  border-color: var(--line);
 }
 
 button,
@@ -108,6 +120,7 @@ button.danger {
 
 .nav {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.4rem;
   padding: 0.7rem 0.8rem calc(0.7rem + env(safe-area-inset-top));
   position: sticky;
@@ -452,4 +465,40 @@ select {
 
 h2 .chip {
   margin-left: 0.45rem;
+}
+
+.changelog {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.changelog-item h2 {
+  margin: 0.35rem 0 0.3rem;
+}
+
+.changelog-item p {
+  margin: 0;
+}
+
+.changelog-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.changelog-item.current {
+  border-color: var(--gold);
+}
+
+a.chip {
+  color: var(--gold);
+  text-decoration: none;
+}
+
+a.chip:hover {
+  border-color: var(--gold);
 }

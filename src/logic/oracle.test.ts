@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { createConfig } from "../data/presets";
-import { CHECK_BY_ID, canSwitchAge, canUseConnection, checkInLogic, WORLD } from "../data/world";
-import { locationNamedInLogic } from "./oracle";
+import { CHECK_BY_ID, canUseConnection, checkInLogic, WORLD } from "../data/world";
+import { doorOfTimeOpen, locationNamedInLogic } from "./oracle";
 
 function edge(from: string, to: string) {
   const found = WORLD.connections.find((connection) => connection.from === from && connection.to === to);
@@ -62,25 +62,23 @@ describe("OoTR practice oracle", () => {
     ).toBe(true);
   });
 
-  it("lets a child leave closed forest after Defeat Queen Gohma", () => {
+  it("lets a closed-forest child leave after Defeat Queen Gohma", () => {
     const closed = createConfig({ openForest: false });
     const toBridge = edge("oot-kokiri", "oot-lost-woods-bridge");
     expect(canUseConnection(toBridge, [], "child", closed)).toBe(false);
     expect(canUseConnection(toBridge, [], "child", closed, ["Defeat Queen Gohma"])).toBe(true);
   });
 
-  it("requires Mido or open forest to enter Deku as child", () => {
-    const closedDeku = createConfig({ openForest: true, openDeku: false });
-    const open = createConfig({ openForest: true, openDeku: true });
+  it("opens Deku Tree when child shows Mido sword and shield", () => {
+    const closed = createConfig({ openForest: false, openDeku: false });
     const toDeku = edge("oot-kokiri", "oot-deku");
-    expect(canUseConnection(toDeku, [], "child", closedDeku)).toBe(false);
-    expect(canUseConnection(toDeku, ["kokiri_sword", "deku_shield"], "child", closedDeku)).toBe(true);
-    expect(canUseConnection(toDeku, [], "child", open)).toBe(true);
+    expect(canUseConnection(toDeku, [], "child", closed)).toBe(false);
+    expect(canUseConnection(toDeku, ["kokiri_sword", "deku_shield"], "child", closed)).toBe(true);
   });
 
-  it("drains the well as child with Song of Storms and remembers the event", () => {
+  it("drains the well as child with Song of Storms in Kakariko", () => {
     const toWell = edge("oot-kak", "oot-well");
-    expect(canUseConnection(toWell, [], "child")).toBe(false);
+    expect(canUseConnection(toWell, ["ocarina"], "child")).toBe(false);
     expect(canUseConnection(toWell, ["ocarina", "song_of_storms"], "child")).toBe(true);
     expect(canUseConnection(toWell, [], "child", undefined, ["Drain Well"])).toBe(true);
     expect(canUseConnection(toWell, ["ocarina", "song_of_storms"], "adult")).toBe(false);
@@ -93,29 +91,44 @@ describe("OoTR practice oracle", () => {
     expect(canUseConnection(toFortress, ["longshot"], "adult")).toBe(true);
   });
 
-  it("opens the Door of Time with Song of Time when the door is closed", () => {
+  it("opens the Door of Time from settings or Song of Time", () => {
     const closed = createConfig({ openDoorOfTime: false, startingAge: "child" });
     const open = createConfig({ openDoorOfTime: true, startingAge: "child" });
-    expect(canSwitchAge(closed, [], "oot-tot")).toBe(false);
-    expect(canSwitchAge(closed, ["ocarina", "song_of_time"], "oot-tot")).toBe(true);
-    expect(canSwitchAge(open, [], "oot-tot")).toBe(true);
-    expect(canSwitchAge(closed, ["ocarina", "song_of_time"], "oot-kokiri")).toBe(false);
-    expect(canSwitchAge(createConfig({ startingAge: "adult" }), [], "oot-tot")).toBe(true);
+    const adultStart = createConfig({ openDoorOfTime: false, startingAge: "adult" });
+    expect(doorOfTimeOpen([], closed)).toBe(false);
+    expect(doorOfTimeOpen(["ocarina", "song_of_time"], closed)).toBe(true);
+    expect(doorOfTimeOpen([], open)).toBe(true);
+    expect(doorOfTimeOpen([], adultStart)).toBe(true);
   });
 
-  it("does not give locked-Kokiri child the Know It All GS just because night is ignored", () => {
+  it("does not mark KF night GS in logic for a forest-locked child", () => {
     const closed = createConfig({ openForest: false });
-    const open = createConfig({ openForest: true });
     expect(locationNamedInLogic("KF GS Know It All House", "oot-kokiri", ["kokiri_sword"], "child", closed)).toBe(
       false,
     );
-    expect(locationNamedInLogic("KF GS Know It All House", "oot-kokiri", ["kokiri_sword"], "child", open)).toBe(
-      true,
-    );
     expect(
-      locationNamedInLogic("KF GS Know It All House", "oot-kokiri", ["kokiri_sword"], "child", closed, [
-        "Defeat Queen Gohma",
-      ]),
+      locationNamedInLogic("KF GS Know It All House", "oot-kokiri", ["kokiri_sword", "ocarina", "suns_song"], "child", closed),
     ).toBe(true);
+    expect(
+      locationNamedInLogic(
+        "KF GS Know It All House",
+        "oot-kokiri",
+        ["kokiri_sword"],
+        "child",
+        closed,
+        ["Defeat Queen Gohma"],
+      ),
+    ).toBe(true);
+  });
+
+  it("keeps either-age checks off unless the Door of Time is open", () => {
+    const windmill = CHECK_BY_ID["oot-windmill-song-of-storms"];
+    const off = createConfig({ openDoorOfTime: true, eitherAgeLogic: false });
+    const on = createConfig({ openDoorOfTime: true, eitherAgeLogic: true });
+    const locked = createConfig({ openDoorOfTime: false, eitherAgeLogic: true });
+    expect(checkInLogic(windmill, ["ocarina"], "child", "oot-kak", off)).toBe(false);
+    expect(checkInLogic(windmill, ["ocarina"], "child", "oot-kak", on)).toBe(true);
+    expect(checkInLogic(windmill, ["ocarina"], "child", "oot-kak", locked)).toBe(false);
+    expect(checkInLogic(windmill, ["ocarina", "song_of_time"], "child", "oot-kak", locked)).toBe(true);
   });
 });

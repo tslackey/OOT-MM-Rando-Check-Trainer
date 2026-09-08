@@ -5,6 +5,7 @@ const LINKS: { id: ViewId; label: string }[] = [
   { id: "practice", label: "Practice" },
   { id: "configs", label: "Configs" },
   { id: "stats", label: "Graphs" },
+  { id: "changelog", label: "Changes" },
 ];
 
 interface NavProps {

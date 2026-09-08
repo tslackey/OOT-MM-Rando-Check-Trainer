@@ -2,6 +2,7 @@ import type { Connection, PracticeSession, RandoConfig, Warp, WorldCheck } from 
 import {
   ageOk,
   allOutgoing,
+  adultAvailable,
   availableWarps,
   canUseConnection,
   checkInLogic,
@@ -52,10 +53,11 @@ const REWARD_ITEMS = new Set([
 export function visibleRegionChecks(session: PracticeSession, config?: RandoConfig): WorldCheck[] {
   const collected = new Set(session.collectedCheckIds);
   const events = sessionEvents(session.collectedCheckIds, session.logicEvents ?? []);
+  const eitherAge = Boolean(config?.eitherAgeLogic && adultAvailable(config, session.inventory, events));
   return WORLD.checks.filter((check) => {
     if (check.regionId !== session.currentRegionId) return false;
     if (!session.enabledCheckIds.includes(check.id)) return false;
-    if (!ageOk(check.age, session.age)) return false;
+    if (!eitherAge && !ageOk(check.age, session.age)) return false;
     if (collected.has(check.id)) return false;
     if (
       config?.hideLocked &&

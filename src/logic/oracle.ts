@@ -1,10 +1,11 @@
 import type { Connection, RandoConfig, Warp, WorldCheck } from "../data/types";
 import { evalText } from "./eval";
+import { doorOfTimeFromGraph, prepareGraphWorld } from "./graphPlugin";
+import { expandGraphLocal, graphCanExitTo, graphEventNames, graphLocationInRegion, graphWarpInLogic } from "./graphSearch";
 import { DEFEAT_EVENTS, WARP_SONGS } from "./inventoryMap";
 import { entryRegion } from "./mapPractice";
-import { canExitTo, expandLocal, locationInRegion } from "./search";
+import { expandLocal } from "./search";
 import { makeState, type LogicAge, type LogicState } from "./state";
-import { LOCATION_HOME } from "./worldLogic";
 
 export function logicStateFor(
   inventory: Iterable<string>,
@@ -15,6 +16,17 @@ export function logicStateFor(
   return makeState({ age, inventory, config, events });
 }
 
+function eitherAgeAllowed(inventory: Iterable<string>, config?: RandoConfig, events?: Iterable<string>): boolean {
+  if (!config?.eitherAgeLogic) return false;
+  return doorOfTimeFromGraph(prepareGraphWorld(inventory, config, events), config);
+}
+
+export function otherAgeAllowed(state: LogicState, config?: RandoConfig): boolean {
+  if (!config?.eitherAgeLogic) return false;
+  if (config.startingAge === "adult") return true;
+  return evalText("can_open_door_of_time", state);
+}
+
 export function connectionInLogic(
   connection: Connection,
   inventory: string[],
@@ -22,12 +34,13 @@ export function connectionInLogic(
   config?: RandoConfig,
   events?: Iterable<string>,
 ): boolean {
-  const state = logicStateFor(inventory, age, config, events);
   if (entryRegion(connection.from) && entryRegion(connection.to)) {
-    return canExitTo(connection.from, connection.to, state);
+    const world = prepareGraphWorld(inventory, config, events);
+    return graphCanExitTo(world, connection.from, connection.to, age);
   }
   if (connection.age !== "any" && connection.age !== age) return false;
   const owned = new Set(inventory);
+  const state = logicStateFor(inventory, age, config, events);
   return connection.needs.every((need) => owned.has(need) || evalText(need, state));
 }
 
@@ -40,12 +53,12 @@ export function checkLocationInLogic(
   events?: Iterable<string>,
 ): boolean {
   if (check.regionId !== currentRegionId) return false;
-  const state = logicStateFor(inventory, age, config, events);
   const ootr = check.ootrLocation;
-  if (ootr && LOCATION_HOME[ootr]) {
-    return locationInRegion(ootr, currentRegionId, state);
+  if (ootr) {
+    const world = prepareGraphWorld(inventory, config, events);
+    return graphLocationInRegion(world, ootr, currentRegionId, age, eitherAgeAllowed(inventory, config, events));
   }
-  if (check.age !== "any" && check.age !== age) return false;
+  if (check.age !== "any" && check.age !== age && !eitherAgeAllowed(inventory, config, events)) return false;
   const owned = new Set(inventory);
   return check.needs.every((need) => owned.has(need));
 }
@@ -58,46 +71,45 @@ export function locationNamedInLogic(
   config?: RandoConfig,
   events?: Iterable<string>,
 ): boolean {
-  const state = logicStateFor(inventory, age, config, events);
-  return locationInRegion(ootrLocation, practiceId, state);
+  const world = prepareGraphWorld(inventory, config, events);
+  return graphLocationInRegion(world, ootrLocation, practiceId, age, false);
 }
 
 export function warpInLogic(warp: Warp, inventory: string[], age: LogicAge, config?: RandoConfig, events?: Iterable<string>): boolean {
   const spec = WARP_SONGS[warp.item];
   if (!spec) return false;
-  const state = logicStateFor(inventory, age, config, events);
-  if (!evalText(`can_play(${spec.song})`, state)) return false;
-  if (spec.needsLeaveForest && !evalText("can_leave_forest", state)) return false;
-  return true;
+  const world = prepareGraphWorld(inventory, config, events);
+  return graphWarpInLogic(world, spec.song, spec.needsLeaveForest, age);
 }
 
 export function doorOfTimeOpen(inventory: string[], config?: RandoConfig, events?: Iterable<string>): boolean {
-  const age = config?.startingAge ?? "child";
-  const state = logicStateFor(inventory, age, config, events);
-  if (config?.startingAge === "adult") return true;
-  return evalText("can_open_door_of_time", state);
+  return doorOfTimeFromGraph(prepareGraphWorld(inventory, config, events), config);
 }
 
-export function eventsAfterVisit(practiceId: string, state: LogicState): string[] {
-  const prior = new Set(state.events);
-  expandLocal(practiceId, state);
-  const kept = new Set(prior);
-  for (const name of state.events) {
-    // Defeat events persist from collected boss checks, not from walking the room.
-    if (name.startsWith("Defeat ") && !prior.has(name)) continue;
-    kept.add(name);
+export function persistableEvents(events: Iterable<string>, collectedCheckIds: Iterable<string> = []): string[] {
+  const collectedDefeat = new Set<string>();
+  for (const id of collectedCheckIds) {
+    const defeat = DEFEAT_EVENTS[id];
+    if (defeat) collectedDefeat.add(defeat);
   }
-  return [...kept];
+  const out: string[] = [];
+  const seen = new Set<string>();
+  for (const name of events) {
+    if (seen.has(name)) continue;
+    if (name.startsWith("Defeat ") && !collectedDefeat.has(name)) continue;
+    seen.add(name);
+    out.push(name);
+  }
+  return out;
 }
 
-export function visitEvents(
+export function eventsAfterVisit(
   practiceId: string,
-  inventory: string[],
-  age: LogicAge,
-  config?: RandoConfig,
-  events?: Iterable<string>,
+  state: LogicState,
+  collectedCheckIds: Iterable<string> = [],
 ): string[] {
-  return eventsAfterVisit(practiceId, logicStateFor(inventory, age, config, events));
+  expandLocal(practiceId, state);
+  return persistableEvents(state.events, collectedCheckIds);
 }
 
 export function eventsFromCollected(collectedCheckIds: Iterable<string>, extra: Iterable<string> = []): string[] {
@@ -107,4 +119,18 @@ export function eventsFromCollected(collectedCheckIds: Iterable<string>, extra: 
     if (defeat) events.add(defeat);
   }
   return [...events];
+}
+
+export function harvestSessionEvents(
+  practiceId: string,
+  inventory: string[],
+  age: LogicAge,
+  config: RandoConfig | undefined,
+  collectedCheckIds: Iterable<string>,
+  extra: Iterable<string> = [],
+): string[] {
+  const world = prepareGraphWorld(inventory, config, eventsFromCollected(collectedCheckIds, extra));
+  const other = Boolean(config?.eitherAgeLogic && doorOfTimeFromGraph(world, config));
+  expandGraphLocal(world, practiceId, age, other);
+  return persistableEvents(graphEventNames(world), collectedCheckIds);
 }

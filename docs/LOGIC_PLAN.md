@@ -1,223 +1,229 @@
-# Plan: replace heuristic logic with a real OoT randomizer solver
+# Plan: make the practice oracle match vendored OoTR rules
 
-This is the implementation plan for practice “in logic” penalties. It is based on how
-[OoT-Randomizer](https://github.com/OoTRandomizer/OoT-Randomizer) and Ship of
-Harkinian’s randomizer
-([HarbourMasters/Shipwright](https://github.com/HarbourMasters/Shipwright))
-actually compute reachability.
+Practice “in logic” penalties should answer the same question OoT-Randomizer
+asks of a rule string: **with this age, these items, these settings, and the
+operator standing in this practice region, does this location or exit hold?**
 
-**Status:** Phase 0–3 (play-time events) of this plan is in the app. `src/logic/` evaluates vendored OoTR vanilla World JSON as the practice penalty oracle, including intra-dungeon BFS, `at()` gated on reachable subregions, stacked keys, and persisted visit/boss events (`Defeat Queen Gohma`, `Drain Well`, `Epona`, Door of Time, `Time_Travel`). Night-only Kokiri GS stay locked until the child can leave the forest or play Sun’s Song. `world.json` remains the coarse Go to / Check map (OoT only). Later work: fill-style either-age (off by default), imported trick settings, MQ, entrance shuffle.
+This is **not** a fill-time solver and **not** a claim of official OoTR.
 
-**This document is the plan.** Do not treat the trainer as official OoTR until later phases land and tests prove them.
+**Status:** Phase 0–3 is in the app. Practice penalties wrap `@mracsys/randomizer-graph-tool` (8.3.0 Release cache) with a here-and-now BFS. The restricted TypeScript evaluator remains for compile coverage (`ootrPort.test.ts`). `world.json` remains the coarse Go to / Check map (OoT only). Later: imported trick settings, MQ, entrance shuffle. Claim slices in `docs/TASKS.md`. Fill-style either-age checks are an optional config flag, off by default.
 
-## Why the current logic is wrong
+## Status
 
-Today’s graph is not a randomizer solver. `scripts/generate-world.py` builds
-`src/data/world.json` from a wiki check dump plus name-keyword heuristics:
+`src/logic/` evaluates vendored OoTR vanilla World JSON + `LogicHelpers.json`.
+`world.json` is still the coarse Go to / Check map (OoT only).
 
-- If the check name contains `"hookshot"`, require hookshot.
-- If the region is Forest Temple, require hookshot + adult for **every** check
-  in the dungeon.
-- If the name contains `"song of storms"`, require Song of Storms — including
-  **Windmill Song of Storms**, which is how you *learn* the song.
-- Deku Theater Skull Mask / Mask of Truth have empty `needs[]`. Real logic
-  requires the corresponding mask as child.
-- Ganon’s Castle entrance requires Light Arrows. Real logic uses rainbow
-  bridge / trials / boss key settings, not “have Light Arrows to walk in.”
-- Bottom of the Well is child + Song of Storms only. Real logic also drains
-  the well as adult from the windmill.
-- Connections are a coarse overworld (one node per area). Forest Temple is one
-  region, so First Room Chest and Phantom Ganon share the same requirement.
+What is actually true today:
 
-The evaluator in `src/data/world.ts` is `hasAll(inventory, needs)` plus a
-single age flag. That is an AND-list of item ids. Real randomizers evaluate
-boolean expressions with helpers, events, item counts, settings, and (for
-fill) both ages at once.
+- Phase 0–3 shipped a restricted TypeScript parser/evaluator plus intra-dungeon
+  BFS, stacked keys, visit-time events, and Door of Time time travel. It is
+  still a **subset**, not official OoTR.
+- Hand-picked `oracle.test.ts` cases are not enough by themselves. Vendored
+  World JSON + LogicHelpers + `State.py` methods are compiled and evaluated in
+  `src/logic/ootrPort.test.ts`. OoTR’s own `tests/` folder is fill/plando
+  generation — do not port that into the browser.
+- The tracker-search wrap is in `src/logic/graphPlugin.ts` + `graphSearch.ts`.
+  MQ and entrance shuffle stay later.
 
-`shuffle.ts` also does not generate a beatable seed. It permutes the
-progression pool onto enabled checks. Imported spoilers are the only placements
-that are already known-legal.
+## Yes — logic trackers already implement this
 
-## What to study (and what not to copy)
+The thing we keep rewriting in `src/logic/` is **check reachability**: given
+settings + inventory (+ age), which locations and exits are legal. That is
+exactly what a **map / logic tracker** computes every time you mark an item.
 
-### 1. OoT-Randomizer (preferred source of truth for this app)
+It is **not** what an item-only tracker computes. Xopar, Gossip Stones, and
+most race-legal item grids only store “I have Hookshot.” They do not run
+OoTR search.
 
-Repo: https://github.com/OoTRandomizer/OoT-Randomizer (MIT)
+From the [OoTR tracker list](https://wiki.ootrandomizer.com/index.php/Trackers):
 
-| Piece | Where | What it does |
-| --- | --- | --- |
-| World graph | `data/World/*.json` | Regions with `locations`, `exits`, `events`. Rules are Python-like strings. |
-| Helpers | `data/LogicHelpers.json` | Shared predicates: `can_use(item)`, `has_explosives`, `can_leave_forest`, `can_play(song)`, … |
-| Parser | `RuleParser.py` | Compiles rule strings into access lambdas. Expands helpers. Supports `here()` / `at()`. |
-| State | `State.py` | Item counts (`solv_items`), not a boolean bag. `has(item, n)`, progressive aliases. |
-| Search | `Search.py` | Dual-age BFS. Child and adult region sets expand independently. Collects reachable items in spheres. |
-| Settings rules | `Rules.py` | Shop/item restrictions after entrance setup. |
+| Tracker | What it actually runs |
+| --- | --- |
+| **TOoTR** ([mracsys/tootr](https://github.com/mracsys/tootr), MIT, Vite) | [@mracsys/randomizer-graph-tool](https://github.com/mracsys/randomizer-graph-tool) — TypeScript port of OoTR World JSON + `Search`. `collect_locations()` then `get_visited_locations()`. |
+| **Track-OoT** | Map tracker: green / yellow / red by “can I get checks here with current items.” |
+| **Hashfrog** | Web tracker “based on the randomizer generator logic.” |
+| **Hamsda / coavins EmoTracker** | Lua recreation of availability (green / orange / peek / trick). Desktop, not a library. |
+| **HoodTracker** | “Uses the Randomizer logic directly” (embeds upstream search). |
+| **SoH in-game tracker** | Same C++ `ReachabilitySearch` as fill. |
+| **OoTR `Search.py`** | The generator’s own dual-age BFS. Python. This is what the others are cloning. |
 
-Kokiri Forest in `data/World/Overworld.json` looks like:
+So the missing piece is not another hand-rolled AST. It is **wrapping a
+tracker search as a silent oracle**.
 
-```text
-region_name: Kokiri Forest
-events:
-  "Showed Mido Sword & Shield": is_child and Kokiri_Sword and Deku_Shield
-locations:
-  "KF Kokiri Sword Chest": is_child
-exits:
-  "KF Outside Deku Tree": is_adult or open_forest == 'open' or 'Showed Mido Sword & Shield'
-  "LW Bridge From Forest": can_leave_forest
-```
+### Steal the engine, not the HUD
 
-`can_leave_forest` is not “open forest flag.” It is:
+Trackers exist to **show** availability. This app exists to **penalize**
+wrong taps without showing the answer. Racing even bans “logic trackers”
+that reveal accessibility. Practice buttons stay identical unless the
+operator turned on `hideLocked`.
 
-```text
-open_forest != 'closed' or is_adult or 'Defeat Queen Gohma' or (glitch escapes…)
-```
+`collect_locations()` from Root (both ages, current items) answers “is this
+check in the sphere-0 playthrough?” That is what TOoTR paints green. A
+practice tap is “can I do this **here, now, as this age**.” Same graph,
+stricter question. The wrap is:
 
-Forest Temple is many regions (`Forest Temple Lobby`, `Central Area`,
-`Block Push Room`, …) with small keys, bow events (`Forest Temple Jo and
-Beth`), and `at('Other Region', rule)` cross-checks. First Room Chest is
-`True` once you are in the lobby. That is the opposite of our “whole dungeon
-needs hookshot.”
+1. Build / mutate the tracker graph from config + inventory + events.
+2. Ask: is location L visited **as the current age**, and is its parent
+   region inside the current practice node?
+3. Ask: is there an accessible entrance from this practice node to B?
+4. Never color the button from that result except `hideLocked`.
 
-Windmill song is `Song from Windmill: is_adult and Ocarina`.
+### Why we should stop growing `src/logic/` as a second RuleParser
 
-Deku Theater is `is_child and Skull_Mask` / `is_child and Mask_of_Truth`.
+`randomizer-graph-tool` already:
 
-### 2. Ship of Harkinian / Shipwright (same idea, C++ 3drando port)
+- Parses OoTR rule strings with Babel (real `here()` / `at()` / helpers)
+- Runs dual-age region expansion
+- Pins multiple upstream versions (8.1 / 8.2 / Fenhl / Rob)
+- Ships Jest tests against cached OoTR files
+- Is MIT and npm-installable (`@mracsys/randomizer-graph-tool`)
 
-Repo: https://github.com/HarbourMasters/Shipwright
+Costs if we take it:
 
-SoH is the PC port. Its randomizer is a port of **3drando**, not a second
-logic language. Same graph, compiled into lambdas:
+- First graph compile is **5–10 seconds**; a search is **&lt;1 ms**. Cache the
+  graph on the session, mutate items, do not rebuild on every tap.
+- Needs a **local file cache** of World JSON for the pinned version (GitHub
+  Pages must not fetch `github.com` at runtime). We already vendor vanilla
+  JSON; point the cache at `src/data/ootr/`.
+- Default search is fill-style (both ages from spawn). Keep the
+  here-and-now filter in `oracle.ts` so Practice does not become Track-OoT.
+- Bundle weight (Babel standalone). Accept it or lazy-load the graph on
+  first Practice start.
 
-- `soh/soh/Enhancements/randomizer/location_access.h` — `Region` with events,
-  locations, exits; child/adult × day/night access bits.
-- `location_access/overworld/kokiri_forest.cpp` — one area table per overworld
-  scene (`RR_KOKIRI_FOREST`, `RR_KF_OUTSIDE_DEKU_TREE`, grottos, houses).
-- `3drando/fill.cpp` — `ReachabilitySearch` loops `ProcessRegion` until
-  `logicUpdated` is false. Events can unlock more exits in the same search.
-  Time travel is propagated through Temple of Time.
-- Check tracker calls the same `ReachabilitySearch` to mark available checks.
+EmoTracker Lua packs and SoH C++ are the same algorithm in the wrong
+language. Do not vendor those.
 
-Do **not** port the C++ into this Vite app. Use it as a second reading of the
-same algorithm, and as the reference for SoH-specific settings if we ever
-import SoH spoilers.
+## Why a handful of fixtures was the wrong plan
 
-### 3. Other repos (out of scope)
+OoTR does not unit-test individual location rules. It vendors the rules, then
+proves seeds with `Search.py` + plando generation (`Unittest.py`). Copying
+those generation tests would mean running Python fill in CI.
 
-- **OoTMM** / this repo’s leftover `mm-*` nodes — Majora’s Mask stays a
-  separate app. Strip remaining MM from world data when the generator is
-  replaced.
-- **2ship2harkinian** — MM port. Same story.
-- **Archipelago OoT** — derived from OoTR. Not a better source than upstream.
+What we can port to web code — and already have started porting — is the
+**other** source of truth:
+
+| Upstream | What to assert in Vite |
+| --- | --- |
+| `data/LogicHelpers.json` | Every helper compiles. `can_use`, `can_play`, `can_leave_forest`, `can_open_door_of_time`, `can_build_rainbow_bridge` eval like OoTR. |
+| `State.py` | `has_bottle`, `has_hearts`, `can_live_dmg`, `has_soul` (vanilla: always true), `has_all_notes_for_song`. |
+| vanilla `data/World/*.json` | Every location / exit / event compiles. Known spots (masks, windmill, KF sword, Deku slingshot `here(has_shield)`, Forest `at(Falling Room)`, Drain Well, rainbow bridge) eval from the practice region. |
+| `RuleParser.py` `at()` / `here()` | `here(rule)` is the current logic region. `at(region, rule)` is true only if that logic region is reachable **inside the same practice node**, or the target is a different practice node (entrance age gates). |
+
+Do **not** invent more keyword `needs[]` fixtures. If a case matters, quote the
+OoTR location/helper name and evaluate it.
+
+## What is still wrong
+
+These are the remaining lies, in the order they bite practice:
+
+1. **`at()` is local, not world-search.** Cross-region `at('Bottom of the Well', is_child)`
+   on Farore’s Wind / age-switch exits is treated as the inner rule only. That
+   matches entrance age gates. It does **not** match fill-time “has this region
+   been reached as this age.”
+2. **Drain Well is child + Song of Storms.** Vanilla story has adult drain the
+   well from the windmill. OoTR’s event is `'Drain Well': is_child and can_play(Song_of_Storms)`.
+   Do not “fix” that toward the story. Adult SoS can persist the event via
+   visit-time / other-age event firing when the Door of Time is open.
+3. **Small keys / boss keys** stack from the trainer inventory (`small_key_forest`
+   × N). That landed in phase 2. Missing mappings still lock `(Small_Key_*, n)`.
+4. **`here()` does not re-search the current region.** It evaluates the inner
+   rule in the current state. That matches OoTR for “you are already here.”
+5. **Day/night:** `at_night` is treated as “waited.” `gold_skulls_ignore_daytime`
+   is false, so a forest-locked child cannot collect KF night GS without SoS /
+   forest escape / night start.
+6. **Hearts / bottles** now follow `State.py`, but the trainer inventory rarely
+   carries `Piece_of_Heart` or bottled contents. Heart-bridge imports will look
+   locked until those counts exist.
+7. **Ganon trials default to skipped** in `emptySettings` so tower access is
+   not a hidden lock. Vanilla OoTR leaves `skipped_trials[*] = false`. Tests
+   that care must set the dict.
+8. **Shop buy items** (`Buy_Deku_Shield`, …) are not given just because the
+   operator collected a shield from a chest. Owning `Deku_Shield` still
+   satisfies `has_shield` via `state.has` before helper expansion.
+9. **Either-age** is an optional `eitherAgeLogic` flag (off by default). Default
+   stays this age, this room. Collecting Gohma still sets `'Defeat Queen Gohma'`.
+10. **MQ, entrance shuffle, tricks, glitches** stay off unless an imported
+    spoiler enables a `logic_*` flag.
+
+`world.json` connections still carry leftover heuristic `needs[]`. The oracle
+ignores those when both ends map to logic regions and uses OoTR exits instead.
 
 ## Two graphs (do not collapse them)
 
 Randomizers search hundreds of subregions. The trainer UI must stay walkable:
 **Go to Lost Woods**, not **Go to LW Beyond Mido**.
 
-Keep two layers:
-
-1. **Practice graph** (operator buttons) — coarse regions, same shape as
-   today’s `world.json` regions + connections + warps. One node per overworld
-   area / dungeon. Age swap still happens at Temple of Time.
-2. **Logic graph** (penalty oracle) — OoTR regions, exits, locations, events,
-   helpers. Used only to answer “is this travel / check in logic given
-   inventory, settings, and current age?”
+1. **Practice graph** — coarse regions, same shape as today’s `world.json`.
+2. **Logic graph** — OoTR regions, exits, locations, events, helpers. Used only
+   to answer “is this travel / check in logic given inventory, settings, and
+   current age?”
 
 Map every logic region and every location to exactly one practice region
-(`"Forest Temple Lobby"` → `oot-forest`, `"Deku Theater"` → `oot-deku-theater`).
+(`Forest Temple Lobby` → `oot-forest`, `Deku Theater` → `oot-deku-theater`).
 
 Practice buttons stay visually identical. `hideLocked` / `hideCompleted` remain
 the only easier-mode tells. Peek still costs `peekPenaltySeconds`.
 
 ## What “in logic” means during a run
 
-Fill-time search (OoTR `Search`, SoH `ReachabilitySearch`) explores **both
-ages** from Root, collecting items, until nothing new opens. That is how seeds
-are proven beatable.
-
-A practice run is different: the operator is in **one** practice region as
-**one** age. Penalties should match “could I do this *here, now*, with what I
-have,” not “is this check somewhere in the sphere-0 playthrough.”
-
-Rules:
+Fill-time search explores **both ages** from Root. A practice run does not:
+the operator is in **one** practice region as **one** age.
 
 | Action | Stay here | In logic if |
 | --- | --- | --- |
-| **Go to B** | B is an adjacent practice exit (unchanged UI) | Current age + inventory satisfy at least one logic exit from a logic region inside the current practice region that lands in B. |
-| **Check L** | L’s practice region is the current region | Current age + inventory satisfy L’s access rule **and** the operator could reach L’s logic region from the current practice region without leaving it. |
-| **Warp** | Song owned + ocarina (today) | `can_play(song)` under helpers, plus `can_leave_forest` where OoTR requires it (Prelude / Bolero / etc.). |
-| **Age swap** | Temple of Time | `can_open_door_of_time` from helpers + settings, not only SoT + ocarina. |
-
-Do **not** require a full dual-age world search for every tap in phase 1.
-Evaluate the local rule. Add dual-age / event search in phase 3 so “Defeat
-Queen Gohma” can open the forest as child without the open-forest setting.
+| **Go to B** | B is an adjacent practice exit | Current age + inventory satisfy at least one logic exit from a reachable logic region inside the current practice node that lands in B. |
+| **Check L** | L’s practice region is the current region | Current age + inventory satisfy L’s access rule **and** L’s logic region is reachable without leaving this practice node. |
+| **Warp** | Song owned + ocarina | `can_play(song)`, plus `can_leave_forest` where OoTR requires it. |
+| **Age swap** | Temple of Time | `can_open_door_of_time`. |
 
 Out-of-logic still only adds penalty seconds. It does not restyle the button.
 
-## Inventory and settings
+## Next slices (do these, in order)
 
-Replace the string bag with a counted state, aliased to OoTR names:
+**Claim a leaf in `docs/TASKS.md` before starting.** That file is the
+who-owns-what board (`L-A` is the wrap; `L-C*` is imported settings).
+Do not start a second wrap while `L-A` is claimed.
 
-| Trainer id (today) | OoTR |
-| --- | --- |
-| `hookshot` / `longshot` | `Progressive_Hookshot` count 1 / 2 |
-| `strength` | `Progressive_Strength_Upgrade` |
-| `silver_scale` / `golden_scale` | `Progressive_Scale` |
-| `bombs` | `Bomb_Bag` |
-| `ocarina` | `Ocarina` (count 2 = Ocarina of Time when settings care) |
-| `open_forest` fake item | setting `open_forest` (`closed` / `open` / Deku-only) |
+### Slice A — wrap a tracker search (the real next step)
 
-Imported `randoSettings` must feed the rule context (`Closed Forest`,
-`Door of Time`, starting age, tricks off by default). `flagsFor()` injecting
-fake items is a stopgap; settings belong on the logic context, not in
-inventory.
+Preferred: `@mracsys/randomizer-graph-tool` (what TOoTR uses).
 
-Events are not items. Collecting a dungeon reward should set
-`'Defeat Queen Gohma'` (and similar) so `can_leave_forest` can become true
-mid-run.
+- Pin one supported Release (graph-tool 2.1.18 understands e.g. `8.3.0 Release`).
+  `src/data/ootr/` is only vanilla World JSON + helpers. The cache also needs
+  `SettingsList.py`, `ItemList.py`, `LocationList.py`, MQ, and Glitched World.
+  Inline `{ files, subfolder }` for the browser — `local_files` is Node-only.
+  Do not fetch GitHub at runtime on Pages.
+- Build the graph once per session (or when settings change). Mutate
+  inventory / checked locations on collect.
+- `checkLocationInLogic` / `connectionInLogic` become “is this visited as
+  this age inside this practice node,” not a second rule interpreter.
+- Keep `ootrPort.test.ts` as a regression gate while swapping the backend.
+- Do not import TOoTR’s React map or paint availability.
 
-Trade sequence and bottles need counts later; phase 1 can keep “has bottle”
-as a boolean.
+The wrap lives in `src/logic/graphPlugin.ts` + `graphSearch.ts`. Practice
+penalties use the graph-tool `access_rule` functions with a here-and-now
+BFS that stays inside the current practice node. The restricted evaluator
+stays for compile coverage (`ootrPort.test.ts`) and leftover heuristic
+edges. Do not add more helper stubs unless a practice bug needs them.
 
-## Architecture to build
+### Slice B — keep the ported suite green
 
-```text
-src/logic/
-  rules.ts          # tokenize + AST + eval (and / or / not / calls / comparisons)
-  helpers.ts        # vendored subset of LogicHelpers.json
-  state.ts          # item counts, age, events, settings
-  search.ts         # later: dual-age region expansion
-  worldLogic.ts     # loaded OoTR regions/exits/locations
-  mapPractice.ts    # logic region/location → practice regionId
-  inventoryMap.ts   # trainer item ids ↔ OoTR names
+- Every helper and World JSON rule compiles (`HELPER_COMPILE_ERRORS`,
+  `WORLD_COMPILE_ERRORS` must stay empty) for as long as we own the parser.
+- Add a new World JSON case when fixing a bug; do not add a parallel heuristic.
 
-src/data/
-  world.json        # PRACTICE graph only (OoT, no MM)
-  ootr/             # vendored vanilla World JSON + LogicHelpers (MIT notice)
-```
+### Slice C — settings the importer already stores
 
-`checkInLogic` / `canUseConnection` in `src/data/world.ts` become thin
-wrappers around `src/logic`. Session mutations in `src/lib/session.ts` stay
-the same shape.
+- Rainbow bridge / Ganon BK / LACS counts (partially wired).
+- Gerudo Fortress (normal / fast / open).
+- Tricks: default off; honor `logic_*` from a spoiler.
+- MQ and entrance shuffle stay later. Entrance shuffle would rewrite the
+  practice graph; do not fake it with vanilla adjacencies.
 
-Replace `scripts/generate-world.py` (wiki dump + `needs_for()`) with a
-generator that:
+Keys, visit-time events, Door of Time, and optional `eitherAgeLogic` already
+landed on `main` (phases 2–3). Do not re-implement them.
 
-1. Reads vendored OoTR `data/World` (vanilla files only; skip `* MQ.json`
-   until a later phase).
-2. Builds the practice region list + adjacency from a small explicit map
-   (Lost Woods ↔ Kokiri, SFM ↔ Forest Temple, …), **not** from keyword
-   matching.
-3. Emits location → practice region + OoTR location name for import aliases.
-4. Does not invent AND-lists.
-
-Keep `importRando.ts` location names aligned with OoTR (`KF Kokiri Sword
-Chest`, `Deku Theater Skull Mask`, …). That already matches spoilers.
-
-License: copy the MIT notice from OoT-Randomizer next to vendored JSON.
-
-## Phases
+## Phases (landed on main)
 
 ### Phase 0 — freeze the lie (small)
 
@@ -267,34 +273,16 @@ Practice UI unchanged. `hideLocked` can use the new oracle when enabled.
 
 Still one **Go to Forest Temple** button from SFM.
 
-Goal was: Forest / Fire / Water / Shadow / Spirit / Well / GTG / Ganon stop
-sharing one requirement. That is the current oracle behavior.
-
 ### Phase 3 — events, dual age, time travel
 
-**Landed (play-time, this age / this room).** Fill-style either-age is still off.
+**Landed.** Play-time reachability fires events until they stop, without turning Practice into a tracker.
 
-- Intra-practice search already loops until events and exits stop opening.
-- Visiting a practice region persists the events that fire there (`Showed Mido
-  Sword & Shield`, `Drain Well`, `Epona`, …). Travel writes both the region
-  you leave and the one you enter.
-- Collecting a dungeon boss check sets `'Defeat Queen Gohma'` (and the other
-  `Defeat *` events) so `can_leave_forest` can become true mid-run. Walking
-  the boss room without tapping the check does **not** persist a defeat.
-- Age swap at Temple of Time uses `can_open_door_of_time` (open door, or Song
-  of Time + ocarina). A successful swap records `Time_Travel`. Starting adult
-  can always swap at ToT.
-- `openDeku: false` with open forest maps to OoTR `open_forest == 'deku'`
-  (Mido still blocks Deku). Closed forest stays `closed`.
-- Optional: while standing in a region, also allow a check if the **other**
-  age could do it *after swapping at ToT with current items* — **off by
-  default**. Default stays “this age, this room.” A config flag can enable
-  “fill-style either age” later if operators want it.
-
-Day/night skulls: trainer has no clock. `at_night` / `at_day` evaluate true
-(the operator can wait) **except** `gold_skulls_ignore_daytime` is off, so
-Kokiri night GS still need `had_night_start`, `can_leave_forest`, or Sun’s
-Song. Do not silently mark night-only GS in logic for child locked in Kokiri.
+- Intra-practice BFS still loops until events/exits stabilize, and also processes Root events plus `Time_Travel` when `can_open_door_of_time` (or adult start) is true. If the door is open, the other age’s events in the **same** practice region can fire (shared inventory) so windmill SoS / similar persist.
+- Collecting Gohma sets `'Defeat Queen Gohma'` → `can_leave_forest` for a closed-forest child. Uncollected `"Defeat …"` events from merely reaching a boss room are **not** persisted.
+- Visiting a region persists its events onto the run (`logicEvents`), so adult Dampe race (`Dampes Windmill Access`) still counts after walking back to Kakariko.
+- Door of Time / starting age use `can_open_door_of_time`. Adult start can always swap at ToT; child needs Open DoT or ocarina + Song of Time.
+- Optional config `eitherAgeLogic` (off by default): a check in this room is in logic if the other age could do it here after opening the Door of Time. Buttons stay visually identical. Go-to travel stays this age.
+- Day/night: `at_night` is treated as “waited.” `gold_skulls_ignore_daytime` is **false**, so a forest-locked child cannot collect KF night GS without SoS / forest escape / night start.
 
 ### Phase 4 — settings coverage (only what import already stores)
 
@@ -314,42 +302,41 @@ rewrite the practice graph; do not fake it with vanilla adjacencies.
 
 ## What we will not do
 
-- Port `fill.cpp` item placement or sphere playthrough generation into the
-  trainer. Beatable shuffled seeds are a separate project; imported spoilers
-  already have legal placement.
-- Restyle Go/Check buttons by in-logic vs out-of-logic except `hideLocked`.
+- Port `fill.cpp` / `Unittest.py` seed generation into the trainer.
+- Restyle Go/Check by in-logic vs out-of-logic except `hideLocked`.
 - Reintroduce MM regions, MM presets, or cross-game links.
-- Claim the trainer **is** OoTR. After phase 2 we can say “vanilla glitchless
+- Claim the trainer **is** OoTR. After phase 3 we can say “vanilla glitchless
   rules from OoTR World JSON (subset).” Keep the approximation
-  disclaimer for dual-age fill, MQ, entrance shuffle, and tricks.
-- Vendor the entire SoH tree or run Python `Search.py` in the browser.
+  disclaimer for MQ, entrance shuffle, and tricks.
+- Vendor the SoH tree, EmoTracker Lua, or run Python `Search.py` in the browser.
+- Turn Practice into TOoTR / Track-OoT (no availability colors, no remaining-check map).
+- Fetch randomizer files from GitHub at runtime on Pages.
+- Treat adult-windmill-drain or “whole Forest needs hookshot” as logic. Those
+  are story / old heuristic, not OoTR.
 
 ## File-level landing spots
 
 | Change | Where |
 | --- | --- |
-| Rule eval + state | new `src/logic/` |
-| Practice travel/collect still call session | `src/lib/session.ts` |
-| Oracle used by session | `src/data/world.ts` wraps `src/logic` |
-| Settings → logic context | `src/lib/importRando.ts` + `src/logic/state.ts` |
-| Drop heuristic generator | replace `scripts/generate-world.py` |
-| Tests | `src/logic/*.test.ts` plus updates to `world.test.ts` / `session.test.ts` |
+| Parse + compile errors | `src/logic/rules.ts`, `src/logic/compile.ts` |
+| Helper / State eval | `src/logic/eval.ts`, `src/logic/state.ts` |
+| Local `at()` reachability | `src/logic/search.ts` |
+| Practice travel/collect | `src/lib/session.ts` (shape unchanged) |
+| Oracle wrappers | `src/data/world.ts` → `src/logic/oracle.ts` |
+| Tracker search wrap (next) | new adapter in `src/logic/` around `@mracsys/randomizer-graph-tool` |
+| Ported tests | `src/logic/ootrPort.test.ts` |
+| Smoke cases | `src/logic/oracle.test.ts` |
+| Who owns which slice | `docs/TASKS.md` |
 | Agent notes | this file + `AGENTS.md` |
 
-## First implementation slice (when coding starts)
+## Study list
 
-Do phase 0 + phase 1 only:
-
-1. Vendor OoTR `LogicHelpers.json` and `data/World/Overworld.json` (vanilla).
-2. Parser + helper expansion + `State.has`.
-3. Wire `checkInLogic` / forest-escape travel to compiled rules for the
-   overworld checks we already list.
-4. Add the table of tests above.
-5. Leave dungeon interiors as “one region” until phase 2 — but stop applying
-   blanket `needs: ["hookshot"]` on every Forest check; use the per-location
-   rule even if intra-dungeon BFS is not done yet (lobby chest becomes
-   legal without hookshot; bow chest still needs the bow rule).
-
-That slice already fixes the most embarrassing cases (masks, windmill SoS,
-closed forest, Ganon Light Arrows as a door key) without turning Practice
-into a tracker.
+- [TOoTR](https://github.com/mracsys/tootr) +
+  [@mracsys/randomizer-graph-tool](https://github.com/mracsys/randomizer-graph-tool)
+  — MIT TypeScript. This is the engine to wrap.
+- [OoT-Randomizer](https://github.com/OoTRandomizer/OoT-Randomizer) — MIT.
+  `Search.py` is what the graph tool is a port of. World JSON stays vendored.
+- [Trackers wiki](https://wiki.ootrandomizer.com/index.php/Trackers) — which
+  apps implement logic vs item grids.
+- Ship of Harkinian’s 3drando port — same graph, C++. Do not vendor it.
+- Archipelago OoT / EmoTracker Lua — derived. Not a better source than TOoTR.

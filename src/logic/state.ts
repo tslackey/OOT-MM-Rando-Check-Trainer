@@ -21,7 +21,6 @@ export function emptySettings(config?: RandoConfig, inventory: Iterable<string> 
   const owned = new Set(inventory);
   const imported = config?.randoSettings ?? {};
   const openForest = config ? config.openForest : owned.has("open_forest");
-  const openDeku = config ? config.openDeku : owned.has("open_deku") || !owned.has("open_forest");
   const openZora = config ? config.openZora : owned.has("open_zora");
   const openDot = config ? config.openDoorOfTime : owned.has("open_door_of_time");
 
@@ -29,7 +28,7 @@ export function emptySettings(config?: RandoConfig, inventory: Iterable<string> 
   for (const trial of TRIALS) skipped[trial] = true;
 
   const settings: Record<string, unknown> = {
-    open_forest: !openForest ? "closed" : openDeku ? "open" : "deku",
+    open_forest: openForest ? "open" : "closed",
     open_kakariko: "open",
     zora_fountain: openZora ? "open" : "closed",
     open_door_of_time: openDot ? "open" : "sot",
@@ -48,6 +47,8 @@ export function emptySettings(config?: RandoConfig, inventory: Iterable<string> 
     lacs_condition: "vanilla",
     shuffle_ganon_bosskey: "dungeon",
     dungeon_shortcuts: [],
+    // Trainer default: skip Ganon trials so tower access is not a hidden lock.
+    // Vanilla OoTR leaves these false; tests that care set them explicitly.
     skipped_trials: skipped,
     damage_multiplier: "normal",
     deadly_bonks: "none",
@@ -57,6 +58,8 @@ export function emptySettings(config?: RandoConfig, inventory: Iterable<string> 
     chicken_count: 7,
     warp_songs: true,
     disable_trade_revert: false,
+    // Trainer has no clock: at_night is treated as "waited." Do not also
+    // ignore daytime, or a closed-forest child can collect KF night GS.
     gold_skulls_ignore_daytime: false,
     had_night_start: false,
     logic_grottos_without_agony: false,
@@ -80,11 +83,9 @@ export function emptySettings(config?: RandoConfig, inventory: Iterable<string> 
   };
 
   applyImportedSettings(settings, imported);
-  if (!config) {
-    if (owned.has("open_forest")) settings.open_forest = owned.has("open_deku") ? "open" : "deku";
-    if (owned.has("open_zora")) settings.zora_fountain = "open";
-    if (owned.has("open_door_of_time")) settings.open_door_of_time = "open";
-  }
+  if (owned.has("open_forest")) settings.open_forest = "open";
+  if (owned.has("open_zora")) settings.zora_fountain = "open";
+  if (owned.has("open_door_of_time")) settings.open_door_of_time = "open";
   return settings;
 }
 
@@ -186,6 +187,8 @@ export function makeState(opts: {
     events: new Set(opts.events ?? []),
     settings: opts.settings ?? emptySettings(opts.config, opts.inventory ?? []),
     bindings: {},
+    reachable: new Set(),
+    searchPracticeId: undefined,
   };
 }
 
@@ -202,5 +205,10 @@ export function addEvent(state: LogicState, name: string): void {
 }
 
 export function withAge(state: LogicState, age: LogicAge): LogicState {
-  return { ...state, age, bindings: { ...state.bindings } };
+  return {
+    ...state,
+    age,
+    bindings: { ...state.bindings },
+    reachable: state.reachable ? new Set(state.reachable) : undefined,
+  };
 }

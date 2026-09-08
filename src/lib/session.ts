@@ -16,9 +16,9 @@ import {
   enabledChecks,
   flagsFor,
   itemLabel,
-  collectVisitEvents,
   REGION_BY_ID,
   sessionEvents,
+  harvestEvents,
   WORLD,
 } from "../data/world";
 import { adjustedMs, sessionElapsedMs } from "./scoring";
@@ -33,28 +33,20 @@ function logicEvents(session: PracticeSession): string[] {
   return sessionEvents(session.collectedCheckIds, session.logicEvents ?? []);
 }
 
-function refreshEvents(
-  session: PracticeSession,
-  config: RandoConfig,
-  patch: {
-    regionId?: string;
-    inventory?: string[];
-    age?: Exclude<Age, "any">;
-    collected?: string[];
-    extra?: Iterable<string>;
-  } = {},
-): string[] {
-  const inventory = patch.inventory ?? session.inventory;
-  const age = patch.age ?? session.age;
-  const regionId = patch.regionId ?? session.currentRegionId;
-  const collected = patch.collected ?? session.collectedCheckIds;
-  const seeded = sessionEvents(collected, [...(session.logicEvents ?? []), ...(patch.extra ?? [])]);
-  return collectVisitEvents(regionId, inventory, age, config, seeded);
+function harvestedEvents(session: PracticeSession, config: RandoConfig): string[] {
+  return harvestEvents(
+    session.currentRegionId,
+    session.inventory,
+    session.age,
+    config,
+    session.collectedCheckIds,
+    session.logicEvents ?? [],
+  );
 }
 
-function eventsAfterMove(session: PracticeSession, config: RandoConfig, regionId: string): string[] {
-  const leaving = refreshEvents(session, config);
-  return refreshEvents({ ...session, logicEvents: leaving }, config, { regionId });
+function harvestedAfterMove(session: PracticeSession, config: RandoConfig, regionId: string): string[] {
+  const here = harvestedEvents(session, config);
+  return harvestEvents(regionId, session.inventory, session.age, config, session.collectedCheckIds, here);
 }
 
 export function startingInventory(config: RandoConfig): string[] {
@@ -76,8 +68,7 @@ export function createSession(config: RandoConfig, seed?: number): PracticeSessi
   const now = Date.now();
   const spoiler = generateSpoiler(config, seed ?? now);
   const start = startingRegion(spoiler);
-  const inventory = startingInventory(config);
-  return {
+  const session: PracticeSession = {
     id: crypto.randomUUID(),
     configId: config.id,
     configName: config.name,
@@ -90,12 +81,11 @@ export function createSession(config: RandoConfig, seed?: number): PracticeSessi
     adultSpawnId: spoiler.adultSpawnId,
     faroresRegionId: null,
     seed: spoiler.seed,
-    inventory,
+    inventory: startingInventory(config),
     collectedCheckIds: [],
     wrongIds: [],
     placement: spoiler.placement,
     enabledCheckIds: checks.map((check) => check.id),
-    logicEvents: collectVisitEvents(start, inventory, spoiler.startingAge, config),
     log: [
       {
         at: now,
@@ -108,6 +98,8 @@ export function createSession(config: RandoConfig, seed?: number): PracticeSessi
     penaltySeconds: 0,
     peekUsed: 0,
   };
+  session.logicEvents = harvestedEvents(session, config);
+  return session;
 }
 
 function bump(session: PracticeSession, patch: Partial<PracticeSession>): PracticeSession {
@@ -208,10 +200,7 @@ export function travelTo(
   return succeed(
     session,
     `Arrived at ${name}`,
-    {
-      currentRegionId: regionId,
-      logicEvents: eventsAfterMove(session, config, regionId),
-    },
+    { currentRegionId: regionId, logicEvents: harvestedAfterMove(session, config, regionId) },
     { kind: "travel", label: `Go to ${name}`, ok: true, regionId },
   );
 }
@@ -239,10 +228,7 @@ export function warpTo(
   return succeed(
     session,
     warp.label,
-    {
-      currentRegionId: warp.regionId,
-      logicEvents: eventsAfterMove(session, config, warp.regionId),
-    },
+    { currentRegionId: warp.regionId, logicEvents: harvestedAfterMove(session, config, warp.regionId) },
     { kind: "warp", label: warp.label, ok: true, regionId: warp.regionId, item: warpItem },
   );
 }
@@ -265,10 +251,7 @@ export function respawnToSpawn(session: PracticeSession, config: RandoConfig): P
   return succeed(
     session,
     `Respawned at ${name}`,
-    {
-      currentRegionId: regionId,
-      logicEvents: eventsAfterMove(session, config, regionId),
-    },
+    { currentRegionId: regionId, logicEvents: harvestedAfterMove(session, config, regionId) },
     { kind: "warp", label: `Respawn to ${name}`, ok: true, regionId, item: "respawn" },
   );
 }
@@ -333,10 +316,7 @@ export function warpFaroresWind(session: PracticeSession, config: RandoConfig): 
   return succeed(
     session,
     `Warped to ${name}`,
-    {
-      currentRegionId: regionId,
-      logicEvents: eventsAfterMove(session, config, regionId),
-    },
+    { currentRegionId: regionId, logicEvents: harvestedAfterMove(session, config, regionId) },
     { kind: "warp", label: `Farore's Wind (${name})`, ok: true, regionId, item: "farores-return" },
   );
 }
@@ -383,13 +363,14 @@ export function collectCheck(
       ? [...session.inventory, item]
       : session.inventory;
   const done = collected.length >= session.enabledCheckIds.length;
+  const collectedSession = { ...session, collectedCheckIds: collected, inventory };
   return succeed(
     session,
     `Got ${item.startsWith("junk_") ? "junk" : itemLabel(item)}`,
     {
       collectedCheckIds: collected,
       inventory,
-      logicEvents: refreshEvents(session, config, { inventory, collected }),
+      logicEvents: harvestedEvents(collectedSession, config),
       finishedAt: done ? Date.now() : session.finishedAt,
     },
     { kind: "check", label, ok: true, checkId: check.id, item },
@@ -449,13 +430,11 @@ export function switchAge(session: PracticeSession, config: RandoConfig): Practi
     });
   }
   const nextAge: Exclude<Age, "any"> = session.age === "child" ? "adult" : "child";
+  const swapped = { ...session, age: nextAge };
   return succeed(
     session,
     `Now ${nextAge}`,
-    {
-      age: nextAge,
-      logicEvents: refreshEvents(session, config, { age: nextAge, extra: ["Time_Travel"] }),
-    },
+    { age: nextAge, logicEvents: harvestedEvents(swapped, config) },
     { kind: "travel", label: `Become ${nextAge}`, ok: true },
   );
 }

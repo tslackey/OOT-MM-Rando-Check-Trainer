@@ -51,6 +51,9 @@ describe("OoTR JSON import", () => {
     expect(again.config.childSpawn).toBe("oot-lh");
     expect(again.config.adultSpawn).toBe("oot-kak");
     expect(again.config.spawnShuffle).toBe(true);
+    imported.config.eitherAgeLogic = true;
+    const withEither = importRandoFile(exportRandoFile(imported.config), "export.json");
+    expect(withEither.config.eitherAgeLogic).toBe(true);
   });
 
   it("accepts a raw settings object", () => {
