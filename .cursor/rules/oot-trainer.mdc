@@ -9,6 +9,13 @@ This repository is a **Capacitor web app** that trains **Ocarina of Time randomi
 
 Read `AGENTS.md` before changing behavior.
 
+## Claim leftover work
+
+`docs/TASKS.md` is the **claimable** who-owns-what board. Before starting leftover
+logic or later-product work, pick an **open** leaf, set it to **claimed**, and fill
+owner / agent / branch / PR in the same change. Do not touch a **claimed** slice.
+`docs/LOGIC_PLAN.md` is the architecture, not the assignment list.
+
 ## Product
 
 - Operator taps **Go to …** and **Check …** like walking a seed.
@@ -32,6 +39,7 @@ Read `AGENTS.md` before changing behavior.
 - `src/lib/importRando.ts` — OoTR JSON
 - `src/data/world.ts` + `world.json` — practice regions / connections / checks
 - `src/state/store.ts` + `src/storage/persist.ts` — persisted store
+- `docs/TASKS.md` — claimable leftover slices (who is working on what)
 
 ## Before finishing a change
 

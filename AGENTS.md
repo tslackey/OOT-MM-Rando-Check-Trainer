@@ -2,6 +2,13 @@
 
 Read this before changing the app or telling the operator how to practice.
 
+## Claim work first
+
+Leftover slices are on a **claimable board** in `docs/TASKS.md`. Pick an `open`
+leaf, set it to `claimed`, and fill owner / agent / branch / PR in the same
+change that starts the work. Do not start a second copy of a claimed leaf.
+`docs/LOGIC_PLAN.md` is the architecture; the board is who owns which slice.
+
 ## What this project is
 
 A **practice tool for Ocarina of Time randomizer** so the operator can get better at playing **without a check tracker**.
