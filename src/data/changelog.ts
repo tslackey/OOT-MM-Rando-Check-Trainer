@@ -23,6 +23,7 @@ export const CHANGELOG: ChangelogEntry[] = [
     title: "Changelog in the app",
     summary:
       "The Pages build stamp and a Changes tab list each shipped pull request next to the build number that published it.",
+    pr: 13,
     pending: true,
   },
   {
