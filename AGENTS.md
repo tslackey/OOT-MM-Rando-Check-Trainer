@@ -2,6 +2,13 @@
 
 Read this before changing the app or telling the operator how to practice.
 
+## Claim work first
+
+Leftover slices are on a **claimable board** in `docs/TASKS.md`. Pick an `open`
+leaf, set it to `claimed`, and fill owner / agent / branch / PR in the same
+change that starts the work. Do not start a second copy of a claimed leaf.
+`docs/LOGIC_PLAN.md` is the architecture; the board is who owns which slice.
+
 ## What this project is
 
 A **practice tool for Ocarina of Time randomizer** so the operator can get better at playing **without a check tracker**.
@@ -30,6 +37,7 @@ Practice loop: configure or import a seed, tap **Go to …** / **Check …** lik
 | App state + autosave | `src/state/store.ts` → `src/storage/persist.ts` (localStorage + Capacitor Preferences) |
 | World graph + checks | `src/data/world.json` + `src/data/world.ts` (practice graph) |
 | Logic oracle | `src/logic/` + vendored `src/data/ootr/` (OoTR vanilla rules) |
+| Who owns which slice | `docs/TASKS.md` (claim a leaf before starting) |
 | Built-in presets | `src/data/presets.ts` (OoT only) |
 | Practice rules | `src/lib/session.ts` (travel, collect, peek, pause, age swap, respawn, Farore's Wind) |
 | Spoiler generate/import | `src/lib/spoiler.ts`, `src/lib/spawns.ts`, `src/lib/importRando.ts` |
@@ -86,7 +94,8 @@ CI is the Pages workflow on `main` (test + lint, then build, then deploy).
 - MM trainer: new app, same Capacitor/Pages pattern, not a second game toggle here.
 - Native shells (`npx cap add android|ios`) only when asked.
 - **Logic:** Practice travel/check penalties use the OoTR vanilla oracle in `src/logic/` (phase 0–3 of `docs/LOGIC_PLAN.md`: intra-dungeon BFS, keys, visit-time events, Door of Time). The next slice is wrapping a tracker search (TOoTR / `randomizer-graph-tool`) instead of growing a second RuleParser. Do not paint Go/Check by availability. Port World JSON cases into `src/logic/ootrPort.test.ts` instead of inventing heuristic fixtures. MQ and entrance shuffle are later phases.
-- Optional later: MQ, entrance shuffle, junk sanity types, tighter aliases.
+- **Who is working on what:** claim a leaf in `docs/TASKS.md` before starting. Do not touch a claimed slice.
+- Optional later: MQ, entrance shuffle, junk sanity types, tighter aliases. See `docs/TASKS.md`.
 
 ## Tests that must stay green
 
