@@ -40,6 +40,7 @@ export interface WorldCheck {
   type: CheckType;
   age: Age;
   needs: string[];
+  ootrLocation?: string;
 }
 
 export interface WorldData {
@@ -130,6 +131,7 @@ export interface PracticeSession {
   penaltySeconds: number;
   peekUsed: number;
   lastFlash?: { tone: "ok" | "bad"; text: string; at: number };
+  logicEvents?: string[];
 }
 
 export interface SessionSummary {

@@ -698,7 +698,8 @@
       "regionId": "oot-kokiri",
       "type": "chest",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "KF Kokiri Sword Chest"
     },
     {
       "id": "oot-mido-s-house-top-left",
@@ -707,7 +708,8 @@
       "regionId": "oot-kokiri",
       "type": "chest",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "KF Midos Top Left Chest"
     },
     {
       "id": "oot-mido-s-house-top-right",
@@ -716,7 +718,8 @@
       "regionId": "oot-kokiri",
       "type": "chest",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "KF Midos Top Right Chest"
     },
     {
       "id": "oot-mido-s-house-bottom-left",
@@ -725,7 +728,8 @@
       "regionId": "oot-kokiri",
       "type": "chest",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "KF Midos Bottom Left Chest"
     },
     {
       "id": "oot-mido-s-house-bottom-right",
@@ -734,7 +738,8 @@
       "regionId": "oot-kokiri",
       "type": "chest",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "KF Midos Bottom Right Chest"
     },
     {
       "id": "oot-kokiri-forest-storms-grotto",
@@ -745,7 +750,8 @@
       "age": "any",
       "needs": [
         "song_of_storms"
-      ]
+      ],
+      "ootrLocation": "KF Storms Grotto Chest"
     },
     {
       "id": "oot-hyrule-field-song-of-time",
@@ -756,7 +762,8 @@
       "age": "any",
       "needs": [
         "ocarina"
-      ]
+      ],
+      "ootrLocation": "Song from Ocarina of Time"
     },
     {
       "id": "oot-hyrule-field-grotto-scrub-hp",
@@ -821,7 +828,8 @@
       "regionId": "oot-market",
       "type": "chest",
       "age": "any",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Market Lost Dog"
     },
     {
       "id": "oot-bombchu-bowling-reward-1",
@@ -870,7 +878,8 @@
       "regionId": "oot-llr",
       "type": "song",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Song from Malon"
     },
     {
       "id": "oot-lon-lon-ranch-silo-hp",
@@ -926,7 +935,8 @@
       "regionId": "oot-castle",
       "type": "song",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Song from Impa"
     },
     {
       "id": "oot-great-fairy-defense-upgrade",
@@ -944,7 +954,8 @@
       "regionId": "oot-lost-woods",
       "type": "chest",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "LW Target in Woods"
     },
     {
       "id": "oot-lost-woods-skull-kid",
@@ -953,7 +964,8 @@
       "regionId": "oot-lost-woods",
       "type": "chest",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "LW Skull Kid"
     },
     {
       "id": "oot-lost-woods-memory-game",
@@ -962,7 +974,8 @@
       "regionId": "oot-lost-woods",
       "type": "chest",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "LW Ocarina Memory Game"
     },
     {
       "id": "oot-lost-woods-scrub-sticks-upgrade",
@@ -998,7 +1011,8 @@
       "regionId": "oot-lost-woods",
       "type": "chest",
       "age": "any",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "LW Near Shortcuts Grotto Chest"
     },
     {
       "id": "oot-deku-theater-sticks-upgrade",
@@ -1007,7 +1021,8 @@
       "regionId": "oot-deku-theater",
       "type": "chest",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Deku Theater Skull Mask"
     },
     {
       "id": "oot-deku-theater-nuts-upgrade",
@@ -1016,7 +1031,8 @@
       "regionId": "oot-deku-theater",
       "type": "chest",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Deku Theater Mask of Truth"
     },
     {
       "id": "oot-lost-woods-grotto-scrub-nuts-upgrade",
@@ -1045,7 +1061,8 @@
       "age": "child",
       "needs": [
         "ocarina"
-      ]
+      ],
+      "ootrLocation": "Song from Saria"
     },
     {
       "id": "oot-sacred-meadow-sheik-song",
@@ -1054,7 +1071,8 @@
       "regionId": "oot-sfm",
       "type": "song",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Sheik in Forest"
     },
     {
       "id": "oot-kakariko-anju-bottle",
@@ -1063,7 +1081,8 @@
       "regionId": "oot-kak",
       "type": "chest",
       "age": "any",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Kak Anju as Child"
     },
     {
       "id": "oot-kakariko-anju-egg",
@@ -1090,7 +1109,8 @@
       "regionId": "oot-kak",
       "type": "song",
       "age": "any",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Sheik in Kakariko"
     },
     {
       "id": "oot-kakariko-man-on-roof",
@@ -1126,7 +1146,8 @@
       "regionId": "oot-kak",
       "type": "chest",
       "age": "any",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Kak Impas House Freestanding PoH"
     },
     {
       "id": "oot-windmill-hp",
@@ -1146,7 +1167,8 @@
       "age": "any",
       "needs": [
         "song_of_storms"
-      ]
+      ],
+      "ootrLocation": "Song from Windmill"
     },
     {
       "id": "oot-skulltula-house-10-tokens",
@@ -1309,7 +1331,8 @@
       "regionId": "oot-dmt",
       "type": "chest",
       "age": "any",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "DMT Freestanding PoH"
     },
     {
       "id": "oot-death-mountain-trail-prescription",
@@ -1624,7 +1647,8 @@
       "regionId": "oot-tot",
       "type": "song",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Sheik at Temple"
     },
     {
       "id": "oot-temple-of-time-light-arrows",
@@ -1669,7 +1693,8 @@
       "regionId": "oot-dmc",
       "type": "song",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Sheik in Crater"
     },
     {
       "id": "oot-death-mountain-crater-grotto",
@@ -1785,7 +1810,8 @@
       "regionId": "oot-colossus",
       "type": "song",
       "age": "any",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Sheik at Colossus"
     },
     {
       "id": "oot-great-fairy-nayru-s-love",
@@ -1814,7 +1840,8 @@
       "regionId": "oot-deku",
       "type": "dungeonReward",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Queen Gohma"
     },
     {
       "id": "oot-deku-tree-map-chest",
@@ -1823,7 +1850,8 @@
       "regionId": "oot-deku",
       "type": "chest",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Deku Tree Map Chest"
     },
     {
       "id": "oot-deku-tree-compass-chest",
@@ -1832,7 +1860,8 @@
       "regionId": "oot-deku",
       "type": "chest",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Deku Tree Compass Chest"
     },
     {
       "id": "oot-deku-tree-compass-room-side-chest",
@@ -1841,7 +1870,8 @@
       "regionId": "oot-deku",
       "type": "chest",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Deku Tree Compass Room Side Chest"
     },
     {
       "id": "oot-deku-tree-slingshot-chest",
@@ -1850,7 +1880,8 @@
       "regionId": "oot-deku",
       "type": "chest",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Deku Tree Slingshot Chest"
     },
     {
       "id": "oot-deku-tree-slingshot-side-chest",
@@ -1868,7 +1899,8 @@
       "regionId": "oot-deku",
       "type": "chest",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Deku Tree Basement Chest"
     },
     {
       "id": "oot-dodongo-cavern-boss-chest",
@@ -1895,7 +1927,8 @@
       "regionId": "oot-dc",
       "type": "dungeonReward",
       "age": "any",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "King Dodongo"
     },
     {
       "id": "oot-dodongo-cavern-map-chest",
@@ -1958,7 +1991,8 @@
       "regionId": "oot-jabu",
       "type": "dungeonReward",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Barinade"
     },
     {
       "id": "oot-jabu-jabu-boomerang-chest",
@@ -1998,7 +2032,8 @@
       "age": "adult",
       "needs": [
         "hookshot"
-      ]
+      ],
+      "ootrLocation": "Phantom Ganon"
     },
     {
       "id": "oot-forest-temple-boss-container",
@@ -2020,7 +2055,8 @@
       "age": "adult",
       "needs": [
         "hookshot"
-      ]
+      ],
+      "ootrLocation": "Forest Temple First Room Chest"
     },
     {
       "id": "oot-forest-temple-garden",
@@ -2054,7 +2090,8 @@
       "needs": [
         "bow",
         "hookshot"
-      ]
+      ],
+      "ootrLocation": "Forest Temple Bow Chest"
     },
     {
       "id": "oot-forest-temple-compass",
@@ -2105,7 +2142,8 @@
       "regionId": "oot-fire",
       "type": "dungeonReward",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Volvagia"
     },
     {
       "id": "oot-fire-temple-boss-key-side-chest",
@@ -2123,7 +2161,8 @@
       "regionId": "oot-fire",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Fire Temple Map Chest"
     },
     {
       "id": "oot-fire-temple-scarecrow-chest",
@@ -2132,7 +2171,8 @@
       "regionId": "oot-fire",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Fire Temple Scarecrow Chest"
     },
     {
       "id": "oot-fire-temple-compass",
@@ -2141,7 +2181,8 @@
       "regionId": "oot-fire",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Fire Temple Compass Chest"
     },
     {
       "id": "oot-fire-temple-hammer",
@@ -2152,7 +2193,8 @@
       "age": "adult",
       "needs": [
         "hammer"
-      ]
+      ],
+      "ootrLocation": "Fire Temple Hammer Staircase Small Wooden Crate 1"
     },
     {
       "id": "oot-water-temple-boss-hc",
@@ -2174,7 +2216,8 @@
       "age": "adult",
       "needs": [
         "iron_boots"
-      ]
+      ],
+      "ootrLocation": "Morpha"
     },
     {
       "id": "oot-water-temple-map",
@@ -2185,7 +2228,8 @@
       "age": "adult",
       "needs": [
         "iron_boots"
-      ]
+      ],
+      "ootrLocation": "Water Temple Map Chest"
     },
     {
       "id": "oot-water-temple-under-center",
@@ -2207,7 +2251,8 @@
       "age": "adult",
       "needs": [
         "iron_boots"
-      ]
+      ],
+      "ootrLocation": "Water Temple Compass Chest"
     },
     {
       "id": "oot-water-temple-longshot",
@@ -2219,7 +2264,8 @@
       "needs": [
         "hookshot",
         "iron_boots"
-      ]
+      ],
+      "ootrLocation": "Water Temple Longshot Chest"
     },
     {
       "id": "oot-spirit-temple-boss-hc",
@@ -2237,7 +2283,8 @@
       "regionId": "oot-spirit",
       "type": "dungeonReward",
       "age": "any",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Twinrova"
     },
     {
       "id": "oot-spirit-temple-child-first-chest",
@@ -2345,7 +2392,8 @@
       "regionId": "oot-spirit",
       "type": "chest",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Spirit Temple Silver Gauntlets Chest"
     },
     {
       "id": "oot-spirit-temple-mirror-shield",
@@ -2354,7 +2402,8 @@
       "regionId": "oot-spirit",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Spirit Temple Mirror Shield Chest"
     },
     {
       "id": "oot-shadow-temple-boss-hc",
@@ -2372,7 +2421,8 @@
       "regionId": "oot-shadow",
       "type": "dungeonReward",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Bongo Bongo"
     },
     {
       "id": "oot-shadow-temple-map",
@@ -2381,7 +2431,8 @@
       "regionId": "oot-shadow",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Shadow Temple Map Chest"
     },
     {
       "id": "oot-shadow-temple-hover-boots",
@@ -2392,7 +2443,8 @@
       "age": "adult",
       "needs": [
         "hover_boots"
-      ]
+      ],
+      "ootrLocation": "Shadow Temple Hover Boots Chest"
     },
     {
       "id": "oot-shadow-temple-compass",
@@ -2401,7 +2453,8 @@
       "regionId": "oot-shadow",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Shadow Temple Compass Chest"
     },
     {
       "id": "oot-shadow-temple-spinning-blades-visible",
@@ -2428,7 +2481,8 @@
       "regionId": "oot-shadow",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Shadow Temple Falling Spikes Lower Chest"
     },
     {
       "id": "oot-shadow-temple-falling-spikes-upper-2",
@@ -2464,7 +2518,8 @@
       "regionId": "oot-shadow",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Shadow Temple After Wind Hidden Chest"
     },
     {
       "id": "oot-shadow-temple-boss-key-room-1",
@@ -2482,7 +2537,8 @@
       "regionId": "oot-well",
       "type": "chest",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Bottom of the Well Compass Chest"
     },
     {
       "id": "oot-bottom-of-the-well-under-debris",
@@ -2509,7 +2565,8 @@
       "regionId": "oot-well",
       "type": "chest",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Bottom of the Well Underwater Pot"
     },
     {
       "id": "oot-bottom-of-the-well-east-cage",
@@ -2545,7 +2602,8 @@
       "regionId": "oot-well",
       "type": "chest",
       "age": "child",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Bottom of the Well Map Chest"
     },
     {
       "id": "oot-bottom-of-the-well-pits",
@@ -2565,7 +2623,8 @@
       "age": "child",
       "needs": [
         "lens"
-      ]
+      ],
+      "ootrLocation": "Bottom of the Well Lens of Truth Chest"
     },
     {
       "id": "oot-bottom-of-the-well-lens-side-chest",
@@ -2585,7 +2644,8 @@
       "regionId": "oot-ice",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Ice Cavern Compass Chest"
     },
     {
       "id": "oot-ice-cavern-hp",
@@ -2603,7 +2663,8 @@
       "regionId": "oot-ice",
       "type": "chest",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Ice Cavern Map Chest"
     },
     {
       "id": "oot-ice-cavern-iron-boots",
@@ -2614,7 +2675,8 @@
       "age": "adult",
       "needs": [
         "iron_boots"
-      ]
+      ],
+      "ootrLocation": "Ice Cavern Iron Boots Chest"
     },
     {
       "id": "oot-ice-cavern-sheik-song",
@@ -2623,7 +2685,8 @@
       "regionId": "oot-ice",
       "type": "song",
       "age": "adult",
-      "needs": []
+      "needs": [],
+      "ootrLocation": "Sheik in Ice Cavern"
     },
     {
       "id": "oot-gerudo-training-grounds-entrance-1",
@@ -2908,7 +2971,10 @@
       "water_medallion",
       "shadow_medallion",
       "spirit_medallion",
-      "light_medallion"
+      "light_medallion",
+      "deku_shield",
+      "skull_mask",
+      "mask_of_truth"
     ],
     "junk": [
       "junk_1",

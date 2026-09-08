@@ -17,6 +17,7 @@ import {
   flagsFor,
   itemLabel,
   REGION_BY_ID,
+  sessionEvents,
   WORLD,
 } from "../data/world";
 import { adjustedMs, sessionElapsedMs } from "./scoring";
@@ -26,12 +27,13 @@ function event(partial: Omit<ActionEvent, "at"> & { at?: number }): ActionEvent 
   return { at: partial.at ?? Date.now(), ...partial };
 }
 
+function logicEvents(session: PracticeSession): string[] {
+  return sessionEvents(session.collectedCheckIds, session.logicEvents ?? []);
+}
+
 export function startingInventory(config: RandoConfig): string[] {
   const items = [...flagsFor(config), ...(config.startingItems ?? [])];
-  if (!config.randoSettings) {
-    if (config.games.mm) items.push("ocarina", "song_of_time");
-    if (config.openDoorOfTime) items.push("ocarina");
-  }
+  if (!config.randoSettings && config.openDoorOfTime) items.push("ocarina");
   return [...new Set(items)];
 }
 
@@ -157,7 +159,7 @@ export function travelTo(
       { kind: "travel", regionId },
     );
   }
-  if (!canUseConnection(connection, session.inventory, session.age)) {
+  if (!canUseConnection(connection, session.inventory, session.age, config, logicEvents(session))) {
     return penalize(
       session,
       config,
@@ -185,7 +187,9 @@ export function warpTo(
   if (!warp) {
     return penalize(session, config, `Warp ${warpItem}`, "Unknown warp", { kind: "warp" });
   }
-  const allowed = availableWarps(session.inventory).some((entry) => entry.item === warpItem);
+  const allowed = availableWarps(session.inventory, session.age, config, logicEvents(session)).some(
+    (entry) => entry.item === warpItem,
+  );
   if (!allowed) {
     return penalize(session, config, warp.label, "You don't have that song", {
       kind: "warp",
@@ -321,7 +325,7 @@ export function collectCheck(
   if (check.regionId !== session.currentRegionId) {
     return penalize(session, config, label, "You are not in that region", { checkId: check.id, regionId: check.regionId });
   }
-  if (!checkInLogic(check, session.inventory, session.age, session.currentRegionId)) {
+  if (!checkInLogic(check, session.inventory, session.age, session.currentRegionId, config, logicEvents(session))) {
     return penalize(session, config, label, "That check is not in logic", { checkId: check.id });
   }
   const item = session.placement[check.id] ?? "junk_1";
@@ -334,6 +338,7 @@ export function collectCheck(
     {
       collectedCheckIds: collected,
       inventory,
+      logicEvents: sessionEvents(collected, session.logicEvents ?? []),
       finishedAt: done ? Date.now() : session.finishedAt,
     },
     { kind: "check", label, ok: true, checkId: check.id, item },
@@ -387,7 +392,7 @@ export function togglePause(session: PracticeSession): PracticeSession {
 
 export function switchAge(session: PracticeSession, config: RandoConfig): PracticeSession {
   if (session.pausedAt || session.finishedAt) return session;
-  if (!canSwitchAge(config, session.inventory, session.currentRegionId)) {
+  if (!canSwitchAge(config, session.inventory, session.currentRegionId, logicEvents(session))) {
     return penalize(session, config, "Change age", "Need the Temple of Time (and Door of Time)", {
       kind: "travel",
     });

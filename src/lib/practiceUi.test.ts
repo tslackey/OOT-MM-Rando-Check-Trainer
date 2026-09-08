@@ -25,6 +25,7 @@ describe("practice UI filters", () => {
     expect(before).not.toContain("oot-deku-theater-sticks-upgrade");
 
     const skull = CHECK_BY_ID["oot-lost-woods-skull-kid"];
+    session = { ...session, inventory: [...session.inventory, "ocarina", "saria"] };
     session = collectCheck(session, config, skull);
     const after = visibleRegionChecks(session).map((check) => check.id);
     expect(after).not.toContain("oot-lost-woods-skull-kid");

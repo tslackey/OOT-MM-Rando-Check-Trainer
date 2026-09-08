@@ -8,6 +8,14 @@ import type {
   WorldCheck,
   WorldData,
 } from "./types";
+import {
+  checkLocationInLogic,
+  connectionInLogic,
+  doorOfTimeOpen,
+  eventsFromCollected,
+  warpInLogic,
+} from "../logic/oracle";
+import type { LogicAge } from "../logic/state";
 
 const MM_ITEMS = new Set([
   "deku_mask",
@@ -121,21 +129,30 @@ export function hasAll(inventory: Iterable<string>, needs: string[]): boolean {
   return needs.every((need) => owned.has(need));
 }
 
+export function sessionEvents(collectedCheckIds: Iterable<string> = [], extra: Iterable<string> = []): string[] {
+  return eventsFromCollected(collectedCheckIds, extra);
+}
+
 export function canUseConnection(
   connection: Connection,
   inventory: string[],
   age: Exclude<Age, "any">,
+  config?: RandoConfig,
+  events?: Iterable<string>,
 ): boolean {
-  return ageOk(connection.age, age) && hasAll(inventory, connection.needs);
+  if (!ageOk(connection.age, age)) return false;
+  return connectionInLogic(connection, inventory, age as LogicAge, config, events);
 }
 
 export function outgoing(
   regionId: string,
   inventory: string[],
   age: Exclude<Age, "any">,
+  config?: RandoConfig,
+  events?: Iterable<string>,
 ): Connection[] {
   return WORLD.connections.filter(
-    (connection) => connection.from === regionId && canUseConnection(connection, inventory, age),
+    (connection) => connection.from === regionId && canUseConnection(connection, inventory, age, config, events),
   );
 }
 
@@ -151,12 +168,14 @@ export function reachableRegionIds(
   start: string,
   inventory: string[],
   age: Exclude<Age, "any">,
+  config?: RandoConfig,
+  events?: Iterable<string>,
 ): Set<string> {
   const seen = new Set<string>([start]);
   const queue = [start];
   while (queue.length) {
     const current = queue.shift()!;
-    for (const connection of outgoing(current, inventory, age)) {
+    for (const connection of outgoing(current, inventory, age, config, events)) {
       if (!seen.has(connection.to)) {
         seen.add(connection.to);
         queue.push(connection.to);
@@ -171,10 +190,10 @@ export function checkInLogic(
   inventory: string[],
   age: Exclude<Age, "any">,
   currentRegionId: string,
+  config?: RandoConfig,
+  events?: Iterable<string>,
 ): boolean {
-  if (check.regionId !== currentRegionId) return false;
-  if (!ageOk(check.age, age)) return false;
-  return hasAll(inventory, check.needs);
+  return checkLocationInLogic(check, inventory, age as LogicAge, currentRegionId, config, events);
 }
 
 export function hasOcarina(inventory: Iterable<string>): boolean {
@@ -183,24 +202,36 @@ export function hasOcarina(inventory: Iterable<string>): boolean {
 
 export function warpSongOwned(inventory: Iterable<string>, warp: Warp): boolean {
   const owned = new Set(inventory);
-  if (warp.item.startsWith("soaring")) return owned.has("soaring");
   return owned.has(warp.item);
 }
 
-export function availableWarps(inventory: string[]): Warp[] {
+export function availableWarps(
+  inventory: string[],
+  age: Exclude<Age, "any"> = "child",
+  config?: RandoConfig,
+  events?: Iterable<string>,
+): Warp[] {
   if (!hasOcarina(inventory)) return [];
-  return WORLD.warps.filter((warp) => warpSongOwned(inventory, warp));
+  return WORLD.warps.filter((warp) => {
+    if (!warpSongOwned(inventory, warp)) return false;
+    if (!config) return true;
+    return warpInLogic(warp, inventory, age as LogicAge, config, events);
+  });
 }
 
-export function adultAvailable(config: RandoConfig, inventory: string[]): boolean {
+export function adultAvailable(config: RandoConfig, inventory: string[], events?: Iterable<string>): boolean {
   if (config.startingAge === "adult") return true;
-  if (config.openDoorOfTime) return true;
-  return inventory.includes("song_of_time") && inventory.includes("ocarina");
+  return doorOfTimeOpen(inventory, config, events);
 }
 
-export function canSwitchAge(config: RandoConfig, inventory: string[], regionId: string): boolean {
+export function canSwitchAge(
+  config: RandoConfig,
+  inventory: string[],
+  regionId: string,
+  events?: Iterable<string>,
+): boolean {
   if (regionId !== "oot-tot") return false;
-  return adultAvailable(config, inventory);
+  return adultAvailable(config, inventory, events);
 }
 
 export const ITEM_LABELS: Record<string, string> = {
@@ -239,6 +270,9 @@ export const ITEM_LABELS: Record<string, string> = {
   prelude: "Prelude of Light",
   gerudo_card: "Gerudo Card",
   bottle: "Bottle",
+  deku_shield: "Deku Shield",
+  skull_mask: "Skull Mask",
+  mask_of_truth: "Mask of Truth",
   mirror_shield: "Mirror Shield",
   kokiri_emerald: "Kokiri's Emerald",
   goron_ruby: "Goron's Ruby",

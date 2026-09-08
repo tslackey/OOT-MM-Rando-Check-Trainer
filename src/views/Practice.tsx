@@ -55,7 +55,10 @@ export function Practice() {
     }
   }, [session?.lastFlash?.at, session?.lastFlash?.tone]);
 
-  const regionChecks = useMemo(() => (session ? visibleRegionChecks(session) : []), [session]);
+  const regionChecks = useMemo(
+    () => (session ? visibleRegionChecks(session, config) : []),
+    [session, config],
+  );
   const exits = useMemo(() => (session && config ? visibleExits(session, config) : []), [session, config]);
   const warps = useMemo(() => (session && config ? visibleWarps(session, config) : []), [session, config]);
   const extraWarps = useMemo(() => (session ? specialWarps(session) : []), [session]);
