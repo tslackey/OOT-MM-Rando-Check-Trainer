@@ -30,6 +30,21 @@ describe("practice UI filters", () => {
     expect(after).not.toContain("oot-lost-woods-skull-kid");
   });
 
+  it("offers Lost Woods Bridge from Kokiri and not Hyrule Field from the woods", () => {
+    const config = createConfig({ spawn: "oot-kokiri", openForest: true, games: { oot: true, mm: false } });
+    let session = createSession(config, 1);
+    const kokiriExits = visibleExits(session, config).map((edge) => edge.to);
+    expect(kokiriExits).toContain("oot-lost-woods");
+    expect(kokiriExits).toContain("oot-lost-woods-bridge");
+    expect(kokiriExits).not.toContain("oot-field");
+
+    session = travelTo(session, config, "oot-lost-woods");
+    const woodsExits = visibleExits(session, config).map((edge) => edge.to);
+    expect(woodsExits).toContain("oot-kokiri");
+    expect(woodsExits).not.toContain("oot-field");
+    expect(woodsExits).not.toContain("oot-lost-woods-bridge");
+  });
+
   it("shows Deku Theater from Lost Woods only as child", () => {
     const config = createConfig({ spawn: "oot-kokiri", games: { oot: true, mm: false } });
     let session = createSession(config, 1);

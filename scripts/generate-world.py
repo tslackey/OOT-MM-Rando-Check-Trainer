@@ -32,6 +32,7 @@ SKIP_TYPES = {
 REGION_IDS = {
     ("OOT", "Kokiri Forest"): "oot-kokiri",
     ("OOT", "Lost Woods"): "oot-lost-woods",
+    ("OOT", "Lost Woods Bridge"): "oot-lost-woods-bridge",
     ("OOT", "Deku Theater"): "oot-deku-theater",
     ("OOT", "Sacred Forest Meadow"): "oot-sfm",
     ("OOT", "Hyrule Field"): "oot-field",
@@ -111,6 +112,7 @@ REGION_IDS = {
 REGION_META = {
     "oot-kokiri": {"name": "Kokiri Forest", "game": "oot", "hub": True},
     "oot-lost-woods": {"name": "Lost Woods", "game": "oot"},
+    "oot-lost-woods-bridge": {"name": "Lost Woods Bridge", "game": "oot"},
     "oot-deku-theater": {"name": "Deku Theater", "game": "oot"},
     "oot-sfm": {"name": "Sacred Forest Meadow", "game": "oot"},
     "oot-field": {"name": "Hyrule Field", "game": "oot", "hub": True},
@@ -409,7 +411,8 @@ def connections():
         ("oot-lost-woods", "oot-deku-theater", {"age": "child"}),
         ("oot-kokiri", "oot-deku", {"needs": ["open_deku"]}),
         ("oot-lost-woods", "oot-sfm"),
-        ("oot-lost-woods", "oot-field", {"needs": ["open_forest"]}),
+        ("oot-kokiri", "oot-lost-woods-bridge"),
+        ("oot-lost-woods-bridge", "oot-field", {"needs": ["open_forest"]}),
         ("oot-sfm", "oot-forest", {"needs": ["hookshot"], "age": "adult"}),
         ("oot-field", "oot-market"),
         ("oot-field", "oot-llr"),
