@@ -11,6 +11,13 @@ import {
 
 export type PracticeTab = "location" | "inventory" | "warp";
 
+export type SpecialWarpId = "respawn" | "farores-set" | "farores-return" | "farores-clear";
+
+export interface SpecialWarp {
+  id: SpecialWarpId;
+  label: string;
+}
+
 const HIDDEN_INVENTORY = new Set(["cross_game"]);
 
 const SONG_ITEMS = new Set([
@@ -68,8 +75,23 @@ export function visibleWarps(session: PracticeSession, config: RandoConfig): War
   });
 }
 
+export function specialWarps(session: PracticeSession): SpecialWarp[] {
+  const spawnId = session.age === "adult" ? session.adultSpawnId : session.childSpawnId;
+  const spawnName = REGION_BY_ID[spawnId]?.name ?? "spawn";
+  const warps: SpecialWarp[] = [{ id: "respawn", label: `Respawn (${spawnName})` }];
+  if (session.inventory.includes("farores")) {
+    warps.push({ id: "farores-set", label: "Set Farore's Wind" });
+    if (session.faroresRegionId) {
+      const point = REGION_BY_ID[session.faroresRegionId]?.name ?? session.faroresRegionId;
+      warps.push({ id: "farores-return", label: `Farore's Wind (${point})` });
+      warps.push({ id: "farores-clear", label: "Clear Farore's Wind" });
+    }
+  }
+  return warps;
+}
+
 export function canShowWarpTab(session: PracticeSession, config: RandoConfig): boolean {
-  return visibleWarps(session, config).length > 0;
+  return specialWarps(session).length > 0 || visibleWarps(session, config).length > 0;
 }
 
 export function visibleInventory(inventory: string[]): string[] {

@@ -17,11 +17,10 @@ import {
   flagsFor,
   itemLabel,
   REGION_BY_ID,
-  spawnRegion,
   WORLD,
 } from "../data/world";
 import { adjustedMs, sessionElapsedMs } from "./scoring";
-import { placeItems } from "./shuffle";
+import { generateSpoiler, startingRegion } from "./spoiler";
 
 function event(partial: Omit<ActionEvent, "at"> & { at?: number }): ActionEvent {
   return { at: partial.at ?? Date.now(), ...partial };
@@ -39,7 +38,8 @@ export function startingInventory(config: RandoConfig): string[] {
 export function createSession(config: RandoConfig, seed?: number): PracticeSession {
   const checks = enabledChecks(config);
   const now = Date.now();
-  const generated = placeItems(checks, seed ?? now);
+  const spoiler = generateSpoiler(config, seed ?? now);
+  const start = startingRegion(spoiler);
   return {
     id: crypto.randomUUID(),
     configId: config.id,
@@ -47,18 +47,22 @@ export function createSession(config: RandoConfig, seed?: number): PracticeSessi
     startedAt: now,
     updatedAt: now,
     pausedMs: 0,
-    currentRegionId: spawnRegion(config),
-    age: config.startingAge,
+    currentRegionId: start,
+    age: spoiler.startingAge,
+    childSpawnId: spoiler.childSpawnId,
+    adultSpawnId: spoiler.adultSpawnId,
+    faroresRegionId: null,
+    seed: spoiler.seed,
     inventory: startingInventory(config),
     collectedCheckIds: [],
     wrongIds: [],
-    placement: { ...generated, ...config.importedPlacement },
+    placement: spoiler.placement,
     enabledCheckIds: checks.map((check) => check.id),
     log: [
       {
         at: now,
         kind: "resume",
-        label: `Started in ${REGION_BY_ID[spawnRegion(config)]?.name ?? "spawn"}`,
+        label: `Started ${spoiler.startingAge} in ${REGION_BY_ID[start]?.name ?? "spawn"}`,
         ok: true,
       },
     ],
@@ -194,6 +198,110 @@ export function warpTo(
     warp.label,
     { currentRegionId: warp.regionId },
     { kind: "warp", label: warp.label, ok: true, regionId: warp.regionId, item: warpItem },
+  );
+}
+
+export function ageSpawnId(session: PracticeSession): string {
+  return session.age === "adult" ? session.adultSpawnId : session.childSpawnId;
+}
+
+export function respawnToSpawn(session: PracticeSession, config: RandoConfig): PracticeSession {
+  if (session.pausedAt || session.finishedAt) return session;
+  const regionId = ageSpawnId(session);
+  const name = REGION_BY_ID[regionId]?.name ?? regionId;
+  if (regionId === session.currentRegionId) {
+    return penalize(session, config, `Respawn to ${name}`, "Already at spawn", {
+      kind: "warp",
+      regionId,
+      item: "respawn",
+    });
+  }
+  return succeed(
+    session,
+    `Respawned at ${name}`,
+    { currentRegionId: regionId },
+    { kind: "warp", label: `Respawn to ${name}`, ok: true, regionId, item: "respawn" },
+  );
+}
+
+function hasFaroresWind(inventory: string[]): boolean {
+  return inventory.includes("farores") && inventory.includes("magic");
+}
+
+export function setFaroresWind(session: PracticeSession, config: RandoConfig): PracticeSession {
+  if (session.pausedAt || session.finishedAt) return session;
+  const region = REGION_BY_ID[session.currentRegionId];
+  if (!session.inventory.includes("farores")) {
+    return penalize(session, config, "Set Farore's Wind", "You don't have Farore's Wind", {
+      kind: "warp",
+      item: "farores-set",
+    });
+  }
+  if (!session.inventory.includes("magic")) {
+    return penalize(session, config, "Set Farore's Wind", "Need magic to cast Farore's Wind", {
+      kind: "warp",
+      item: "farores-set",
+    });
+  }
+  if (!region?.dungeon) {
+    return penalize(session, config, "Set Farore's Wind", "Farore's Wind only sets in a dungeon", {
+      kind: "warp",
+      item: "farores-set",
+      regionId: session.currentRegionId,
+    });
+  }
+  return succeed(
+    session,
+    `Farore's Wind set in ${region.name}`,
+    { faroresRegionId: session.currentRegionId },
+    { kind: "warp", label: `Set Farore's Wind (${region.name})`, ok: true, regionId: session.currentRegionId, item: "farores-set" },
+  );
+}
+
+export function warpFaroresWind(session: PracticeSession, config: RandoConfig): PracticeSession {
+  if (session.pausedAt || session.finishedAt) return session;
+  if (!hasFaroresWind(session.inventory)) {
+    return penalize(session, config, "Farore's Wind", "Need Farore's Wind and magic", {
+      kind: "warp",
+      item: "farores-return",
+    });
+  }
+  const regionId = session.faroresRegionId;
+  if (!regionId) {
+    return penalize(session, config, "Farore's Wind", "No Farore's Wind point set", {
+      kind: "warp",
+      item: "farores-return",
+    });
+  }
+  const name = REGION_BY_ID[regionId]?.name ?? regionId;
+  if (regionId === session.currentRegionId) {
+    return penalize(session, config, `Farore's Wind (${name})`, "Already at your warp point", {
+      kind: "warp",
+      regionId,
+      item: "farores-return",
+    });
+  }
+  return succeed(
+    session,
+    `Warped to ${name}`,
+    { currentRegionId: regionId },
+    { kind: "warp", label: `Farore's Wind (${name})`, ok: true, regionId, item: "farores-return" },
+  );
+}
+
+export function clearFaroresWind(session: PracticeSession, config: RandoConfig): PracticeSession {
+  if (session.pausedAt || session.finishedAt) return session;
+  if (!session.faroresRegionId) {
+    return penalize(session, config, "Clear Farore's Wind", "No Farore's Wind point set", {
+      kind: "warp",
+      item: "farores-clear",
+    });
+  }
+  return succeed(
+    session,
+    "Farore's Wind cleared",
+    { faroresRegionId: null },
+    { kind: "warp", label: "Clear Farore's Wind", ok: true, item: "farores-clear" },
   );
 }
 

@@ -1,6 +1,6 @@
 import { CHECK_TYPES } from "../data/types";
 import type { RandoConfig } from "../data/types";
-import { WORLD, itemLabel } from "../data/world";
+import { overworldSpawnRegions, itemLabel } from "../data/world";
 import { useAppState } from "../state/useAppState";
 import { setDefaultConfigId, setView, upsertConfig } from "../state/store";
 import { downloadText, exportRandoFile } from "../lib/importRando";
@@ -25,7 +25,7 @@ export function ConfigEditor() {
     upsertConfig({ ...config, ...patch });
   };
 
-  const spawnOptions = WORLD.regions.filter((region) => region.game === "oot" && region.hub);
+  const spawnOptions = overworldSpawnRegions("child");
 
   const settingEntries = Object.entries(config.randoSettings ?? {});
 
@@ -131,18 +131,42 @@ export function ConfigEditor() {
         <label>
           Starting age
           <select
-            value={config.startingAge}
-            onChange={(event) => update({ startingAge: event.target.value as RandoConfig["startingAge"] })}
+            value={config.randomStartingAge ? "random" : config.startingAge}
+            onChange={(event) => {
+              const value = event.target.value;
+              if (value === "random") update({ randomStartingAge: true });
+              else update({ startingAge: value as RandoConfig["startingAge"], randomStartingAge: false });
+            }}
           >
             <option value="child">Child</option>
             <option value="adult">Adult</option>
+            <option value="random">Random</option>
           </select>
         </label>
         <label>
-          Spawn
-          <select value={config.spawn} onChange={(event) => update({ spawn: event.target.value })}>
-            <option value="auto">Auto</option>
+          <input
+            type="checkbox"
+            checked={config.spawnShuffle}
+            onChange={(event) => update({ spawnShuffle: event.target.checked })}
+          />
+          Shuffle overworld spawns (child/adult save warps)
+        </label>
+        <label>
+          Child spawn
+          <select value={config.childSpawn} onChange={(event) => update({ childSpawn: event.target.value })}>
+            <option value="auto">{config.spawnShuffle ? "Random per seed" : "Vanilla (Kokiri Forest)"}</option>
             {spawnOptions.map((region) => (
+              <option key={region.id} value={region.id}>
+                {region.name}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Adult spawn
+          <select value={config.adultSpawn} onChange={(event) => update({ adultSpawn: event.target.value })}>
+            <option value="auto">{config.spawnShuffle ? "Random per seed" : "Vanilla (Temple of Time)"}</option>
+            {overworldSpawnRegions("adult").map((region) => (
               <option key={region.id} value={region.id}>
                 {region.name}
               </option>

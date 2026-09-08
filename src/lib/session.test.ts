@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { createConfig } from "../data/presets";
-import { collectCheck, createSession, travelTo } from "./session";
+import { collectCheck, createSession, respawnToSpawn, setFaroresWind, travelTo, warpFaroresWind } from "./session";
 import { CHECK_BY_ID, itemLabel, REGION_BY_ID } from "../data/world";
 
 describe("practice session", () => {
@@ -50,6 +50,44 @@ describe("practice session", () => {
     expect(session.collectedCheckIds).toContain(skull.id);
     const again = collectCheck(session, config, skull);
     expect(again.penalties).toBeGreaterThan(session.penalties);
+  });
+
+  it("starts adult at adult spawn, not Kokiri", () => {
+    const config = createConfig({
+      startingAge: "adult",
+      childSpawn: "oot-lh",
+      adultSpawn: "oot-kak",
+    });
+    const session = createSession(config, 1);
+    expect(session.age).toBe("adult");
+    expect(session.currentRegionId).toBe("oot-kak");
+    expect(session.childSpawnId).toBe("oot-lh");
+    expect(session.adultSpawnId).toBe("oot-kak");
+  });
+
+  it("respawns to the current age save warp", () => {
+    const config = createConfig({ spawn: "oot-kokiri", childSpawn: "oot-kokiri", adultSpawn: "oot-tot" });
+    let session = createSession(config, 1);
+    session = travelTo(session, config, "oot-lost-woods");
+    const next = respawnToSpawn(session, config);
+    expect(next.penalties).toBe(0);
+    expect(next.currentRegionId).toBe("oot-kokiri");
+  });
+
+  it("sets Farore's Wind in a dungeon and warps back", () => {
+    const config = createConfig({ spawn: "oot-kokiri", openDeku: true });
+    let session = createSession(config, 1);
+    session = { ...session, inventory: [...session.inventory, "farores", "magic"] };
+    const outside = setFaroresWind(session, config);
+    expect(outside.penalties).toBeGreaterThan(0);
+
+    session = travelTo(session, config, "oot-deku");
+    session = setFaroresWind(session, config);
+    expect(session.faroresRegionId).toBe("oot-deku");
+    session = travelTo(session, config, "oot-kokiri");
+    const warped = warpFaroresWind(session, config);
+    expect(warped.currentRegionId).toBe("oot-deku");
+    expect(warped.penalties).toBe(0);
   });
 
   it("never announces leftover MM item ids", () => {

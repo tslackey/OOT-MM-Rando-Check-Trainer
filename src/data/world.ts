@@ -78,11 +78,29 @@ export function flagsFor(config: RandoConfig): string[] {
   return flags;
 }
 
-export function spawnRegion(config: RandoConfig): string {
+export function vanillaSpawn(age: Exclude<Age, "any">): string {
+  return age === "adult" ? "oot-tot" : "oot-kokiri";
+}
+
+export function overworldSpawnRegions(age: Exclude<Age, "any"> = "child"): Region[] {
+  return WORLD.regions.filter((region) => {
+    if (region.game !== "oot" || region.dungeon) return false;
+    if (age === "child" && region.id === "oot-ganon-out") return false;
+    if (age === "adult" && region.id === "oot-castle") return false;
+    return true;
+  });
+}
+
+export function spawnForAge(config: RandoConfig, age: Exclude<Age, "any">): string {
+  const pinned = age === "adult" ? config.adultSpawn : config.childSpawn;
+  if (pinned && pinned !== "auto" && REGION_BY_ID[pinned]?.game === "oot") return pinned;
   const requested = config.spawn !== "auto" ? REGION_BY_ID[config.spawn] : undefined;
   if (requested?.game === "oot") return requested.id;
-  if (config.startingAge === "adult") return "oot-tot";
-  return "oot-kokiri";
+  return vanillaSpawn(age);
+}
+
+export function spawnRegion(config: RandoConfig): string {
+  return spawnForAge(config, config.startingAge);
 }
 
 export function enabledChecks(config: RandoConfig): WorldCheck[] {

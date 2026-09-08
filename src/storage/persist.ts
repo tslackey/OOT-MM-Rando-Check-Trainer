@@ -11,6 +11,7 @@ type StoredState = Omit<Partial<PersistedState>, "version"> & {
 
 function normalizeSession(session: PracticeSession): PracticeSession {
   const region = REGION_BY_ID[session.currentRegionId];
+  const currentRegionId = region?.game === "oot" ? session.currentRegionId : "oot-kokiri";
   const enabledCheckIds = session.enabledCheckIds.filter((id) => CHECK_BY_ID[id]?.game === "oot");
   const collectedCheckIds = session.collectedCheckIds.filter((id) => enabledCheckIds.includes(id));
   const placement = Object.fromEntries(
@@ -18,14 +19,20 @@ function normalizeSession(session: PracticeSession): PracticeSession {
       .filter(([id]) => CHECK_BY_ID[id]?.game === "oot")
       .map(([id, item]) => [id, isMajoraItem(item) ? `junk_${id}` : item]),
   );
+  const ootRegion = (id: string | undefined, fallback: string) =>
+    id && REGION_BY_ID[id]?.game === "oot" ? id : fallback;
   return {
     ...session,
-    currentRegionId: region?.game === "oot" ? session.currentRegionId : "oot-kokiri",
+    currentRegionId,
     enabledCheckIds,
     collectedCheckIds,
     placement,
     inventory: session.inventory.filter((item) => !isMajoraItem(item)),
     wrongIds: session.wrongIds ?? [],
+    childSpawnId: ootRegion(session.childSpawnId, currentRegionId),
+    adultSpawnId: ootRegion(session.adultSpawnId, "oot-tot"),
+    seed: session.seed ?? session.startedAt,
+    faroresRegionId: session.faroresRegionId ?? null,
   };
 }
 
@@ -38,6 +45,10 @@ function normalizeConfig(config: RandoConfig): RandoConfig | null {
     startingItems: config.startingItems ?? [],
     games: { oot: true, mm: false },
     spawn: config.spawn?.startsWith("mm-") ? "auto" : config.spawn,
+    childSpawn: config.childSpawn ?? "auto",
+    adultSpawn: config.adultSpawn ?? "auto",
+    spawnShuffle: config.spawnShuffle ?? false,
+    randomStartingAge: config.randomStartingAge ?? false,
     name: config.name.replaceAll("OoTMM", "OoT"),
   };
 }

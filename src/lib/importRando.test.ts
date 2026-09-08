@@ -10,7 +10,10 @@ describe("OoTR JSON import", () => {
     expect(result.config.openForest).toBe(false);
     expect(result.config.openDoorOfTime).toBe(true);
     expect(result.config.startingAge).toBe("adult");
-    expect(result.config.spawn).toBe("oot-tot");
+    expect(result.config.spawnShuffle).toBe(true);
+    expect(result.config.childSpawn).toBe("oot-lh");
+    expect(result.config.adultSpawn).toBe("oot-kak");
+    expect(result.config.spawn).toBe("oot-kak");
     expect(result.config.checkTypes.shop).toBe(true);
     expect(result.config.checkTypes.scrub).toBe(false);
     expect(result.config.checkTypes.skullReward).toBe(true);
@@ -38,6 +41,9 @@ describe("OoTR JSON import", () => {
     expect(again.config.penaltySeconds).toBe(20);
     expect(again.config.randoSettings?.["Door of Time"]).toBe("Open");
     expect(again.config.openForest).toBe(false);
+    expect(again.config.childSpawn).toBe("oot-lh");
+    expect(again.config.adultSpawn).toBe("oot-kak");
+    expect(again.config.spawnShuffle).toBe(true);
   });
 
   it("accepts a raw settings object", () => {

@@ -3,6 +3,7 @@ import { createConfig } from "../data/presets";
 import { CHECK_BY_ID, availableWarps } from "../data/world";
 import {
   canShowWarpTab,
+  specialWarps,
   visibleExits,
   visibleRegionChecks,
   visibleWarps,
@@ -39,7 +40,7 @@ describe("practice UI filters", () => {
     expect(visibleExits(session, config).some((edge) => edge.to === "oot-deku-theater")).toBe(false);
   });
 
-  it("keeps warp songs hidden without an ocarina", () => {
+  it("keeps warp songs hidden without an ocarina but still offers respawn", () => {
     const config = createConfig({ games: { oot: true, mm: false } });
     const session = {
       ...createSession(config, 1),
@@ -47,10 +48,11 @@ describe("practice UI filters", () => {
     };
     expect(availableWarps(session.inventory)).toEqual([]);
     expect(visibleWarps(session, config)).toEqual([]);
-    expect(canShowWarpTab(session, config)).toBe(false);
+    expect(canShowWarpTab(session, config)).toBe(true);
+    expect(specialWarps(session).some((warp) => warp.id === "respawn")).toBe(true);
   });
 
-  it("shows the warp tab only for owned songs plus ocarina", () => {
+  it("shows owned warp songs plus ocarina", () => {
     const config = createConfig({ games: { oot: true, mm: false } });
     const session = {
       ...createSession(config, 1),
