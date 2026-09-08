@@ -12,15 +12,20 @@
     "test:watch": "vitest",
     "lint": "tsc --noEmit",
     "cap:sync": "npm run build && cap sync",
-    "generate:world": "python3 scripts/generate-world.py"
+    "generate:world": "python3 scripts/generate-world.py",
+    "vendor:graph-cache": "node scripts/vendor-graph-cache.mjs"
   },
   "dependencies": {
     "@capacitor/app": "^7.1.0",
     "@capacitor/core": "^7.4.3",
     "@capacitor/haptics": "^7.0.2",
     "@capacitor/preferences": "^7.0.2",
+    "@mracsys/randomizer-graph-tool": "^2.1.18",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
+  },
+  "browser": {
+    "fs": false
   },
   "devDependencies": {
     "@capacitor/cli": "^7.4.3",

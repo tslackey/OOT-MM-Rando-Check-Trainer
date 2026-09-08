@@ -36,8 +36,8 @@ This run (writing the board, then starting the wrap):
 - Restyle Go / Check by in-logic vs out-of-logic unless `hideLocked` /
   `hideCompleted` is on.
 - Reintroduce Majora’s Mask, OoTMM combo, or cross-game overworld links.
-- Grow `src/logic/eval.ts` with more helper stubs while **L-A** is claimed.
-  Fix a practice bug with a World JSON case in `ootrPort.test.ts` if you must.
+- Grow `src/logic/eval.ts` with more helper stubs. Fix a practice bug with a
+  World JSON case in `ootrPort.test.ts` if you must.
 
 ## Landed (do not re-implement)
 
@@ -48,6 +48,7 @@ This run (writing the board, then starting the wrap):
 | L-2 | Dungeon interiors, keys, local `at()` (phase 2) | [#8](https://github.com/tslackey/OOT-MM-Rando-Check-Trainer/pull/8) |
 | L-3 | Events, Door of Time, optional `eitherAgeLogic` (phase 3) | [#9](https://github.com/tslackey/OOT-MM-Rando-Check-Trainer/pull/9) |
 | L-4 | Port World JSON / LogicHelpers / `State.py` tests; stop stubbing compile / bottles / hearts / trials | [#10](https://github.com/tslackey/OOT-MM-Rando-Check-Trainer/pull/10) |
+| L-DOC | Claimable task board + steering pointer | [#11](https://github.com/tslackey/OOT-MM-Rando-Check-Trainer/pull/11) |
 
 `src/logic/` is still a **subset**. `world.json` is still the coarse Go / Check map.
 
@@ -55,15 +56,14 @@ This run (writing the board, then starting the wrap):
 
 | Id | Slice | Status | Owner | Agent | Branch / PR | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| L-DOC | This board + `AGENTS.md` pointer | claimed | cloud agent | [bc-01a082f5…](https://cursor.com/agents/bc-01a082f5-fb67-7db6-9d83-6d31bb1c7598) | `cursor/logic-task-board-7598` [#11](https://github.com/tslackey/OOT-MM-Rando-Check-Trainer/pull/11) | Land first so other agents can claim |
-| L-A | Wrap `@mracsys/randomizer-graph-tool` as the penalty backend | claimed | cloud agent | [bc-01a082f5…](https://cursor.com/agents/bc-01a082f5-fb67-7db6-9d83-6d31bb1c7598) | `cursor/tracker-graph-wrap-7598` [#12](https://github.com/tslackey/OOT-MM-Rando-Check-Trainer/pull/12) | Parent of A1–A5. Same agent. Do not start a second wrap. Package pinned at 2.1.18. |
-| L-A1 | Pin the npm package; build a **local** `ExternalFileCache` (no GitHub fetch on Pages) | claimed | cloud agent | [bc-01a082f5…](https://cursor.com/agents/bc-01a082f5-fb67-7db6-9d83-6d31bb1c7598) | same as L-A | `src/data/ootr/` is **not** enough. Graph-tool wants SettingsList / ItemList / LocationList / EntranceShuffle / presets / MQ + Glitched World for a named Release (e.g. `8.3.0 Release`). Vendor that set separately. `local_files` is Node-only; the browser needs an inlined `{ files, subfolder }` cache. |
-| L-A2 | Build the graph once per session / settings change; mutate inventory and checked locations on collect | claimed | cloud agent | [bc-01a082f5…](https://cursor.com/agents/bc-01a082f5-fb67-7db6-9d83-6d31bb1c7598) | same as L-A | First compile is slow (5–10s). Search must stay &lt;1ms. |
-| L-A3 | `checkLocationInLogic` / `connectionInLogic` = visited **as this age** inside **this practice node** | claimed | cloud agent | [bc-01a082f5…](https://cursor.com/agents/bc-01a082f5-fb67-7db6-9d83-6d31bb1c7598) | same as L-A | Stricter than fill-style both-ages-from-Root. Keep `eitherAgeLogic` as the only opt-in. |
-| L-A4 | Keep `ootrPort.test.ts` + `oracle.test.ts` + session tests green while swapping the backend | claimed | cloud agent | [bc-01a082f5…](https://cursor.com/agents/bc-01a082f5-fb67-7db6-9d83-6d31bb1c7598) | same as L-A | Restricted evaluator stays until the wrap is the oracle. |
-| L-A5 | Accept Babel bundle weight or lazy-load the graph on first Practice start | claimed | cloud agent | [bc-01a082f5…](https://cursor.com/agents/bc-01a082f5-fb67-7db6-9d83-6d31bb1c7598) | same as L-A | Pages `base` stays `./`. |
+| L-A | Wrap `@mracsys/randomizer-graph-tool` as the penalty backend | done | cloud agent | — | `cursor/tracker-graph-wrap-7598` [#12](https://github.com/tslackey/OOT-MM-Rando-Check-Trainer/pull/12) | Practice penalties use compiled `access_rule` + here-and-now BFS. Restricted evaluator remains for compile coverage. |
+| L-A1 | Pin the npm package; build a **local** `ExternalFileCache` (no GitHub fetch on Pages) | done | cloud agent | — | same as L-A | `@mracsys/randomizer-graph-tool` 2.1.18. Inlined 8.3.0 Release cache in `src/data/ootr-graph/`. Glitched World omitted. |
+| L-A2 | Build the graph once per session / settings change; mutate inventory and checked locations on collect | done | cloud agent | — | same as L-A | Process-wide singleton. Inventory/settings applied per query. First compile ~3s. |
+| L-A3 | `checkLocationInLogic` / `connectionInLogic` = visited **as this age** inside **this practice node** | done | cloud agent | — | same as L-A | `src/logic/graphSearch.ts`. `eitherAgeLogic` still the only opt-in. |
+| L-A4 | Keep `ootrPort.test.ts` + `oracle.test.ts` + session tests green while swapping the backend | done | cloud agent | — | same as L-A | 106 tests green. |
+| L-A5 | Accept Babel bundle weight or lazy-load the graph on first Practice start | done | cloud agent | — | same as L-A | First oracle call builds the graph. Pages `base` stays `./`. |
 
-Until L-A merges, the restricted evaluator in `src/logic/` remains the penalty oracle.
+`main` still uses the restricted evaluator until #12 merges. This branch is the graph-tool wrap.
 
 ## Open (claim here)
 
