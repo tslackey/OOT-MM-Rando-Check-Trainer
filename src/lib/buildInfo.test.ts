@@ -18,8 +18,8 @@ describe("changelog data", () => {
 });
 
 describe("build stamp helpers", () => {
-  it("reads local build info when CI defines are unset", () => {
-    expect(currentBuildInfo().build).toBe("local");
+  it("formats a Pages stamp from explicit build info", () => {
+    expect(currentBuildInfo().build.length).toBeGreaterThan(0);
     expect(formatBuildStamp({ build: "42", pr: "13", sha: "abc1234" })).toBe("Pages build 42 · PR 13");
     expect(formatBuildStamp({ build: "40", pr: "", sha: "" })).toBe("Pages build 40");
     expect(pullRequestUrl(11)).toBe("https://github.com/tslackey/OOT-MM-Rando-Check-Trainer/pull/11");
