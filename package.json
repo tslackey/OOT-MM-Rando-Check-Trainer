@@ -19,8 +19,12 @@
     "@capacitor/core": "^7.4.3",
     "@capacitor/haptics": "^7.0.2",
     "@capacitor/preferences": "^7.0.2",
+    "@mracsys/randomizer-graph-tool": "^2.1.18",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
+  },
+  "browser": {
+    "fs": false
   },
   "devDependencies": {
     "@capacitor/cli": "^7.4.3",
