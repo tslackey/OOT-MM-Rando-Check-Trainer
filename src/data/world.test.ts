@@ -72,6 +72,7 @@ describe("world logic", () => {
     expect(reachable.has("oot-field")).toBe(true);
     expect(reachable.has("mm-sct")).toBe(false);
     expect(reachable.has("oot-forest")).toBe(false);
+    expect(WORLD.regions.every((region) => region.game === "oot")).toBe(true);
   });
 
   it("leaves Kokiri to Hyrule Field via Lost Woods Bridge, not the woods", () => {
@@ -85,7 +86,7 @@ describe("world logic", () => {
 
     const fromWoods = reachableRegionIds("oot-lost-woods", [], "child");
     expect(fromWoods.has("oot-kokiri")).toBe(true);
-    expect(fromWoods.has("oot-lost-woods-bridge")).toBe(true);
+    expect(fromWoods.has("oot-lost-woods-bridge")).toBe(false);
     expect(fromWoods.has("oot-field")).toBe(false);
 
     const fromKokiri = reachableRegionIds("oot-kokiri", ["open_forest"], "child");
@@ -93,7 +94,7 @@ describe("world logic", () => {
     expect(fromKokiri.has("oot-field")).toBe(true);
 
     const closedForest = reachableRegionIds("oot-kokiri", [], "child");
-    expect(closedForest.has("oot-lost-woods-bridge")).toBe(true);
+    expect(closedForest.has("oot-lost-woods-bridge")).toBe(false);
     expect(closedForest.has("oot-field")).toBe(false);
   });
 

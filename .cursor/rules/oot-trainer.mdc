@@ -21,15 +21,16 @@ Read `AGENTS.md` before changing behavior.
 
 - **OoT only.** Do not add Majora's Mask, OoTMM combo, or cross-game overworld links in the UI. MM is a future separate app.
 - **Do not turn Practice into a tracker.** Do not restyle buttons to reveal in-logic vs out-of-logic unless the operator enabled hide-locked / hide-completed easier modes.
-- **Do not claim official logic.** `src/data/world.json` is a training graph, not OoTR's solver. Follow `docs/LOGIC_PLAN.md` before rewriting reachability.
+- **Do not claim official logic.** Practice buttons use `src/data/world.json`; penalties use `src/logic/` plus vendored OoTR World JSON. Follow `docs/LOGIC_PLAN.md`. Do not restyle Go/Check by in-logic vs out-of-logic unless hide-locked / hide-completed is on.
 - **GitHub Pages, not GitLab.** Vite `base` stays `./`. Deploy `dist/` via the Pages workflow.
 
 ## Layout
 
 - `src/views/` — Home, Configs, editor, Practice, Stats (store-driven views, no React Router)
 - `src/lib/session.ts` — practice mutations
+- `src/logic/` — OoTR vanilla-rule penalty oracle
 - `src/lib/importRando.ts` — OoTR JSON
-- `src/data/world.ts` + `world.json` — regions, connections, checks
+- `src/data/world.ts` + `world.json` — practice regions / connections / checks
 - `src/state/store.ts` + `src/storage/persist.ts` — persisted store
 
 ## Before finishing a change

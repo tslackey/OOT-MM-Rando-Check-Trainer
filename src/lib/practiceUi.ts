@@ -4,8 +4,10 @@ import {
   allOutgoing,
   availableWarps,
   canUseConnection,
+  checkInLogic,
   itemLabel,
   REGION_BY_ID,
+  sessionEvents,
   WORLD,
 } from "../data/world";
 
@@ -47,21 +49,31 @@ const REWARD_ITEMS = new Set([
   "light_medallion",
 ]);
 
-export function visibleRegionChecks(session: PracticeSession): WorldCheck[] {
+export function visibleRegionChecks(session: PracticeSession, config?: RandoConfig): WorldCheck[] {
   const collected = new Set(session.collectedCheckIds);
+  const events = sessionEvents(session.collectedCheckIds, session.logicEvents ?? []);
   return WORLD.checks.filter((check) => {
     if (check.regionId !== session.currentRegionId) return false;
     if (!session.enabledCheckIds.includes(check.id)) return false;
     if (!ageOk(check.age, session.age)) return false;
     if (collected.has(check.id)) return false;
+    if (
+      config?.hideLocked &&
+      !checkInLogic(check, session.inventory, session.age, session.currentRegionId, config, events)
+    ) {
+      return false;
+    }
     return true;
   });
 }
 
 export function visibleExits(session: PracticeSession, config: RandoConfig): Connection[] {
+  const events = sessionEvents(session.collectedCheckIds, session.logicEvents ?? []);
   const exits = allOutgoing(session.currentRegionId, config.games).filter((connection) => {
     if (!ageOk(connection.age, session.age)) return false;
-    if (config.hideLocked && !canUseConnection(connection, session.inventory, session.age)) return false;
+    if (config.hideLocked && !canUseConnection(connection, session.inventory, session.age, config, events)) {
+      return false;
+    }
     return true;
   });
   return [...new Map(exits.map((connection) => [connection.to, connection])).values()];

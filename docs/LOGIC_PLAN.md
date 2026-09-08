@@ -6,8 +6,9 @@ Harkinian’s randomizer
 ([HarbourMasters/Shipwright](https://github.com/HarbourMasters/Shipwright))
 actually compute reachability.
 
-**This document is the plan. Do not treat `src/data/world.json` as official
-logic until a later phase lands and tests prove it.**
+**Status:** Phase 0–1 of this plan is in the app: `src/logic/` evaluates vendored OoTR vanilla World JSON as the practice penalty oracle. `world.json` remains the coarse Go to / Check map (OoT only). Later phases (dungeon keys, dual-age fill, imported trick settings) are still open.
+
+**This document is the plan.** Do not treat the trainer as official OoTR until later phases land and tests prove them.
 
 ## Why the current logic is wrong
 

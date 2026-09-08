@@ -19,7 +19,7 @@ Practice loop: configure or import a seed, tap **Go to …** / **Check …** lik
 ## What it is not
 
 - Not a remaining-check tracker. Do not color or hide checks to reveal in-logic vs out-of-logic unless the operator turned on an **easier** option.
-- Not the official OoTR logic solver. Region/check requirements in `src/data/world.json` are a **training approximation**.
+- Not a claim of official OoTR. Practice buttons use a **practice graph**; penalties use an OoTR vanilla-rule **oracle** (`src/logic/`, vendored World JSON). See `docs/LOGIC_PLAN.md`.
 - Not Majora's Mask and not OoTMM combo.
 
 ## Architecture
@@ -28,7 +28,8 @@ Practice loop: configure or import a seed, tap **Go to …** / **Check …** lik
 | --- | --- |
 | Views (no URL router) | `src/views/` — Home, Configs, ConfigEditor, Practice, Stats |
 | App state + autosave | `src/state/store.ts` → `src/storage/persist.ts` (localStorage + Capacitor Preferences) |
-| World graph + checks | `src/data/world.json` + `src/data/world.ts` |
+| World graph + checks | `src/data/world.json` + `src/data/world.ts` (practice graph) |
+| Logic oracle | `src/logic/` + vendored `src/data/ootr/` (OoTR vanilla rules) |
 | Built-in presets | `src/data/presets.ts` (OoT only) |
 | Practice rules | `src/lib/session.ts` (travel, collect, peek, pause, age swap, respawn, Farore's Wind) |
 | Spoiler generate/import | `src/lib/spoiler.ts`, `src/lib/spawns.ts`, `src/lib/importRando.ts` |
@@ -65,7 +66,7 @@ Fixture: `src/lib/fixtures/ootr-spoiler-sample.json`.
 3. **Peek is expensive.** Showing remaining checks must add `peekPenaltySeconds`.
 4. **Autosave everything** that the operator would lose if they closed the tab: configs, default preset, active run, history.
 5. **Pages deploy.** `.github/workflows/pages.yml` tests, builds `dist/`, and deploys to GitHub Pages. `.gitlab-ci.yml` does the same for GitLab Pages. Vite `base` is `./`. The HTML template is stamped at the top with the GitLab Pages build number (`CI_PIPELINE_IID`, or the GitHub run number when that is the pipeline).
-6. **Logic stays approximate** unless someone is deliberately replacing it with a real solver. Do not pretend world.json is official OoTR.
+6. **Logic stays a subset.** `world.json` is the coarse Go to / Check map. In-logic penalties come from vendored OoTR World JSON + helpers (`src/logic`). Do not claim the trainer **is** OoTR. Remaining gaps are in `docs/LOGIC_PLAN.md` (MQ, entrance shuffle, dual-age fill).
 
 ## Commands
 
@@ -84,7 +85,7 @@ CI is the Pages workflow on `main` (test + lint, then build, then deploy).
 - Keep this repo OoT-focused.
 - MM trainer: new app, same Capacitor/Pages pattern, not a second game toggle here.
 - Native shells (`npx cap add android|ios`) only when asked.
-- **Logic:** `src/data/world.json` is still a training approximation. The plan to replace the wiki-heuristic AND-lists with OoTR/SoH-style boolean reachability is `docs/LOGIC_PLAN.md`. Do not claim official OoTR logic until that plan’s tests land.
+- **Logic:** Practice travel/check penalties use the OoTR vanilla oracle in `src/logic/` (phase 0–1 of `docs/LOGIC_PLAN.md`). `world.json` is still the coarse practice map, not the full solver. Do not claim official OoTR. Dual-age fill, MQ, and entrance shuffle are later phases.
 - Optional later: MQ, entrance shuffle, junk sanity types, tighter aliases.
 
 ## Tests that must stay green
@@ -93,4 +94,5 @@ CI is the Pages workflow on `main` (test + lint, then build, then deploy).
 - `src/lib/spoiler.test.ts` — generated spoiler, shuffled spawns not always Kokiri
 - `src/lib/session.test.ts` — illegal travel penalty, legal adjacent travel, double-check penalty, respawn, Farore's Wind
 - `src/data/world.test.ts` — OoT spawn, no cross-game flag
+- `src/logic/oracle.test.ts` — masks, windmill SoS, closed forest, Forest lobby, KF sword
 - `src/lib/scoring.test.ts`, `src/lib/shuffle.test.ts`

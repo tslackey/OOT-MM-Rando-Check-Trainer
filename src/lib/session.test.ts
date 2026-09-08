@@ -56,7 +56,11 @@ describe("practice session", () => {
     expect(failed.penalties).toBeGreaterThan(0);
     expect(failed.wrongIds).toContain(mushroom.id);
 
-    const legal = collectCheck(failed, config, CHECK_BY_ID["oot-lost-woods-skull-kid"]);
+    const legal = collectCheck(
+      { ...failed, inventory: [...failed.inventory, "ocarina", "saria"] },
+      config,
+      CHECK_BY_ID["oot-lost-woods-skull-kid"],
+    );
     expect(legal.collectedCheckIds).toContain("oot-lost-woods-skull-kid");
     expect(legal.wrongIds).toContain(mushroom.id);
   });
@@ -65,6 +69,7 @@ describe("practice session", () => {
     const config = createConfig({ spawn: "oot-kokiri", games: { oot: true, mm: false } });
     let session = createSession(config, 1);
     session = travelTo(session, config, "oot-lost-woods");
+    session = { ...session, inventory: [...session.inventory, "ocarina", "saria"] };
     const skull = CHECK_BY_ID["oot-lost-woods-skull-kid"];
     session = collectCheck(session, config, skull);
     expect(session.collectedCheckIds).toContain(skull.id);
@@ -115,7 +120,11 @@ describe("practice session", () => {
     let session = createSession(config, 1);
     session = travelTo(session, config, "oot-lost-woods");
     const skull = CHECK_BY_ID["oot-lost-woods-skull-kid"];
-    session = { ...session, placement: { ...session.placement, [skull.id]: "hookshot_mm" } };
+    session = {
+      ...session,
+      inventory: [...session.inventory, "ocarina", "saria"],
+      placement: { ...session.placement, [skull.id]: "hookshot_mm" },
+    };
     const next = collectCheck(session, config, skull);
     expect(next.lastFlash?.text).toBe("Got Junk");
     expect(next.lastFlash?.text.toLowerCase()).not.toContain(" mm");
