@@ -84,7 +84,8 @@ CI is the Pages workflow on `main` (test + lint, then build, then deploy).
 - Keep this repo OoT-focused.
 - MM trainer: new app, same Capacitor/Pages pattern, not a second game toggle here.
 - Native shells (`npx cap add android|ios`) only when asked.
-- Optional later: tighter OoTR location aliases, real-er logic, MQ, junk sanity types.
+- **Logic:** `src/data/world.json` is still a training approximation. The plan to replace the wiki-heuristic AND-lists with OoTR/SoH-style boolean reachability is `docs/LOGIC_PLAN.md`. Do not claim official OoTR logic until that plan’s tests land.
+- Optional later: MQ, entrance shuffle, junk sanity types, tighter aliases.
 
 ## Tests that must stay green
 

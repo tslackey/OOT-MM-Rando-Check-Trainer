@@ -17,7 +17,7 @@ Majora's Mask will be a separate trainer later. This app is OoT only.
 - Graphs plot adjusted time, penalties, pace, and completion across attempts.
 - Runs, configs, and stats autosave to `localStorage` and Capacitor Preferences so you can pick the app up and put it down.
 
-The bundled location list is the vanilla always-shuffled OoT check set (no MQ, no junk grass/pots). Logic is a training approximation, not the full randomizer solver.
+The bundled location list is the vanilla always-shuffled OoT check set (no MQ, no junk grass/pots). Logic is a training approximation, not the full randomizer solver. The plan to replace that heuristic with OoTR/Ship of Harkinian-style reachability is in `docs/LOGIC_PLAN.md`.
 
 ## Import a rando JSON
 

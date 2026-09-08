@@ -21,7 +21,7 @@ Read `AGENTS.md` before changing behavior.
 
 - **OoT only.** Do not add Majora's Mask, OoTMM combo, or cross-game overworld links in the UI. MM is a future separate app.
 - **Do not turn Practice into a tracker.** Do not restyle buttons to reveal in-logic vs out-of-logic unless the operator enabled hide-locked / hide-completed easier modes.
-- **Do not claim official logic.** `src/data/world.json` is a training graph, not OoTR's solver.
+- **Do not claim official logic.** `src/data/world.json` is a training graph, not OoTR's solver. Follow `docs/LOGIC_PLAN.md` before rewriting reachability.
 - **GitHub Pages, not GitLab.** Vite `base` stays `./`. Deploy `dist/` via the Pages workflow.
 
 ## Layout
