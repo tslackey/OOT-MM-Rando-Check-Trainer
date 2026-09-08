@@ -25,6 +25,74 @@ What is actually true today:
 Later work (dungeon keys as counted items, dual-age fill, MQ, entrance shuffle)
 is still open.
 
+## Yes — logic trackers already implement this
+
+The thing we keep rewriting in `src/logic/` is **check reachability**: given
+settings + inventory (+ age), which locations and exits are legal. That is
+exactly what a **map / logic tracker** computes every time you mark an item.
+
+It is **not** what an item-only tracker computes. Xopar, Gossip Stones, and
+most race-legal item grids only store “I have Hookshot.” They do not run
+OoTR search.
+
+From the [OoTR tracker list](https://wiki.ootrandomizer.com/index.php/Trackers):
+
+| Tracker | What it actually runs |
+| --- | --- |
+| **TOoTR** ([mracsys/tootr](https://github.com/mracsys/tootr), MIT, Vite) | [@mracsys/randomizer-graph-tool](https://github.com/mracsys/randomizer-graph-tool) — TypeScript port of OoTR World JSON + `Search`. `collect_locations()` then `get_visited_locations()`. |
+| **Track-OoT** | Map tracker: green / yellow / red by “can I get checks here with current items.” |
+| **Hashfrog** | Web tracker “based on the randomizer generator logic.” |
+| **Hamsda / coavins EmoTracker** | Lua recreation of availability (green / orange / peek / trick). Desktop, not a library. |
+| **HoodTracker** | “Uses the Randomizer logic directly” (embeds upstream search). |
+| **SoH in-game tracker** | Same C++ `ReachabilitySearch` as fill. |
+| **OoTR `Search.py`** | The generator’s own dual-age BFS. Python. This is what the others are cloning. |
+
+So the missing piece is not another hand-rolled AST. It is **wrapping a
+tracker search as a silent oracle**.
+
+### Steal the engine, not the HUD
+
+Trackers exist to **show** availability. This app exists to **penalize**
+wrong taps without showing the answer. Racing even bans “logic trackers”
+that reveal accessibility. Practice buttons stay identical unless the
+operator turned on `hideLocked`.
+
+`collect_locations()` from Root (both ages, current items) answers “is this
+check in the sphere-0 playthrough?” That is what TOoTR paints green. A
+practice tap is “can I do this **here, now, as this age**.” Same graph,
+stricter question. The wrap is:
+
+1. Build / mutate the tracker graph from config + inventory + events.
+2. Ask: is location L visited **as the current age**, and is its parent
+   region inside the current practice node?
+3. Ask: is there an accessible entrance from this practice node to B?
+4. Never color the button from that result except `hideLocked`.
+
+### Why we should stop growing `src/logic/` as a second RuleParser
+
+`randomizer-graph-tool` already:
+
+- Parses OoTR rule strings with Babel (real `here()` / `at()` / helpers)
+- Runs dual-age region expansion
+- Pins multiple upstream versions (8.1 / 8.2 / Fenhl / Rob)
+- Ships Jest tests against cached OoTR files
+- Is MIT and npm-installable (`@mracsys/randomizer-graph-tool`)
+
+Costs if we take it:
+
+- First graph compile is **5–10 seconds**; a search is **&lt;1 ms**. Cache the
+  graph on the session, mutate items, do not rebuild on every tap.
+- Needs a **local file cache** of World JSON for the pinned version (GitHub
+  Pages must not fetch `github.com` at runtime). We already vendor vanilla
+  JSON; point the cache at `src/data/ootr/`.
+- Default search is fill-style (both ages from spawn). Keep the
+  here-and-now filter in `oracle.ts` so Practice does not become Track-OoT.
+- Bundle weight (Babel standalone). Accept it or lazy-load the graph on
+  first Practice start.
+
+EmoTracker Lua packs and SoH C++ are the same algorithm in the wrong
+language. Do not vendor those.
+
 ## Why a handful of fixtures was the wrong plan
 
 OoTR does not unit-test individual location rules. It vendors the rules, then
@@ -112,36 +180,49 @@ Out-of-logic still only adds penalty seconds. It does not restyle the button.
 
 ## Next slices (do these, in order)
 
-### Slice A — keep the ported suite green (now)
+### Slice A — wrap a tracker search (the real next step)
+
+Preferred: `@mracsys/randomizer-graph-tool` (what TOoTR uses).
+
+- Pin one OoTR version and feed `src/data/ootr/` as `ExternalFileCache`.
+- Build the graph once per session (or when settings change). Mutate
+  inventory / checked locations on collect.
+- `checkLocationInLogic` / `connectionInLogic` become “is this visited as
+  this age inside this practice node,” not a second rule interpreter.
+- Keep `ootrPort.test.ts` as a regression gate while swapping the backend.
+- Do not import TOoTR’s React map or paint availability.
+
+Until that lands, the restricted `src/logic/` evaluator stays as the
+penalty oracle. Do not add more helper stubs unless a practice bug needs
+them.
+
+### Slice B — keep the ported suite green
 
 - Every helper and World JSON rule compiles (`HELPER_COMPILE_ERRORS`,
-  `WORLD_COMPILE_ERRORS` must stay empty).
-- `State.py` methods used by rules are real functions, not `return true`.
-- `at()` inside a dungeon uses `expandLocal` reachability.
+  `WORLD_COMPILE_ERRORS` must stay empty) for as long as we own the parser.
 - Add a new World JSON case when fixing a bug; do not add a parallel heuristic.
 
-### Slice B — dungeon keys
+### Slice C — dungeon keys
 
 - Map collected small/boss keys onto `Small_Key_*` / `Boss_Key_*` counts.
 - Imported spoilers already name them; shuffled runs need those items in the
   pool.
 - Tests: Forest Block Push locked at 0 keys, open at 1; Ganon BK settings.
 
-### Slice C — events that the operator already created
+### Slice D — events that the operator already created
 
 - Mid-run events beyond dungeon rewards: `Showed Mido Sword & Shield`,
   `Drain Well`, carpenter rescues, Forest Poe pairs, trial clears.
 - Prefer setting them from collected checks / explicit actions, not from a
   hidden tracker.
 
-### Slice D — dual-age search (optional, off by default)
+### Slice E — dual-age / fill-style (optional, off by default)
 
-- `ReachabilitySearch`-style loop from Root **and** from the current region
-  after a ToT swap with current items.
-- Default stays “this age, this room.” A config flag can enable fill-style
-  either-age later.
+- Tracker search already explores both ages from Root. Exposing that as
+  “either age after ToT” is a config flag, default off.
+- Default stays “this age, this room.”
 
-### Slice E — settings the importer already stores
+### Slice F — settings the importer already stores
 
 - Rainbow bridge / Ganon BK / LACS counts (partially wired).
 - Gerudo Fortress normal / fast / open.
@@ -156,7 +237,9 @@ Out-of-logic still only adds penalty seconds. It does not restyle the button.
 - Reintroduce MM regions, MM presets, or cross-game links.
 - Claim the trainer **is** OoTR. After keys + the ported suite stay green we
   can say “vanilla glitchless rules from OoTR World JSON (subset).”
-- Vendor the SoH tree or run Python `Search.py` in the browser.
+- Vendor the SoH tree, EmoTracker Lua, or run Python `Search.py` in the browser.
+- Turn Practice into TOoTR / Track-OoT (no availability colors, no remaining-check map).
+- Fetch randomizer files from GitHub at runtime on Pages.
 - Treat adult-windmill-drain or “whole Forest needs hookshot” as logic. Those
   are story / old heuristic, not OoTR.
 
@@ -173,9 +256,14 @@ Out-of-logic still only adds penalty seconds. It does not restyle the button.
 | Smoke cases | `src/logic/oracle.test.ts` |
 | Agent notes | this file + `AGENTS.md` |
 
-## Study list (do not copy engines)
+## Study list
 
+- [TOoTR](https://github.com/mracsys/tootr) +
+  [@mracsys/randomizer-graph-tool](https://github.com/mracsys/randomizer-graph-tool)
+  — MIT TypeScript. This is the engine to wrap.
 - [OoT-Randomizer](https://github.com/OoTRandomizer/OoT-Randomizer) — MIT.
-  `RuleParser.py`, `State.py`, `Search.py`, `data/World`, `data/LogicHelpers.json`.
+  `Search.py` is what the graph tool is a port of. World JSON stays vendored.
+- [Trackers wiki](https://wiki.ootrandomizer.com/index.php/Trackers) — which
+  apps implement logic vs item grids.
 - Ship of Harkinian’s 3drando port — same graph, C++. Do not vendor it.
-- Archipelago OoT — derived. Not a better source than upstream.
+- Archipelago OoT / EmoTracker Lua — derived. Not a better source than TOoTR.

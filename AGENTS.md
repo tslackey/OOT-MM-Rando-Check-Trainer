@@ -85,7 +85,7 @@ CI is the Pages workflow on `main` (test + lint, then build, then deploy).
 - Keep this repo OoT-focused.
 - MM trainer: new app, same Capacitor/Pages pattern, not a second game toggle here.
 - Native shells (`npx cap add android|ios`) only when asked.
-- **Logic:** Practice travel/check penalties use the OoTR vanilla oracle in `src/logic/` (see `docs/LOGIC_PLAN.md`). `world.json` is still the coarse practice map, not the full solver. Do not claim official OoTR. Port World JSON + LogicHelpers + `State.py` cases into `src/logic/ootrPort.test.ts` instead of inventing heuristic fixtures. Dual-age fill, dungeon keys, MQ, and entrance shuffle are later slices.
+- **Logic:** Practice penalties need the same reachability a **logic tracker** already computes (TOoTR / `randomizer-graph-tool` / OoTR `Search.py`). Wrap that engine; do not grow a second RuleParser and do not paint Go/Check by availability. Until the wrap lands, `src/logic/` is a restricted subset. See `docs/LOGIC_PLAN.md`. Port World JSON cases into `src/logic/ootrPort.test.ts` instead of inventing heuristic fixtures.
 - Optional later: MQ, entrance shuffle, junk sanity types, tighter aliases.
 
 ## Tests that must stay green
