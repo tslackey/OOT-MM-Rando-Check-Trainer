@@ -188,7 +188,11 @@ Do not start a second wrap while `L-A` is claimed.
 
 Preferred: `@mracsys/randomizer-graph-tool` (what TOoTR uses).
 
-- Pin one OoTR version and feed `src/data/ootr/` as `ExternalFileCache`.
+- Pin one supported Release (graph-tool 2.1.18 understands e.g. `8.3.0 Release`).
+  `src/data/ootr/` is only vanilla World JSON + helpers. The cache also needs
+  `SettingsList.py`, `ItemList.py`, `LocationList.py`, MQ, and Glitched World.
+  Inline `{ files, subfolder }` for the browser — `local_files` is Node-only.
+  Do not fetch GitHub at runtime on Pages.
 - Build the graph once per session (or when settings change). Mutate
   inventory / checked locations on collect.
 - `checkLocationInLogic` / `connectionInLogic` become “is this visited as
