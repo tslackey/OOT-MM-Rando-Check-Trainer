@@ -1,5 +1,5 @@
 import { PRESETS } from "../data/presets";
-import { MAX_ACTIVE_SESSIONS, type PersistedState, type PracticeSession, type RandoConfig } from "../data/types";
+import { isViewId, MAX_ACTIVE_SESSIONS, type PersistedState, type PracticeSession, type RandoConfig } from "../data/types";
 import { CHECK_BY_ID, isMajoraItem, REGION_BY_ID } from "../data/world";
 
 export const STORAGE_KEY = "ootmm-check-trainer-v1";
@@ -78,7 +78,7 @@ export function normalizeState(parsed: StoredState): PersistedState {
     currentSessionId,
     lastConfigId: parsed.lastConfigId && ids.has(parsed.lastConfigId) ? parsed.lastConfigId : PRESETS[0]?.id ?? null,
     defaultConfigId: parsed.defaultConfigId && ids.has(parsed.defaultConfigId) ? parsed.defaultConfigId : null,
-    view: parsed.view ?? "home",
+    view: isViewId(parsed.view) ? parsed.view : "home",
     editingConfigId: parsed.editingConfigId ?? null,
   };
 }

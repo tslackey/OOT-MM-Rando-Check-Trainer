@@ -24,6 +24,7 @@ pages:
   script:
     - npm ci
     - export GITLAB_PAGES_BUILD="${CI_PIPELINE_IID}"
+    - export PAGES_COMMIT_MESSAGE="${CI_COMMIT_MESSAGE}"
     - npm run build
     - rm -rf public
     - mv dist public
