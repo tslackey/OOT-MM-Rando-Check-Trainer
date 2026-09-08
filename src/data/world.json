@@ -1,0 +1,5703 @@
+{
+  "regions": [
+    {
+      "id": "oot-kokiri",
+      "name": "Kokiri Forest",
+      "game": "oot",
+      "hub": true
+    },
+    {
+      "id": "oot-lost-woods",
+      "name": "Lost Woods",
+      "game": "oot"
+    },
+    {
+      "id": "oot-sfm",
+      "name": "Sacred Forest Meadow",
+      "game": "oot"
+    },
+    {
+      "id": "oot-field",
+      "name": "Hyrule Field",
+      "game": "oot",
+      "hub": true
+    },
+    {
+      "id": "oot-market",
+      "name": "Market",
+      "game": "oot"
+    },
+    {
+      "id": "oot-tot",
+      "name": "Temple of Time",
+      "game": "oot"
+    },
+    {
+      "id": "oot-castle",
+      "name": "Hyrule Castle",
+      "game": "oot"
+    },
+    {
+      "id": "oot-ganon-out",
+      "name": "Outside Ganon's Castle",
+      "game": "oot"
+    },
+    {
+      "id": "oot-llr",
+      "name": "Lon Lon Ranch",
+      "game": "oot"
+    },
+    {
+      "id": "oot-kak",
+      "name": "Kakariko Village",
+      "game": "oot",
+      "hub": true
+    },
+    {
+      "id": "oot-graveyard",
+      "name": "Graveyard",
+      "game": "oot"
+    },
+    {
+      "id": "oot-dmt",
+      "name": "Death Mountain Trail",
+      "game": "oot"
+    },
+    {
+      "id": "oot-gc",
+      "name": "Goron City",
+      "game": "oot"
+    },
+    {
+      "id": "oot-dmc",
+      "name": "Death Mountain Crater",
+      "game": "oot"
+    },
+    {
+      "id": "oot-zr",
+      "name": "Zora's River",
+      "game": "oot"
+    },
+    {
+      "id": "oot-zd",
+      "name": "Zora's Domain",
+      "game": "oot"
+    },
+    {
+      "id": "oot-zf",
+      "name": "Zora's Fountain",
+      "game": "oot"
+    },
+    {
+      "id": "oot-lh",
+      "name": "Lake Hylia",
+      "game": "oot"
+    },
+    {
+      "id": "oot-gv",
+      "name": "Gerudo Valley",
+      "game": "oot"
+    },
+    {
+      "id": "oot-gf",
+      "name": "Gerudo Fortress",
+      "game": "oot"
+    },
+    {
+      "id": "oot-wasteland",
+      "name": "Haunted Wasteland",
+      "game": "oot"
+    },
+    {
+      "id": "oot-colossus",
+      "name": "Desert Colossus",
+      "game": "oot"
+    },
+    {
+      "id": "oot-deku",
+      "name": "Deku Tree",
+      "game": "oot",
+      "dungeon": true
+    },
+    {
+      "id": "oot-dc",
+      "name": "Dodongo's Cavern",
+      "game": "oot",
+      "dungeon": true
+    },
+    {
+      "id": "oot-jabu",
+      "name": "Jabu-Jabu's Belly",
+      "game": "oot",
+      "dungeon": true
+    },
+    {
+      "id": "oot-forest",
+      "name": "Forest Temple",
+      "game": "oot",
+      "dungeon": true
+    },
+    {
+      "id": "oot-fire",
+      "name": "Fire Temple",
+      "game": "oot",
+      "dungeon": true
+    },
+    {
+      "id": "oot-water",
+      "name": "Water Temple",
+      "game": "oot",
+      "dungeon": true
+    },
+    {
+      "id": "oot-shadow",
+      "name": "Shadow Temple",
+      "game": "oot",
+      "dungeon": true
+    },
+    {
+      "id": "oot-spirit",
+      "name": "Spirit Temple",
+      "game": "oot",
+      "dungeon": true
+    },
+    {
+      "id": "oot-well",
+      "name": "Bottom of the Well",
+      "game": "oot",
+      "dungeon": true
+    },
+    {
+      "id": "oot-ice",
+      "name": "Ice Cavern",
+      "game": "oot",
+      "dungeon": true
+    },
+    {
+      "id": "oot-gtg",
+      "name": "Gerudo Training Ground",
+      "game": "oot",
+      "dungeon": true
+    },
+    {
+      "id": "oot-ganon",
+      "name": "Ganon's Castle",
+      "game": "oot",
+      "dungeon": true
+    },
+    {
+      "id": "mm-sct",
+      "name": "South Clock Town",
+      "game": "mm",
+      "hub": true
+    },
+    {
+      "id": "mm-nct",
+      "name": "North Clock Town",
+      "game": "mm"
+    },
+    {
+      "id": "mm-ect",
+      "name": "East Clock Town",
+      "game": "mm"
+    },
+    {
+      "id": "mm-wct",
+      "name": "West Clock Town",
+      "game": "mm"
+    },
+    {
+      "id": "mm-laundry",
+      "name": "Laundry Pool",
+      "game": "mm"
+    },
+    {
+      "id": "mm-inn",
+      "name": "Stock Pot Inn",
+      "game": "mm"
+    },
+    {
+      "id": "mm-tower",
+      "name": "Clock Tower Roof",
+      "game": "mm"
+    },
+    {
+      "id": "mm-tf",
+      "name": "Termina Field",
+      "game": "mm",
+      "hub": true
+    },
+    {
+      "id": "mm-milk-road",
+      "name": "Milk Road",
+      "game": "mm"
+    },
+    {
+      "id": "mm-ranch",
+      "name": "Romani Ranch",
+      "game": "mm"
+    },
+    {
+      "id": "mm-swamp-road",
+      "name": "Road to Southern Swamp",
+      "game": "mm"
+    },
+    {
+      "id": "mm-swamp",
+      "name": "Southern Swamp",
+      "game": "mm"
+    },
+    {
+      "id": "mm-palace",
+      "name": "Deku Palace",
+      "game": "mm"
+    },
+    {
+      "id": "mm-woodfall",
+      "name": "Woodfall",
+      "game": "mm"
+    },
+    {
+      "id": "mm-woodfall-temple",
+      "name": "Woodfall Temple",
+      "game": "mm",
+      "dungeon": true
+    },
+    {
+      "id": "mm-swamp-spider",
+      "name": "Swamp Spider House",
+      "game": "mm",
+      "dungeon": true
+    },
+    {
+      "id": "mm-mv",
+      "name": "Mountain Village",
+      "game": "mm"
+    },
+    {
+      "id": "mm-twins",
+      "name": "Twin Islands",
+      "game": "mm"
+    },
+    {
+      "id": "mm-gv",
+      "name": "Goron Village",
+      "game": "mm"
+    },
+    {
+      "id": "mm-snowhead-road",
+      "name": "Path to Snowhead",
+      "game": "mm"
+    },
+    {
+      "id": "mm-snowhead-temple",
+      "name": "Snowhead Temple",
+      "game": "mm",
+      "dungeon": true
+    },
+    {
+      "id": "mm-gbt",
+      "name": "Great Bay Temple",
+      "game": "mm",
+      "dungeon": true
+    },
+    {
+      "id": "mm-gbc",
+      "name": "Great Bay Coast",
+      "game": "mm"
+    },
+    {
+      "id": "mm-zora-cape",
+      "name": "Zora Cape",
+      "game": "mm"
+    },
+    {
+      "id": "mm-zora-hall",
+      "name": "Zora Hall",
+      "game": "mm"
+    },
+    {
+      "id": "mm-pinnacle",
+      "name": "Pinnacle Rock",
+      "game": "mm"
+    },
+    {
+      "id": "mm-pf-ext",
+      "name": "Pirates' Fortress Exterior",
+      "game": "mm"
+    },
+    {
+      "id": "mm-pf-int",
+      "name": "Pirates' Fortress Interior",
+      "game": "mm",
+      "dungeon": true
+    },
+    {
+      "id": "mm-pf-sew",
+      "name": "Pirates' Fortress Sewers",
+      "game": "mm",
+      "dungeon": true
+    },
+    {
+      "id": "mm-ocean-spider",
+      "name": "Ocean Spider House",
+      "game": "mm",
+      "dungeon": true
+    },
+    {
+      "id": "mm-ikana-road",
+      "name": "Road to Ikana",
+      "game": "mm"
+    },
+    {
+      "id": "mm-ikana-gy",
+      "name": "Ikana Graveyard",
+      "game": "mm"
+    },
+    {
+      "id": "mm-ikana",
+      "name": "Ikana Canyon",
+      "game": "mm"
+    },
+    {
+      "id": "mm-ikana-castle",
+      "name": "Ancient Castle of Ikana",
+      "game": "mm",
+      "dungeon": true
+    },
+    {
+      "id": "mm-ikana-well",
+      "name": "Beneath The Well",
+      "game": "mm",
+      "dungeon": true
+    },
+    {
+      "id": "mm-secret",
+      "name": "Secret Shrine",
+      "game": "mm",
+      "dungeon": true
+    },
+    {
+      "id": "mm-st",
+      "name": "Stone Tower",
+      "game": "mm"
+    },
+    {
+      "id": "mm-stt",
+      "name": "Stone Tower Temple",
+      "game": "mm",
+      "dungeon": true
+    },
+    {
+      "id": "mm-moon",
+      "name": "The Moon",
+      "game": "mm"
+    }
+  ],
+  "connections": [
+    {
+      "from": "oot-kokiri",
+      "to": "oot-lost-woods",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-lost-woods",
+      "to": "oot-kokiri",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-kokiri",
+      "to": "oot-deku",
+      "needs": [
+        "open_deku"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "oot-deku",
+      "to": "oot-kokiri",
+      "needs": [
+        "open_deku"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "oot-lost-woods",
+      "to": "oot-sfm",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-sfm",
+      "to": "oot-lost-woods",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-lost-woods",
+      "to": "oot-field",
+      "needs": [
+        "open_forest"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "oot-field",
+      "to": "oot-lost-woods",
+      "needs": [
+        "open_forest"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "oot-sfm",
+      "to": "oot-forest",
+      "needs": [
+        "hookshot"
+      ],
+      "age": "adult"
+    },
+    {
+      "from": "oot-forest",
+      "to": "oot-sfm",
+      "needs": [
+        "hookshot"
+      ],
+      "age": "adult"
+    },
+    {
+      "from": "oot-field",
+      "to": "oot-market",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-market",
+      "to": "oot-field",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-field",
+      "to": "oot-llr",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-llr",
+      "to": "oot-field",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-field",
+      "to": "oot-kak",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-kak",
+      "to": "oot-field",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-field",
+      "to": "oot-lh",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-lh",
+      "to": "oot-field",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-field",
+      "to": "oot-gv",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-gv",
+      "to": "oot-field",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-field",
+      "to": "oot-zr",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-zr",
+      "to": "oot-field",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-market",
+      "to": "oot-tot",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-tot",
+      "to": "oot-market",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-market",
+      "to": "oot-castle",
+      "needs": [],
+      "age": "child"
+    },
+    {
+      "from": "oot-castle",
+      "to": "oot-market",
+      "needs": [],
+      "age": "child"
+    },
+    {
+      "from": "oot-market",
+      "to": "oot-ganon-out",
+      "needs": [],
+      "age": "adult"
+    },
+    {
+      "from": "oot-ganon-out",
+      "to": "oot-market",
+      "needs": [],
+      "age": "adult"
+    },
+    {
+      "from": "oot-ganon-out",
+      "to": "oot-ganon",
+      "needs": [
+        "light_arrows"
+      ],
+      "age": "adult"
+    },
+    {
+      "from": "oot-ganon",
+      "to": "oot-ganon-out",
+      "needs": [
+        "light_arrows"
+      ],
+      "age": "adult"
+    },
+    {
+      "from": "oot-kak",
+      "to": "oot-graveyard",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-graveyard",
+      "to": "oot-kak",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-kak",
+      "to": "oot-dmt",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-dmt",
+      "to": "oot-kak",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-kak",
+      "to": "oot-well",
+      "needs": [
+        "song_of_storms"
+      ],
+      "age": "child"
+    },
+    {
+      "from": "oot-well",
+      "to": "oot-kak",
+      "needs": [
+        "song_of_storms"
+      ],
+      "age": "child"
+    },
+    {
+      "from": "oot-graveyard",
+      "to": "oot-shadow",
+      "needs": [
+        "nocturne"
+      ],
+      "age": "adult"
+    },
+    {
+      "from": "oot-shadow",
+      "to": "oot-graveyard",
+      "needs": [
+        "nocturne"
+      ],
+      "age": "adult"
+    },
+    {
+      "from": "oot-dmt",
+      "to": "oot-gc",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-gc",
+      "to": "oot-dmt",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-dmt",
+      "to": "oot-dc",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-dc",
+      "to": "oot-dmt",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-gc",
+      "to": "oot-dmc",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-dmc",
+      "to": "oot-gc",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-dmc",
+      "to": "oot-fire",
+      "needs": [],
+      "age": "adult"
+    },
+    {
+      "from": "oot-fire",
+      "to": "oot-dmc",
+      "needs": [],
+      "age": "adult"
+    },
+    {
+      "from": "oot-zr",
+      "to": "oot-zd",
+      "needs": [
+        "open_zora"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "oot-zd",
+      "to": "oot-zr",
+      "needs": [
+        "open_zora"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "oot-zd",
+      "to": "oot-zf",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-zf",
+      "to": "oot-zd",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-zf",
+      "to": "oot-jabu",
+      "needs": [],
+      "age": "child"
+    },
+    {
+      "from": "oot-jabu",
+      "to": "oot-zf",
+      "needs": [],
+      "age": "child"
+    },
+    {
+      "from": "oot-zf",
+      "to": "oot-ice",
+      "needs": [],
+      "age": "adult"
+    },
+    {
+      "from": "oot-ice",
+      "to": "oot-zf",
+      "needs": [],
+      "age": "adult"
+    },
+    {
+      "from": "oot-lh",
+      "to": "oot-water",
+      "needs": [
+        "iron_boots"
+      ],
+      "age": "adult"
+    },
+    {
+      "from": "oot-water",
+      "to": "oot-lh",
+      "needs": [
+        "iron_boots"
+      ],
+      "age": "adult"
+    },
+    {
+      "from": "oot-gv",
+      "to": "oot-gf",
+      "needs": [],
+      "age": "adult"
+    },
+    {
+      "from": "oot-gf",
+      "to": "oot-gv",
+      "needs": [],
+      "age": "adult"
+    },
+    {
+      "from": "oot-gf",
+      "to": "oot-gtg",
+      "needs": [
+        "gerudo_card"
+      ],
+      "age": "adult"
+    },
+    {
+      "from": "oot-gtg",
+      "to": "oot-gf",
+      "needs": [
+        "gerudo_card"
+      ],
+      "age": "adult"
+    },
+    {
+      "from": "oot-gf",
+      "to": "oot-wasteland",
+      "needs": [
+        "hookshot"
+      ],
+      "age": "adult"
+    },
+    {
+      "from": "oot-wasteland",
+      "to": "oot-gf",
+      "needs": [
+        "hookshot"
+      ],
+      "age": "adult"
+    },
+    {
+      "from": "oot-wasteland",
+      "to": "oot-colossus",
+      "needs": [],
+      "age": "adult"
+    },
+    {
+      "from": "oot-colossus",
+      "to": "oot-wasteland",
+      "needs": [],
+      "age": "adult"
+    },
+    {
+      "from": "oot-colossus",
+      "to": "oot-spirit",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "oot-spirit",
+      "to": "oot-colossus",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-sct",
+      "to": "mm-nct",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-nct",
+      "to": "mm-sct",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-sct",
+      "to": "mm-ect",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-ect",
+      "to": "mm-sct",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-sct",
+      "to": "mm-wct",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-wct",
+      "to": "mm-sct",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-sct",
+      "to": "mm-laundry",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-laundry",
+      "to": "mm-sct",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-sct",
+      "to": "mm-tower",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-tower",
+      "to": "mm-sct",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-sct",
+      "to": "mm-tf",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-tf",
+      "to": "mm-sct",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-ect",
+      "to": "mm-inn",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-inn",
+      "to": "mm-ect",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-tf",
+      "to": "mm-milk-road",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-milk-road",
+      "to": "mm-tf",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-tf",
+      "to": "mm-swamp-road",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-swamp-road",
+      "to": "mm-tf",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-tf",
+      "to": "mm-mv",
+      "needs": [
+        "bow"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "mm-mv",
+      "to": "mm-tf",
+      "needs": [
+        "bow"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "mm-tf",
+      "to": "mm-gbc",
+      "needs": [
+        "zora_mask"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "mm-gbc",
+      "to": "mm-tf",
+      "needs": [
+        "zora_mask"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "mm-tf",
+      "to": "mm-ikana-road",
+      "needs": [
+        "hookshot"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "mm-ikana-road",
+      "to": "mm-tf",
+      "needs": [
+        "hookshot"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "mm-milk-road",
+      "to": "mm-ranch",
+      "needs": [
+        "epona"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "mm-ranch",
+      "to": "mm-milk-road",
+      "needs": [
+        "epona"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "mm-swamp-road",
+      "to": "mm-swamp",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-swamp",
+      "to": "mm-swamp-road",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-swamp",
+      "to": "mm-palace",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-palace",
+      "to": "mm-swamp",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-swamp",
+      "to": "mm-swamp-spider",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-swamp-spider",
+      "to": "mm-swamp",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-swamp",
+      "to": "mm-woodfall",
+      "needs": [
+        "deku_mask"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "mm-woodfall",
+      "to": "mm-swamp",
+      "needs": [
+        "deku_mask"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "mm-woodfall",
+      "to": "mm-woodfall-temple",
+      "needs": [
+        "sonata"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "mm-woodfall-temple",
+      "to": "mm-woodfall",
+      "needs": [
+        "sonata"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "mm-mv",
+      "to": "mm-twins",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-twins",
+      "to": "mm-mv",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-twins",
+      "to": "mm-gv",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-gv",
+      "to": "mm-twins",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-gv",
+      "to": "mm-snowhead-road",
+      "needs": [
+        "goron_mask"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "mm-snowhead-road",
+      "to": "mm-gv",
+      "needs": [
+        "goron_mask"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "mm-snowhead-road",
+      "to": "mm-snowhead-temple",
+      "needs": [
+        "lullaby"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "mm-snowhead-temple",
+      "to": "mm-snowhead-road",
+      "needs": [
+        "lullaby"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "mm-gbc",
+      "to": "mm-zora-cape",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-zora-cape",
+      "to": "mm-gbc",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-gbc",
+      "to": "mm-pinnacle",
+      "needs": [
+        "seahorse"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "mm-pinnacle",
+      "to": "mm-gbc",
+      "needs": [
+        "seahorse"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "mm-gbc",
+      "to": "mm-ocean-spider",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-ocean-spider",
+      "to": "mm-gbc",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-gbc",
+      "to": "mm-pf-ext",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-pf-ext",
+      "to": "mm-gbc",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-zora-cape",
+      "to": "mm-zora-hall",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-zora-hall",
+      "to": "mm-zora-cape",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-zora-cape",
+      "to": "mm-gbt",
+      "needs": [
+        "nwbn"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "mm-gbt",
+      "to": "mm-zora-cape",
+      "needs": [
+        "nwbn"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "mm-pf-ext",
+      "to": "mm-pf-int",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-pf-int",
+      "to": "mm-pf-ext",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-pf-ext",
+      "to": "mm-pf-sew",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-pf-sew",
+      "to": "mm-pf-ext",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-ikana-road",
+      "to": "mm-ikana-gy",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-ikana-gy",
+      "to": "mm-ikana-road",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-ikana-road",
+      "to": "mm-ikana",
+      "needs": [
+        "garo_mask"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "mm-ikana",
+      "to": "mm-ikana-road",
+      "needs": [
+        "garo_mask"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "mm-ikana",
+      "to": "mm-ikana-castle",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-ikana-castle",
+      "to": "mm-ikana",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-ikana",
+      "to": "mm-ikana-well",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-ikana-well",
+      "to": "mm-ikana",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-ikana",
+      "to": "mm-secret",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-secret",
+      "to": "mm-ikana",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-ikana",
+      "to": "mm-st",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-st",
+      "to": "mm-ikana",
+      "needs": [],
+      "age": "any"
+    },
+    {
+      "from": "mm-st",
+      "to": "mm-stt",
+      "needs": [
+        "elegy"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "mm-stt",
+      "to": "mm-st",
+      "needs": [
+        "elegy"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "mm-sct",
+      "to": "mm-moon",
+      "needs": [
+        "oath",
+        "odolwa",
+        "goht",
+        "gyorg",
+        "twinmold"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "mm-moon",
+      "to": "mm-sct",
+      "needs": [
+        "oath",
+        "odolwa",
+        "goht",
+        "gyorg",
+        "twinmold"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "oot-tot",
+      "to": "mm-sct",
+      "needs": [
+        "cross_game"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "mm-sct",
+      "to": "oot-tot",
+      "needs": [
+        "cross_game"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "oot-lost-woods",
+      "to": "mm-tf",
+      "needs": [
+        "cross_game"
+      ],
+      "age": "any"
+    },
+    {
+      "from": "mm-tf",
+      "to": "oot-lost-woods",
+      "needs": [
+        "cross_game"
+      ],
+      "age": "any"
+    }
+  ],
+  "warps": [
+    {
+      "item": "minuet",
+      "regionId": "oot-sfm",
+      "label": "Minuet of Forest"
+    },
+    {
+      "item": "bolero",
+      "regionId": "oot-dmc",
+      "label": "Bolero of Fire"
+    },
+    {
+      "item": "serenade",
+      "regionId": "oot-lh",
+      "label": "Serenade of Water"
+    },
+    {
+      "item": "nocturne",
+      "regionId": "oot-graveyard",
+      "label": "Nocturne of Shadow"
+    },
+    {
+      "item": "requiem",
+      "regionId": "oot-colossus",
+      "label": "Requiem of Spirit"
+    },
+    {
+      "item": "prelude",
+      "regionId": "oot-tot",
+      "label": "Prelude of Light"
+    },
+    {
+      "item": "soaring",
+      "regionId": "mm-sct",
+      "label": "Song of Soaring (Clock Town)"
+    },
+    {
+      "item": "soaring-woodfall",
+      "regionId": "mm-woodfall",
+      "label": "Soar to Woodfall"
+    },
+    {
+      "item": "soaring-snowhead",
+      "regionId": "mm-snowhead-road",
+      "label": "Soar to Snowhead"
+    },
+    {
+      "item": "soaring-gbc",
+      "regionId": "mm-gbc",
+      "label": "Soar to Great Bay"
+    },
+    {
+      "item": "soaring-ikana",
+      "regionId": "mm-ikana",
+      "label": "Soar to Ikana"
+    }
+  ],
+  "checks": [
+    {
+      "id": "oot-kokiri-forest-kokiri-sword-chest",
+      "name": "Kokiri Forest Kokiri Sword Chest",
+      "game": "oot",
+      "regionId": "oot-kokiri",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-mido-s-house-top-left",
+      "name": "Mido's House Top Left",
+      "game": "oot",
+      "regionId": "oot-kokiri",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-mido-s-house-top-right",
+      "name": "Mido's House Top Right",
+      "game": "oot",
+      "regionId": "oot-kokiri",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-mido-s-house-bottom-left",
+      "name": "Mido's House Bottom Left",
+      "game": "oot",
+      "regionId": "oot-kokiri",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-mido-s-house-bottom-right",
+      "name": "Mido's House Bottom Right",
+      "game": "oot",
+      "regionId": "oot-kokiri",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-kokiri-forest-storms-grotto",
+      "name": "Kokiri Forest Storms Grotto",
+      "game": "oot",
+      "regionId": "oot-kokiri",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "song_of_storms"
+      ]
+    },
+    {
+      "id": "oot-hyrule-field-song-of-time",
+      "name": "Hyrule Field Song of Time",
+      "game": "oot",
+      "regionId": "oot-field",
+      "type": "song",
+      "age": "any",
+      "needs": [
+        "ocarina"
+      ]
+    },
+    {
+      "id": "oot-hyrule-field-grotto-scrub-hp",
+      "name": "Hyrule Field Grotto Scrub HP",
+      "game": "oot",
+      "regionId": "oot-field",
+      "type": "scrub",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-hyrule-field-grotto-open",
+      "name": "Hyrule Field Grotto Open",
+      "game": "oot",
+      "regionId": "oot-field",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-hyrule-field-grotto-southeast",
+      "name": "Hyrule Field Grotto Southeast",
+      "game": "oot",
+      "regionId": "oot-field",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-hyrule-field-grotto-market",
+      "name": "Hyrule Field Grotto Market",
+      "game": "oot",
+      "regionId": "oot-field",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-hyrule-field-grotto-tektite-hp",
+      "name": "Hyrule Field Grotto Tektite HP",
+      "game": "oot",
+      "regionId": "oot-field",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-market-pot-house-big-poes",
+      "name": "Market Pot House Big Poes",
+      "game": "oot",
+      "regionId": "oot-market",
+      "type": "chest",
+      "age": "adult",
+      "needs": [
+        "bow"
+      ]
+    },
+    {
+      "id": "oot-market-dog-lady-hp",
+      "name": "Market Dog Lady HP",
+      "game": "oot",
+      "regionId": "oot-market",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-bombchu-bowling-reward-1",
+      "name": "Bombchu Bowling Reward 1",
+      "game": "oot",
+      "regionId": "oot-market",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "bombs"
+      ]
+    },
+    {
+      "id": "oot-bombchu-bowling-reward-2",
+      "name": "Bombchu Bowling Reward 2",
+      "game": "oot",
+      "regionId": "oot-market",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "bombs"
+      ]
+    },
+    {
+      "id": "oot-shooting-gallery-child",
+      "name": "Shooting Gallery Child",
+      "game": "oot",
+      "regionId": "oot-market",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-treasure-chest-game-hp",
+      "name": "Treasure Chest Game HP",
+      "game": "oot",
+      "regionId": "oot-market",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-lon-lon-ranch-malon-song",
+      "name": "Lon Lon Ranch Malon Song",
+      "game": "oot",
+      "regionId": "oot-llr",
+      "type": "song",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-lon-lon-ranch-silo-hp",
+      "name": "Lon Lon Ranch Silo HP",
+      "game": "oot",
+      "regionId": "oot-llr",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-lon-lon-ranch-talon-bottle",
+      "name": "Lon Lon Ranch Talon Bottle",
+      "game": "oot",
+      "regionId": "oot-llr",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-malon-egg",
+      "name": "Malon Egg",
+      "game": "oot",
+      "regionId": "oot-castle",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-great-fairy-din-s-fire",
+      "name": "Great Fairy Din's Fire",
+      "game": "oot",
+      "regionId": "oot-castle",
+      "type": "chest",
+      "age": "child",
+      "needs": [
+        "magic"
+      ]
+    },
+    {
+      "id": "oot-zelda-s-letter",
+      "name": "Zelda's Letter",
+      "game": "oot",
+      "regionId": "oot-castle",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-zelda-s-song",
+      "name": "Zelda's Song",
+      "game": "oot",
+      "regionId": "oot-castle",
+      "type": "song",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-great-fairy-defense-upgrade",
+      "name": "Great Fairy Defense Upgrade",
+      "game": "oot",
+      "regionId": "oot-ganon-out",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-lost-woods-target",
+      "name": "Lost Woods Target",
+      "game": "oot",
+      "regionId": "oot-lost-woods",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-lost-woods-skull-kid",
+      "name": "Lost Woods Skull Kid",
+      "game": "oot",
+      "regionId": "oot-lost-woods",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-lost-woods-memory-game",
+      "name": "Lost Woods Memory Game",
+      "game": "oot",
+      "regionId": "oot-lost-woods",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-lost-woods-scrub-sticks-upgrade",
+      "name": "Lost Woods Scrub Sticks Upgrade",
+      "game": "oot",
+      "regionId": "oot-lost-woods",
+      "type": "scrub",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-lost-woods-odd-mushroom",
+      "name": "Lost Woods Odd Mushroom",
+      "game": "oot",
+      "regionId": "oot-lost-woods",
+      "type": "trade",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-lost-woods-poacher-s-saw",
+      "name": "Lost Woods Poacher's Saw",
+      "game": "oot",
+      "regionId": "oot-lost-woods",
+      "type": "trade",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-lost-woods-grotto-generic",
+      "name": "Lost Woods Grotto Generic",
+      "game": "oot",
+      "regionId": "oot-lost-woods",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-deku-theater-sticks-upgrade",
+      "name": "Deku Theater Sticks Upgrade",
+      "game": "oot",
+      "regionId": "oot-lost-woods",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-deku-theater-nuts-upgrade",
+      "name": "Deku Theater Nuts Upgrade",
+      "game": "oot",
+      "regionId": "oot-lost-woods",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-lost-woods-grotto-scrub-nuts-upgrade",
+      "name": "Lost Woods Grotto Scrub Nuts Upgrade",
+      "game": "oot",
+      "regionId": "oot-lost-woods",
+      "type": "scrub",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-sacred-meadow-grotto",
+      "name": "Sacred Meadow Grotto",
+      "game": "oot",
+      "regionId": "oot-sfm",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-saria-s-song",
+      "name": "Saria's Song",
+      "game": "oot",
+      "regionId": "oot-sfm",
+      "type": "song",
+      "age": "child",
+      "needs": [
+        "ocarina"
+      ]
+    },
+    {
+      "id": "oot-sacred-meadow-sheik-song",
+      "name": "Sacred Meadow Sheik Song",
+      "game": "oot",
+      "regionId": "oot-sfm",
+      "type": "song",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-kakariko-anju-bottle",
+      "name": "Kakariko Anju Bottle",
+      "game": "oot",
+      "regionId": "oot-kak",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-kakariko-anju-egg",
+      "name": "Kakariko Anju Egg",
+      "game": "oot",
+      "regionId": "oot-kak",
+      "type": "trade",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-kakariko-anju-cojiro",
+      "name": "Kakariko Anju Cojiro",
+      "game": "oot",
+      "regionId": "oot-kak",
+      "type": "trade",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-kakariko-song-shadow",
+      "name": "Kakariko Song Shadow",
+      "game": "oot",
+      "regionId": "oot-kak",
+      "type": "song",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-kakariko-man-on-roof",
+      "name": "Kakariko Man on Roof",
+      "game": "oot",
+      "regionId": "oot-kak",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-kakariko-potion-shop-odd-potion",
+      "name": "Kakariko Potion Shop Odd Potion",
+      "game": "oot",
+      "regionId": "oot-kak",
+      "type": "trade",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-shooting-gallery-adult",
+      "name": "Shooting Gallery Adult",
+      "game": "oot",
+      "regionId": "oot-kak",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-kakariko-impa-house-hp",
+      "name": "Kakariko Impa House HP",
+      "game": "oot",
+      "regionId": "oot-kak",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-windmill-hp",
+      "name": "Windmill HP",
+      "game": "oot",
+      "regionId": "oot-kak",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-windmill-song-of-storms",
+      "name": "Windmill Song of Storms",
+      "game": "oot",
+      "regionId": "oot-kak",
+      "type": "song",
+      "age": "any",
+      "needs": [
+        "song_of_storms"
+      ]
+    },
+    {
+      "id": "oot-skulltula-house-10-tokens",
+      "name": "Skulltula House 10 Tokens",
+      "game": "oot",
+      "regionId": "oot-kak",
+      "type": "skullReward",
+      "age": "any",
+      "needs": [
+        "gs_tokens"
+      ]
+    },
+    {
+      "id": "oot-skulltula-house-20-tokens",
+      "name": "Skulltula House 20 Tokens",
+      "game": "oot",
+      "regionId": "oot-kak",
+      "type": "skullReward",
+      "age": "any",
+      "needs": [
+        "gs_tokens"
+      ]
+    },
+    {
+      "id": "oot-skulltula-house-30-tokens",
+      "name": "Skulltula House 30 Tokens",
+      "game": "oot",
+      "regionId": "oot-kak",
+      "type": "skullReward",
+      "age": "any",
+      "needs": [
+        "gs_tokens"
+      ]
+    },
+    {
+      "id": "oot-skulltula-house-40-tokens",
+      "name": "Skulltula House 40 Tokens",
+      "game": "oot",
+      "regionId": "oot-kak",
+      "type": "skullReward",
+      "age": "any",
+      "needs": [
+        "gs_tokens"
+      ]
+    },
+    {
+      "id": "oot-skulltula-house-50-tokens",
+      "name": "Skulltula House 50 Tokens",
+      "game": "oot",
+      "regionId": "oot-kak",
+      "type": "skullReward",
+      "age": "any",
+      "needs": [
+        "gs_tokens"
+      ]
+    },
+    {
+      "id": "oot-kakariko-grotto-front",
+      "name": "Kakariko Grotto Front",
+      "game": "oot",
+      "regionId": "oot-kak",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-kakariko-grotto-back",
+      "name": "Kakariko Grotto Back",
+      "game": "oot",
+      "regionId": "oot-kak",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-graveyard-dampe-game",
+      "name": "Graveyard Dampe Game",
+      "game": "oot",
+      "regionId": "oot-graveyard",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-graveyard-crate-hp",
+      "name": "Graveyard Crate HP",
+      "game": "oot",
+      "regionId": "oot-graveyard",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-graveyard-royal-tomb-song",
+      "name": "Graveyard Royal Tomb Song",
+      "game": "oot",
+      "regionId": "oot-graveyard",
+      "type": "song",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-graveyard-royal-tomb-chest",
+      "name": "Graveyard Royal Tomb Chest",
+      "game": "oot",
+      "regionId": "oot-graveyard",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-graveyard-fairy-tomb",
+      "name": "Graveyard Fairy Tomb",
+      "game": "oot",
+      "regionId": "oot-graveyard",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-graveyard-redead-tomb",
+      "name": "Graveyard ReDead Tomb",
+      "game": "oot",
+      "regionId": "oot-graveyard",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-graveyard-dampe-tomb-reward-1",
+      "name": "Graveyard Dampe Tomb Reward 1",
+      "game": "oot",
+      "regionId": "oot-graveyard",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-graveyard-dampe-tomb-reward-2",
+      "name": "Graveyard Dampe Tomb Reward 2",
+      "game": "oot",
+      "regionId": "oot-graveyard",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-death-mountain-trail-chest",
+      "name": "Death Mountain Trail Chest",
+      "game": "oot",
+      "regionId": "oot-dmt",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-death-mountain-trail-hp",
+      "name": "Death Mountain Trail HP",
+      "game": "oot",
+      "regionId": "oot-dmt",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-death-mountain-trail-prescription",
+      "name": "Death Mountain Trail Prescription",
+      "game": "oot",
+      "regionId": "oot-dmt",
+      "type": "trade",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-death-mountain-trail-claim-check",
+      "name": "Death Mountain Trail Claim Check",
+      "game": "oot",
+      "regionId": "oot-dmt",
+      "type": "trade",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-death-mountain-trail-biggoron-sword",
+      "name": "Death Mountain Trail Biggoron Sword",
+      "game": "oot",
+      "regionId": "oot-dmt",
+      "type": "trade",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-death-mountain-trail-grotto",
+      "name": "Death Mountain Trail Grotto",
+      "game": "oot",
+      "regionId": "oot-dmt",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-great-fairy-magic-upgrade",
+      "name": "Great Fairy Magic Upgrade",
+      "game": "oot",
+      "regionId": "oot-dmt",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "magic"
+      ]
+    },
+    {
+      "id": "oot-goron-city-maze-center-1",
+      "name": "Goron City Maze Center 1",
+      "game": "oot",
+      "regionId": "oot-gc",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-goron-city-maze-center-2",
+      "name": "Goron City Maze Center 2",
+      "game": "oot",
+      "regionId": "oot-gc",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-goron-city-maze-left",
+      "name": "Goron City Maze Left",
+      "game": "oot",
+      "regionId": "oot-gc",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-goron-city-big-pot-hp",
+      "name": "Goron City Big Pot HP",
+      "game": "oot",
+      "regionId": "oot-gc",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-goron-city-tunic",
+      "name": "Goron City Tunic",
+      "game": "oot",
+      "regionId": "oot-gc",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-goron-city-bomb-bag",
+      "name": "Goron City Bomb Bag",
+      "game": "oot",
+      "regionId": "oot-gc",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-goron-city-medigoron-giant-knife",
+      "name": "Goron City Medigoron Giant Knife",
+      "game": "oot",
+      "regionId": "oot-gc",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-darunia",
+      "name": "Darunia",
+      "game": "oot",
+      "regionId": "oot-gc",
+      "type": "song",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-zora-river-bean-seller",
+      "name": "Zora River Bean Seller",
+      "game": "oot",
+      "regionId": "oot-zr",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-zora-river-hp-pillar",
+      "name": "Zora River HP Pillar",
+      "game": "oot",
+      "regionId": "oot-zr",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-zora-river-hp-platform",
+      "name": "Zora River HP Platform",
+      "game": "oot",
+      "regionId": "oot-zr",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-zora-river-frogs-storms",
+      "name": "Zora River Frogs Storms",
+      "game": "oot",
+      "regionId": "oot-zr",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-zora-river-frogs-game",
+      "name": "Zora River Frogs Game",
+      "game": "oot",
+      "regionId": "oot-zr",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-zora-river-grotto",
+      "name": "Zora River Grotto",
+      "game": "oot",
+      "regionId": "oot-zr",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-zora-domain-waterfall-chest",
+      "name": "Zora Domain Waterfall Chest",
+      "game": "oot",
+      "regionId": "oot-zd",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-zora-domain-diving-game",
+      "name": "Zora Domain Diving Game",
+      "game": "oot",
+      "regionId": "oot-zd",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-zora-domain-tunic",
+      "name": "Zora Domain Tunic",
+      "game": "oot",
+      "regionId": "oot-zd",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-zora-domain-eyeball-frog",
+      "name": "Zora Domain Eyeball Frog",
+      "game": "oot",
+      "regionId": "oot-zd",
+      "type": "trade",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-lake-hylia-underwater-bottle",
+      "name": "Lake Hylia Underwater Bottle",
+      "game": "oot",
+      "regionId": "oot-lh",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "silver_scale"
+      ]
+    },
+    {
+      "id": "oot-lake-hylia-fire-arrow",
+      "name": "Lake Hylia Fire Arrow",
+      "game": "oot",
+      "regionId": "oot-lh",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "bow",
+        "magic"
+      ]
+    },
+    {
+      "id": "oot-lake-hylia-hp",
+      "name": "Lake Hylia HP",
+      "game": "oot",
+      "regionId": "oot-lh",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-laboratory-dive",
+      "name": "Laboratory Dive",
+      "game": "oot",
+      "regionId": "oot-lh",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-laboratory-eye-drops",
+      "name": "Laboratory Eye Drops",
+      "game": "oot",
+      "regionId": "oot-lh",
+      "type": "trade",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-fishing-pond-child",
+      "name": "Fishing Pond Child",
+      "game": "oot",
+      "regionId": "oot-lh",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-fishing-pond-adult",
+      "name": "Fishing Pond Adult",
+      "game": "oot",
+      "regionId": "oot-lh",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-zora-fountain-iceberg-hp",
+      "name": "Zora Fountain Iceberg HP",
+      "game": "oot",
+      "regionId": "oot-zf",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-zora-fountain-bottom-hp",
+      "name": "Zora Fountain Bottom HP",
+      "game": "oot",
+      "regionId": "oot-zf",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-great-fairy-farore-s-wind",
+      "name": "Great Fairy Farore's Wind",
+      "game": "oot",
+      "regionId": "oot-zf",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "magic"
+      ]
+    },
+    {
+      "id": "oot-temple-of-time-sheik-song",
+      "name": "Temple of Time Sheik Song",
+      "game": "oot",
+      "regionId": "oot-tot",
+      "type": "song",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-temple-of-time-light-arrows",
+      "name": "Temple of Time Light Arrows",
+      "game": "oot",
+      "regionId": "oot-tot",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-temple-of-time-medallion",
+      "name": "Temple of Time Medallion",
+      "game": "oot",
+      "regionId": "oot-tot",
+      "type": "dungeonReward",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-death-mountain-crater-alcove-hp",
+      "name": "Death Mountain Crater Alcove HP",
+      "game": "oot",
+      "regionId": "oot-dmc",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-death-mountain-crater-volcano-hp",
+      "name": "Death Mountain Crater Volcano HP",
+      "game": "oot",
+      "regionId": "oot-dmc",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-death-mountain-crater-sheik-song",
+      "name": "Death Mountain Crater Sheik Song",
+      "game": "oot",
+      "regionId": "oot-dmc",
+      "type": "song",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-death-mountain-crater-grotto",
+      "name": "Death Mountain Crater Grotto",
+      "game": "oot",
+      "regionId": "oot-dmc",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-great-fairy-magic-upgrade-2",
+      "name": "Great Fairy Magic Upgrade 2",
+      "game": "oot",
+      "regionId": "oot-dmc",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "magic"
+      ]
+    },
+    {
+      "id": "oot-gerudo-valley-crate-hp",
+      "name": "Gerudo Valley Crate HP",
+      "game": "oot",
+      "regionId": "oot-gv",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-gerudo-valley-waterfall-hp",
+      "name": "Gerudo Valley Waterfall HP",
+      "game": "oot",
+      "regionId": "oot-gv",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-gerudo-valley-chest",
+      "name": "Gerudo Valley Chest",
+      "game": "oot",
+      "regionId": "oot-gv",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-gerudo-valley-broken-goron-sword",
+      "name": "Gerudo Valley Broken Goron Sword",
+      "game": "oot",
+      "regionId": "oot-gv",
+      "type": "trade",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-gerudo-fortress-archery-reward-1",
+      "name": "Gerudo Fortress Archery Reward 1",
+      "game": "oot",
+      "regionId": "oot-gf",
+      "type": "chest",
+      "age": "adult",
+      "needs": [
+        "bow",
+        "epona"
+      ]
+    },
+    {
+      "id": "oot-gerudo-fortress-archery-reward-2",
+      "name": "Gerudo Fortress Archery Reward 2",
+      "game": "oot",
+      "regionId": "oot-gf",
+      "type": "chest",
+      "age": "adult",
+      "needs": [
+        "bow",
+        "epona"
+      ]
+    },
+    {
+      "id": "oot-gerudo-fortress-chest",
+      "name": "Gerudo Fortress Chest",
+      "game": "oot",
+      "regionId": "oot-gf",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-haunted-wasteland-chest",
+      "name": "Haunted Wasteland Chest",
+      "game": "oot",
+      "regionId": "oot-wasteland",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-desert-colossus-hp",
+      "name": "Desert Colossus HP",
+      "game": "oot",
+      "regionId": "oot-colossus",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-desert-colossus-song-spirit",
+      "name": "Desert Colossus Song Spirit",
+      "game": "oot",
+      "regionId": "oot-colossus",
+      "type": "song",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-great-fairy-nayru-s-love",
+      "name": "Great Fairy Nayru's Love",
+      "game": "oot",
+      "regionId": "oot-colossus",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "magic"
+      ]
+    },
+    {
+      "id": "oot-deku-tree-boss-container",
+      "name": "Deku Tree Boss Container",
+      "game": "oot",
+      "regionId": "oot-deku",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-deku-tree-boss",
+      "name": "Deku Tree Boss",
+      "game": "oot",
+      "regionId": "oot-deku",
+      "type": "dungeonReward",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-deku-tree-map-chest",
+      "name": "Deku Tree Map Chest",
+      "game": "oot",
+      "regionId": "oot-deku",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-deku-tree-compass-chest",
+      "name": "Deku Tree Compass Chest",
+      "game": "oot",
+      "regionId": "oot-deku",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-deku-tree-compass-room-side-chest",
+      "name": "Deku Tree Compass Room Side Chest",
+      "game": "oot",
+      "regionId": "oot-deku",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-deku-tree-slingshot-chest",
+      "name": "Deku Tree Slingshot Chest",
+      "game": "oot",
+      "regionId": "oot-deku",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-deku-tree-slingshot-side-chest",
+      "name": "Deku Tree Slingshot Side Chest",
+      "game": "oot",
+      "regionId": "oot-deku",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-deku-tree-basement-chest",
+      "name": "Deku Tree Basement Chest",
+      "game": "oot",
+      "regionId": "oot-deku",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-dodongo-cavern-boss-chest",
+      "name": "Dodongo Cavern Boss Chest",
+      "game": "oot",
+      "regionId": "oot-dc",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-dodongo-cavern-boss-container",
+      "name": "Dodongo Cavern Boss Container",
+      "game": "oot",
+      "regionId": "oot-dc",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-dodongo-cavern-boss",
+      "name": "Dodongo Cavern Boss",
+      "game": "oot",
+      "regionId": "oot-dc",
+      "type": "dungeonReward",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-dodongo-cavern-map-chest",
+      "name": "Dodongo Cavern Map Chest",
+      "game": "oot",
+      "regionId": "oot-dc",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-dodongo-cavern-compass-chest",
+      "name": "Dodongo Cavern Compass Chest",
+      "game": "oot",
+      "regionId": "oot-dc",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-dodongo-cavern-bomb-bag-side-chest",
+      "name": "Dodongo Cavern Bomb Bag Side Chest",
+      "game": "oot",
+      "regionId": "oot-dc",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-dodongo-cavern-bomb-bag-chest",
+      "name": "Dodongo Cavern Bomb Bag Chest",
+      "game": "oot",
+      "regionId": "oot-dc",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-dodongo-cavern-bridge-chest",
+      "name": "Dodongo Cavern Bridge Chest",
+      "game": "oot",
+      "regionId": "oot-dc",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-jabu-jabu-boss-container",
+      "name": "Jabu-Jabu Boss Container",
+      "game": "oot",
+      "regionId": "oot-jabu",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-jabu-jabu-boss",
+      "name": "Jabu-Jabu Boss",
+      "game": "oot",
+      "regionId": "oot-jabu",
+      "type": "dungeonReward",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-jabu-jabu-boomerang-chest",
+      "name": "Jabu-Jabu Boomerang Chest",
+      "game": "oot",
+      "regionId": "oot-jabu",
+      "type": "chest",
+      "age": "child",
+      "needs": [
+        "boomerang"
+      ]
+    },
+    {
+      "id": "oot-jabu-jabu-map-chest",
+      "name": "Jabu-Jabu Map Chest",
+      "game": "oot",
+      "regionId": "oot-jabu",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-jabu-jabu-compass-chest",
+      "name": "Jabu-Jabu Compass Chest",
+      "game": "oot",
+      "regionId": "oot-jabu",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-forest-temple-boss",
+      "name": "Forest Temple Boss",
+      "game": "oot",
+      "regionId": "oot-forest",
+      "type": "dungeonReward",
+      "age": "adult",
+      "needs": [
+        "hookshot"
+      ]
+    },
+    {
+      "id": "oot-forest-temple-boss-container",
+      "name": "Forest Temple Boss Container",
+      "game": "oot",
+      "regionId": "oot-forest",
+      "type": "chest",
+      "age": "adult",
+      "needs": [
+        "hookshot"
+      ]
+    },
+    {
+      "id": "oot-forest-temple-map",
+      "name": "Forest Temple Map",
+      "game": "oot",
+      "regionId": "oot-forest",
+      "type": "chest",
+      "age": "adult",
+      "needs": [
+        "hookshot"
+      ]
+    },
+    {
+      "id": "oot-forest-temple-garden",
+      "name": "Forest Temple Garden",
+      "game": "oot",
+      "regionId": "oot-forest",
+      "type": "chest",
+      "age": "adult",
+      "needs": [
+        "hookshot"
+      ]
+    },
+    {
+      "id": "oot-forest-temple-maze",
+      "name": "Forest Temple Maze",
+      "game": "oot",
+      "regionId": "oot-forest",
+      "type": "chest",
+      "age": "adult",
+      "needs": [
+        "hookshot"
+      ]
+    },
+    {
+      "id": "oot-forest-temple-bow",
+      "name": "Forest Temple Bow",
+      "game": "oot",
+      "regionId": "oot-forest",
+      "type": "chest",
+      "age": "adult",
+      "needs": [
+        "bow",
+        "hookshot"
+      ]
+    },
+    {
+      "id": "oot-forest-temple-compass",
+      "name": "Forest Temple Compass",
+      "game": "oot",
+      "regionId": "oot-forest",
+      "type": "chest",
+      "age": "adult",
+      "needs": [
+        "hookshot"
+      ]
+    },
+    {
+      "id": "oot-forest-temple-checkerboard",
+      "name": "Forest Temple Checkerboard",
+      "game": "oot",
+      "regionId": "oot-forest",
+      "type": "chest",
+      "age": "adult",
+      "needs": [
+        "hookshot"
+      ]
+    },
+    {
+      "id": "oot-forest-temple-antichamber",
+      "name": "Forest Temple Antichamber",
+      "game": "oot",
+      "regionId": "oot-forest",
+      "type": "chest",
+      "age": "adult",
+      "needs": [
+        "hookshot"
+      ]
+    },
+    {
+      "id": "oot-fire-temple-boss-container",
+      "name": "Fire Temple Boss Container",
+      "game": "oot",
+      "regionId": "oot-fire",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-fire-temple-boss",
+      "name": "Fire Temple Boss",
+      "game": "oot",
+      "regionId": "oot-fire",
+      "type": "dungeonReward",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-fire-temple-boss-key-side-chest",
+      "name": "Fire Temple Boss Key Side Chest",
+      "game": "oot",
+      "regionId": "oot-fire",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-fire-temple-map",
+      "name": "Fire Temple Map",
+      "game": "oot",
+      "regionId": "oot-fire",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-fire-temple-scarecrow-chest",
+      "name": "Fire Temple Scarecrow Chest",
+      "game": "oot",
+      "regionId": "oot-fire",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-fire-temple-compass",
+      "name": "Fire Temple Compass",
+      "game": "oot",
+      "regionId": "oot-fire",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-fire-temple-hammer",
+      "name": "Fire Temple Hammer",
+      "game": "oot",
+      "regionId": "oot-fire",
+      "type": "chest",
+      "age": "adult",
+      "needs": [
+        "hammer"
+      ]
+    },
+    {
+      "id": "oot-water-temple-boss-hc",
+      "name": "Water Temple Boss HC",
+      "game": "oot",
+      "regionId": "oot-water",
+      "type": "chest",
+      "age": "adult",
+      "needs": [
+        "iron_boots"
+      ]
+    },
+    {
+      "id": "oot-water-temple-boss",
+      "name": "Water Temple Boss",
+      "game": "oot",
+      "regionId": "oot-water",
+      "type": "dungeonReward",
+      "age": "adult",
+      "needs": [
+        "iron_boots"
+      ]
+    },
+    {
+      "id": "oot-water-temple-map",
+      "name": "Water Temple Map",
+      "game": "oot",
+      "regionId": "oot-water",
+      "type": "chest",
+      "age": "adult",
+      "needs": [
+        "iron_boots"
+      ]
+    },
+    {
+      "id": "oot-water-temple-under-center",
+      "name": "Water Temple Under Center",
+      "game": "oot",
+      "regionId": "oot-water",
+      "type": "chest",
+      "age": "adult",
+      "needs": [
+        "iron_boots"
+      ]
+    },
+    {
+      "id": "oot-water-temple-compass",
+      "name": "Water Temple Compass",
+      "game": "oot",
+      "regionId": "oot-water",
+      "type": "chest",
+      "age": "adult",
+      "needs": [
+        "iron_boots"
+      ]
+    },
+    {
+      "id": "oot-water-temple-longshot",
+      "name": "Water Temple Longshot",
+      "game": "oot",
+      "regionId": "oot-water",
+      "type": "chest",
+      "age": "adult",
+      "needs": [
+        "hookshot",
+        "iron_boots"
+      ]
+    },
+    {
+      "id": "oot-spirit-temple-boss-hc",
+      "name": "Spirit Temple Boss HC",
+      "game": "oot",
+      "regionId": "oot-spirit",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-spirit-temple-boss",
+      "name": "Spirit Temple Boss",
+      "game": "oot",
+      "regionId": "oot-spirit",
+      "type": "dungeonReward",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-spirit-temple-child-first-chest",
+      "name": "Spirit Temple Child First Chest",
+      "game": "oot",
+      "regionId": "oot-spirit",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-spirit-temple-child-climb-1",
+      "name": "Spirit Temple Child Climb 1",
+      "game": "oot",
+      "regionId": "oot-spirit",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-spirit-temple-child-climb-2",
+      "name": "Spirit Temple Child Climb 2",
+      "game": "oot",
+      "regionId": "oot-spirit",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-spirit-temple-adult-lullaby",
+      "name": "Spirit Temple Adult Lullaby",
+      "game": "oot",
+      "regionId": "oot-spirit",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-spirit-temple-adult-suns-on-wall-1",
+      "name": "Spirit Temple Adult Suns on Wall 1",
+      "game": "oot",
+      "regionId": "oot-spirit",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-spirit-temple-adult-suns-on-wall-2",
+      "name": "Spirit Temple Adult Suns on Wall 2",
+      "game": "oot",
+      "regionId": "oot-spirit",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-spirit-temple-statue-base",
+      "name": "Spirit Temple Statue Base",
+      "game": "oot",
+      "regionId": "oot-spirit",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-spirit-temple-statue-upper-right",
+      "name": "Spirit Temple Statue Upper Right",
+      "game": "oot",
+      "regionId": "oot-spirit",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "oot-spirit-temple-adult-invisible-1",
+      "name": "Spirit Temple Adult Invisible 1",
+      "game": "oot",
+      "regionId": "oot-spirit",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-spirit-temple-adult-invisible-2",
+      "name": "Spirit Temple Adult Invisible 2",
+      "game": "oot",
+      "regionId": "oot-spirit",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-spirit-temple-adult-topmost-sun-on-wall",
+      "name": "Spirit Temple Adult Topmost Sun on Wall",
+      "game": "oot",
+      "regionId": "oot-spirit",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-spirit-temple-silver-gauntlets",
+      "name": "Spirit Temple Silver Gauntlets",
+      "game": "oot",
+      "regionId": "oot-spirit",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-spirit-temple-mirror-shield",
+      "name": "Spirit Temple Mirror Shield",
+      "game": "oot",
+      "regionId": "oot-spirit",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-shadow-temple-boss-hc",
+      "name": "Shadow Temple Boss HC",
+      "game": "oot",
+      "regionId": "oot-shadow",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-shadow-temple-boss",
+      "name": "Shadow Temple Boss",
+      "game": "oot",
+      "regionId": "oot-shadow",
+      "type": "dungeonReward",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-shadow-temple-map",
+      "name": "Shadow Temple Map",
+      "game": "oot",
+      "regionId": "oot-shadow",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-shadow-temple-hover-boots",
+      "name": "Shadow Temple Hover Boots",
+      "game": "oot",
+      "regionId": "oot-shadow",
+      "type": "chest",
+      "age": "adult",
+      "needs": [
+        "hover_boots"
+      ]
+    },
+    {
+      "id": "oot-shadow-temple-compass",
+      "name": "Shadow Temple Compass",
+      "game": "oot",
+      "regionId": "oot-shadow",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-shadow-temple-spinning-blades-visible",
+      "name": "Shadow Temple Spinning Blades Visible",
+      "game": "oot",
+      "regionId": "oot-shadow",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-shadow-temple-spinning-blades-invisible",
+      "name": "Shadow Temple Spinning Blades Invisible",
+      "game": "oot",
+      "regionId": "oot-shadow",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-shadow-temple-falling-spikes-lower",
+      "name": "Shadow Temple Falling Spikes Lower",
+      "game": "oot",
+      "regionId": "oot-shadow",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-shadow-temple-falling-spikes-upper-2",
+      "name": "Shadow Temple Falling Spikes Upper 2",
+      "game": "oot",
+      "regionId": "oot-shadow",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-shadow-temple-invisible-spike-room",
+      "name": "Shadow Temple Invisible Spike Room",
+      "game": "oot",
+      "regionId": "oot-shadow",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-shadow-temple-wind-room-hint",
+      "name": "Shadow Temple Wind Room Hint",
+      "game": "oot",
+      "regionId": "oot-shadow",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-shadow-temple-after-wind",
+      "name": "Shadow Temple After Wind",
+      "game": "oot",
+      "regionId": "oot-shadow",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-shadow-temple-boss-key-room-1",
+      "name": "Shadow Temple Boss Key Room 1",
+      "game": "oot",
+      "regionId": "oot-shadow",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-bottom-of-the-well-compass",
+      "name": "Bottom of the Well Compass",
+      "game": "oot",
+      "regionId": "oot-well",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-bottom-of-the-well-under-debris",
+      "name": "Bottom of the Well Under Debris",
+      "game": "oot",
+      "regionId": "oot-well",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-bottom-of-the-well-back-west",
+      "name": "Bottom of the Well Back West",
+      "game": "oot",
+      "regionId": "oot-well",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-bottom-of-the-well-underwater",
+      "name": "Bottom of the Well Underwater",
+      "game": "oot",
+      "regionId": "oot-well",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-bottom-of-the-well-east-cage",
+      "name": "Bottom of the Well East Cage",
+      "game": "oot",
+      "regionId": "oot-well",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-bottom-of-the-well-blood-chest",
+      "name": "Bottom of the Well Blood Chest",
+      "game": "oot",
+      "regionId": "oot-well",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-bottom-of-the-well-underwater-2",
+      "name": "Bottom of the Well Underwater 2",
+      "game": "oot",
+      "regionId": "oot-well",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-bottom-of-the-well-map",
+      "name": "Bottom of the Well Map",
+      "game": "oot",
+      "regionId": "oot-well",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-bottom-of-the-well-pits",
+      "name": "Bottom of the Well Pits",
+      "game": "oot",
+      "regionId": "oot-well",
+      "type": "chest",
+      "age": "child",
+      "needs": []
+    },
+    {
+      "id": "oot-bottom-of-the-well-lens",
+      "name": "Bottom of the Well Lens",
+      "game": "oot",
+      "regionId": "oot-well",
+      "type": "chest",
+      "age": "child",
+      "needs": [
+        "lens"
+      ]
+    },
+    {
+      "id": "oot-bottom-of-the-well-lens-side-chest",
+      "name": "Bottom of the Well Lens Side Chest",
+      "game": "oot",
+      "regionId": "oot-well",
+      "type": "chest",
+      "age": "child",
+      "needs": [
+        "lens"
+      ]
+    },
+    {
+      "id": "oot-ice-cavern-compass",
+      "name": "Ice Cavern Compass",
+      "game": "oot",
+      "regionId": "oot-ice",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-ice-cavern-hp",
+      "name": "Ice Cavern HP",
+      "game": "oot",
+      "regionId": "oot-ice",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-ice-cavern-map",
+      "name": "Ice Cavern Map",
+      "game": "oot",
+      "regionId": "oot-ice",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-ice-cavern-iron-boots",
+      "name": "Ice Cavern Iron Boots",
+      "game": "oot",
+      "regionId": "oot-ice",
+      "type": "chest",
+      "age": "adult",
+      "needs": [
+        "iron_boots"
+      ]
+    },
+    {
+      "id": "oot-ice-cavern-sheik-song",
+      "name": "Ice Cavern Sheik Song",
+      "game": "oot",
+      "regionId": "oot-ice",
+      "type": "song",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-gerudo-training-grounds-entrance-1",
+      "name": "Gerudo Training Grounds Entrance 1",
+      "game": "oot",
+      "regionId": "oot-gtg",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-gerudo-training-grounds-entrance-2",
+      "name": "Gerudo Training Grounds Entrance 2",
+      "game": "oot",
+      "regionId": "oot-gtg",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-gerudo-training-grounds-near-block",
+      "name": "Gerudo Training Grounds Near Block",
+      "game": "oot",
+      "regionId": "oot-gtg",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-gerudo-training-grounds-behind-block-visible",
+      "name": "Gerudo Training Grounds Behind Block Visible",
+      "game": "oot",
+      "regionId": "oot-gtg",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-gerudo-training-grounds-behind-block-enemy-back",
+      "name": "Gerudo Training Grounds Behind Block Enemy Back",
+      "game": "oot",
+      "regionId": "oot-gtg",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-gerudo-training-grounds-behind-block-enemy-front",
+      "name": "Gerudo Training Grounds Behind Block Enemy Front",
+      "game": "oot",
+      "regionId": "oot-gtg",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-gerudo-training-maze-side-chest-1",
+      "name": "Gerudo Training Maze Side Chest 1",
+      "game": "oot",
+      "regionId": "oot-gtg",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-gerudo-training-maze-side-chest-2",
+      "name": "Gerudo Training Maze Side Chest 2",
+      "game": "oot",
+      "regionId": "oot-gtg",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-gerudo-training-grounds-hammer-room",
+      "name": "Gerudo Training Grounds Hammer Room",
+      "game": "oot",
+      "regionId": "oot-gtg",
+      "type": "chest",
+      "age": "adult",
+      "needs": [
+        "hammer"
+      ]
+    },
+    {
+      "id": "oot-gerudo-training-maze-chest-1",
+      "name": "Gerudo Training Maze Chest 1",
+      "game": "oot",
+      "regionId": "oot-gtg",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-gerudo-training-maze-chest-2",
+      "name": "Gerudo Training Maze Chest 2",
+      "game": "oot",
+      "regionId": "oot-gtg",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-gerudo-training-maze-chest-3",
+      "name": "Gerudo Training Maze Chest 3",
+      "game": "oot",
+      "regionId": "oot-gtg",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-gerudo-training-maze-chest-4",
+      "name": "Gerudo Training Maze Chest 4",
+      "game": "oot",
+      "regionId": "oot-gtg",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-ganon-castle-light-chest-around-1",
+      "name": "Ganon Castle Light Chest Around 1",
+      "game": "oot",
+      "regionId": "oot-ganon",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-ganon-castle-light-chest-around-2",
+      "name": "Ganon Castle Light Chest Around 2",
+      "game": "oot",
+      "regionId": "oot-ganon",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-ganon-castle-light-chest-around-3",
+      "name": "Ganon Castle Light Chest Around 3",
+      "game": "oot",
+      "regionId": "oot-ganon",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-ganon-castle-light-chest-around-4",
+      "name": "Ganon Castle Light Chest Around 4",
+      "game": "oot",
+      "regionId": "oot-ganon",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-ganon-castle-light-chest-around-5",
+      "name": "Ganon Castle Light Chest Around 5",
+      "game": "oot",
+      "regionId": "oot-ganon",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-ganon-castle-light-chest-around-6",
+      "name": "Ganon Castle Light Chest Around 6",
+      "game": "oot",
+      "regionId": "oot-ganon",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-ganon-castle-forest-chest",
+      "name": "Ganon Castle Forest Chest",
+      "game": "oot",
+      "regionId": "oot-ganon",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-ganon-castle-water-chest-1",
+      "name": "Ganon Castle Water Chest 1",
+      "game": "oot",
+      "regionId": "oot-ganon",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-ganon-castle-water-chest-2",
+      "name": "Ganon Castle Water Chest 2",
+      "game": "oot",
+      "regionId": "oot-ganon",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-ganon-castle-spirit-chest-1",
+      "name": "Ganon Castle Spirit Chest 1",
+      "game": "oot",
+      "regionId": "oot-ganon",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-ganon-castle-spirit-chest-2",
+      "name": "Ganon Castle Spirit Chest 2",
+      "game": "oot",
+      "regionId": "oot-ganon",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-ganon-castle-shadow-chest-1",
+      "name": "Ganon Castle Shadow Chest 1",
+      "game": "oot",
+      "regionId": "oot-ganon",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "oot-ganon-castle-shadow-chest-2",
+      "name": "Ganon Castle Shadow Chest 2",
+      "game": "oot",
+      "regionId": "oot-ganon",
+      "type": "chest",
+      "age": "adult",
+      "needs": []
+    },
+    {
+      "id": "mm-initial-song-of-healing",
+      "name": "Initial Song of Healing",
+      "game": "mm",
+      "regionId": "mm-sct",
+      "type": "song",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-clock-town-platform-hp",
+      "name": "Clock Town Platform HP",
+      "game": "mm",
+      "regionId": "mm-sct",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-clock-town-south-chest-lower",
+      "name": "Clock Town South Chest Lower",
+      "game": "mm",
+      "regionId": "mm-sct",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-clock-town-south-chest-upper",
+      "name": "Clock Town South Chest Upper",
+      "game": "mm",
+      "regionId": "mm-sct",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-clock-town-business-scrub",
+      "name": "Clock Town Business Scrub",
+      "game": "mm",
+      "regionId": "mm-sct",
+      "type": "scrub",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-clock-town-post-box",
+      "name": "Clock Town Post Box",
+      "game": "mm",
+      "regionId": "mm-sct",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-gorman-track-garo-mask",
+      "name": "Gorman Track Garo Mask",
+      "game": "mm",
+      "regionId": "mm-milk-road",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-southern-swamp-song-of-soaring",
+      "name": "Southern Swamp Song of Soaring",
+      "game": "mm",
+      "regionId": "mm-swamp",
+      "type": "song",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-southern-swamp-grotto",
+      "name": "Southern Swamp Grotto",
+      "game": "mm",
+      "regionId": "mm-swamp",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-swamp-potion-shop-kotake",
+      "name": "Swamp Potion Shop Kotake",
+      "game": "mm",
+      "regionId": "mm-swamp",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-woods-of-mystery-grotto",
+      "name": "Woods of Mystery Grotto",
+      "game": "mm",
+      "regionId": "mm-swamp",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-woodfall-near-owl-chest",
+      "name": "Woodfall Near Owl Chest",
+      "game": "mm",
+      "regionId": "mm-woodfall",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-mountain-village-waterfall-chest",
+      "name": "Mountain Village Waterfall Chest",
+      "game": "mm",
+      "regionId": "mm-mv",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-mountain-village-don-gero-mask",
+      "name": "Mountain Village Don Gero Mask",
+      "game": "mm",
+      "regionId": "mm-mv",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-mountain-village-frog-choir-hp",
+      "name": "Mountain Village Frog Choir HP",
+      "game": "mm",
+      "regionId": "mm-mv",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-mountain-village-tunnel-grotto",
+      "name": "Mountain Village Tunnel Grotto",
+      "game": "mm",
+      "regionId": "mm-mv",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-blacksmith-razor-blade",
+      "name": "Blacksmith Razor Blade",
+      "game": "mm",
+      "regionId": "mm-mv",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-blacksmith-gilded-sword",
+      "name": "Blacksmith Gilded Sword",
+      "game": "mm",
+      "regionId": "mm-mv",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-goron-graveyard-mask",
+      "name": "Goron Graveyard Mask",
+      "game": "mm",
+      "regionId": "mm-mv",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-great-bay-coast-zora-mask",
+      "name": "Great Bay Coast Zora Mask",
+      "game": "mm",
+      "regionId": "mm-gbc",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "song_of_healing"
+      ]
+    },
+    {
+      "id": "mm-great-bay-coast-hp",
+      "name": "Great Bay Coast HP",
+      "game": "mm",
+      "regionId": "mm-gbc",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-great-bay-coast-fisherman-hp",
+      "name": "Great Bay Coast Fisherman HP",
+      "game": "mm",
+      "regionId": "mm-gbc",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-great-bay-coast-fisherman-grotto",
+      "name": "Great Bay Coast Fisherman Grotto",
+      "game": "mm",
+      "regionId": "mm-gbc",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-laboratory-zora-song",
+      "name": "Laboratory Zora Song",
+      "game": "mm",
+      "regionId": "mm-gbc",
+      "type": "song",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-laboratory-fish-hp",
+      "name": "Laboratory Fish HP",
+      "game": "mm",
+      "regionId": "mm-gbc",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-zora-cape-underwater-chest",
+      "name": "Zora Cape Underwater Chest",
+      "game": "mm",
+      "regionId": "mm-zora-cape",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "zora_mask"
+      ]
+    },
+    {
+      "id": "mm-zora-cape-waterfall-hp",
+      "name": "Zora Cape Waterfall HP",
+      "game": "mm",
+      "regionId": "mm-zora-cape",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "zora_mask"
+      ]
+    },
+    {
+      "id": "mm-zora-cape-grotto",
+      "name": "Zora Cape Grotto",
+      "game": "mm",
+      "regionId": "mm-zora-cape",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "zora_mask"
+      ]
+    },
+    {
+      "id": "mm-zora-cape-ledge-chest-1",
+      "name": "Zora Cape Ledge Chest 1",
+      "game": "mm",
+      "regionId": "mm-zora-cape",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "zora_mask"
+      ]
+    },
+    {
+      "id": "mm-zora-cape-ledge-chest-2",
+      "name": "Zora Cape Ledge Chest 2",
+      "game": "mm",
+      "regionId": "mm-zora-cape",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "zora_mask"
+      ]
+    },
+    {
+      "id": "mm-waterfall-rapids-beaver-race-1",
+      "name": "Waterfall Rapids Beaver Race 1",
+      "game": "mm",
+      "regionId": "mm-zora-cape",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "zora_mask"
+      ]
+    },
+    {
+      "id": "mm-waterfall-rapids-beaver-race-2",
+      "name": "Waterfall Rapids Beaver Race 2",
+      "game": "mm",
+      "regionId": "mm-zora-cape",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "zora_mask"
+      ]
+    },
+    {
+      "id": "mm-ikana-valley-scrub-rupee",
+      "name": "Ikana Valley Scrub Rupee",
+      "game": "mm",
+      "regionId": "mm-ikana",
+      "type": "scrub",
+      "age": "any",
+      "needs": [
+        "elegy"
+      ]
+    },
+    {
+      "id": "mm-ikana-valley-scrub-hp",
+      "name": "Ikana Valley Scrub HP",
+      "game": "mm",
+      "regionId": "mm-ikana",
+      "type": "scrub",
+      "age": "any",
+      "needs": [
+        "elegy"
+      ]
+    },
+    {
+      "id": "mm-ikana-valley-grotto",
+      "name": "Ikana Valley Grotto",
+      "game": "mm",
+      "regionId": "mm-ikana",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "elegy"
+      ]
+    },
+    {
+      "id": "mm-music-box-house-gibdo-mask",
+      "name": "Music Box House Gibdo Mask",
+      "game": "mm",
+      "regionId": "mm-ikana",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "elegy"
+      ]
+    },
+    {
+      "id": "mm-ghost-hut-hp",
+      "name": "Ghost Hut HP",
+      "game": "mm",
+      "regionId": "mm-ikana",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "elegy"
+      ]
+    },
+    {
+      "id": "mm-stone-tower-inverted-chest-1",
+      "name": "Stone Tower Inverted Chest 1",
+      "game": "mm",
+      "regionId": "mm-st",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "elegy"
+      ]
+    },
+    {
+      "id": "mm-stone-tower-inverted-chest-2",
+      "name": "Stone Tower Inverted Chest 2",
+      "game": "mm",
+      "regionId": "mm-st",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "elegy"
+      ]
+    },
+    {
+      "id": "mm-stone-tower-inverted-chest-3",
+      "name": "Stone Tower Inverted Chest 3",
+      "game": "mm",
+      "regionId": "mm-st",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "elegy"
+      ]
+    },
+    {
+      "id": "mm-oath-to-order",
+      "name": "Oath to Order",
+      "game": "mm",
+      "regionId": "mm-woodfall-temple",
+      "type": "song",
+      "age": "any",
+      "needs": [
+        "deku_mask",
+        "bow"
+      ]
+    },
+    {
+      "id": "mm-clock-town-tree-hp",
+      "name": "Clock Town Tree HP",
+      "game": "mm",
+      "regionId": "mm-nct",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-clock-town-bomber-notebook",
+      "name": "Clock Town Bomber Notebook",
+      "game": "mm",
+      "regionId": "mm-nct",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-clock-town-blast-mask",
+      "name": "Clock Town Blast Mask",
+      "game": "mm",
+      "regionId": "mm-nct",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-clock-town-keaton-hp",
+      "name": "Clock Town Keaton HP",
+      "game": "mm",
+      "regionId": "mm-nct",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-deku-playground-reward-any-day",
+      "name": "Deku Playground Reward Any Day",
+      "game": "mm",
+      "regionId": "mm-nct",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-deku-playground-reward-all-days",
+      "name": "Deku Playground Reward All Days",
+      "game": "mm",
+      "regionId": "mm-nct",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-clock-town-bank-reward-1",
+      "name": "Clock Town Bank Reward 1",
+      "game": "mm",
+      "regionId": "mm-wct",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-clock-town-bank-reward-2",
+      "name": "Clock Town Bank Reward 2",
+      "game": "mm",
+      "regionId": "mm-wct",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-clock-town-bank-reward-3",
+      "name": "Clock Town Bank Reward 3",
+      "game": "mm",
+      "regionId": "mm-wct",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-clock-town-rosa-sisters-hp",
+      "name": "Clock Town Rosa Sisters HP",
+      "game": "mm",
+      "regionId": "mm-wct",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-bomb-shop-bomb-bag",
+      "name": "Bomb Shop Bomb Bag",
+      "game": "mm",
+      "regionId": "mm-wct",
+      "type": "shop",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-bomb-shop-bomb-bag-2",
+      "name": "Bomb Shop Bomb Bag 2",
+      "game": "mm",
+      "regionId": "mm-wct",
+      "type": "shop",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-curiosity-shop-all-night-mask",
+      "name": "Curiosity Shop All-Night Mask",
+      "game": "mm",
+      "regionId": "mm-wct",
+      "type": "shop",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-post-office-hp",
+      "name": "Post Office HP",
+      "game": "mm",
+      "regionId": "mm-wct",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-swordsman-school-hp",
+      "name": "Swordsman School HP",
+      "game": "mm",
+      "regionId": "mm-wct",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-clock-town-silver-rupee-chest",
+      "name": "Clock Town Silver Rupee Chest",
+      "game": "mm",
+      "regionId": "mm-ect",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-clock-town-postman-hat",
+      "name": "Clock Town Postman Hat",
+      "game": "mm",
+      "regionId": "mm-ect",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-astral-observatory-passage-chest",
+      "name": "Astral Observatory Passage Chest",
+      "game": "mm",
+      "regionId": "mm-ect",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-mayor-s-office-kafei-s-mask",
+      "name": "Mayor's Office Kafei's Mask",
+      "game": "mm",
+      "regionId": "mm-ect",
+      "type": "trade",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-mayor-s-office-hp",
+      "name": "Mayor's Office HP",
+      "game": "mm",
+      "regionId": "mm-ect",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-milk-bar-troupe-leader-mask",
+      "name": "Milk Bar Troupe Leader Mask",
+      "game": "mm",
+      "regionId": "mm-ect",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-milk-bar-madame-aroma-bottle",
+      "name": "Milk Bar Madame Aroma Bottle",
+      "game": "mm",
+      "regionId": "mm-ect",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-town-archery-reward-1",
+      "name": "Town Archery Reward 1",
+      "game": "mm",
+      "regionId": "mm-ect",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-town-archery-reward-2",
+      "name": "Town Archery Reward 2",
+      "game": "mm",
+      "regionId": "mm-ect",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-chest-game-hp",
+      "name": "Chest Game HP",
+      "game": "mm",
+      "regionId": "mm-ect",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-honey-darling-reward-any-day",
+      "name": "Honey & Darling Reward Any Day",
+      "game": "mm",
+      "regionId": "mm-ect",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-honey-darling-reward-all-days",
+      "name": "Honey & Darling Reward All Days",
+      "game": "mm",
+      "regionId": "mm-ect",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-clock-town-guru-guru-mask-bremen",
+      "name": "Clock Town Guru Guru Mask Bremen",
+      "game": "mm",
+      "regionId": "mm-laundry",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-kafei-hideout-pendant-of-memories",
+      "name": "Kafei Hideout Pendant of Memories",
+      "game": "mm",
+      "regionId": "mm-laundry",
+      "type": "trade",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-kafei-hideout-owner-reward-1",
+      "name": "Kafei Hideout Owner Reward 1",
+      "game": "mm",
+      "regionId": "mm-laundry",
+      "type": "trade",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-kafei-hideout-owner-reward-2",
+      "name": "Kafei Hideout Owner Reward 2",
+      "game": "mm",
+      "regionId": "mm-laundry",
+      "type": "trade",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-stock-pot-inn-guest-room-chest",
+      "name": "Stock Pot Inn Guest Room Chest",
+      "game": "mm",
+      "regionId": "mm-inn",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-stock-pot-inn-staff-room-chest",
+      "name": "Stock Pot Inn Staff Room Chest",
+      "game": "mm",
+      "regionId": "mm-inn",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-stock-pot-inn-room-key",
+      "name": "Stock Pot Inn Room Key",
+      "game": "mm",
+      "regionId": "mm-inn",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-stock-pot-inn-letter-to-kafei",
+      "name": "Stock Pot Inn Letter to Kafei",
+      "game": "mm",
+      "regionId": "mm-inn",
+      "type": "trade",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-stock-pot-inn-couple-s-mask",
+      "name": "Stock Pot Inn Couple's Mask",
+      "game": "mm",
+      "regionId": "mm-inn",
+      "type": "trade",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-stock-pot-inn-grandma-hp-1",
+      "name": "Stock Pot Inn Grandma HP 1",
+      "game": "mm",
+      "regionId": "mm-inn",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-stock-pot-inn-grandma-hp-2",
+      "name": "Stock Pot Inn Grandma HP 2",
+      "game": "mm",
+      "regionId": "mm-inn",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-stock-pot-inn-hp",
+      "name": "Stock Pot Inn ??? HP",
+      "game": "mm",
+      "regionId": "mm-inn",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-astral-observatory-moon-tear",
+      "name": "Astral Observatory Moon Tear",
+      "game": "mm",
+      "regionId": "mm-tf",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-termina-field-water-chest",
+      "name": "Termina Field Water Chest",
+      "game": "mm",
+      "regionId": "mm-tf",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-termina-field-tall-grass-chest",
+      "name": "Termina Field Tall Grass Chest",
+      "game": "mm",
+      "regionId": "mm-tf",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-termina-field-tree-stump-chest",
+      "name": "Termina Field Tree Stump Chest",
+      "game": "mm",
+      "regionId": "mm-tf",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-termina-field-kamaro-mask",
+      "name": "Termina Field Kamaro Mask",
+      "game": "mm",
+      "regionId": "mm-tf",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-termina-field-tall-grass-grotto",
+      "name": "Termina Field Tall Grass Grotto",
+      "game": "mm",
+      "regionId": "mm-tf",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-termina-field-peahat-grotto",
+      "name": "Termina Field Peahat Grotto",
+      "game": "mm",
+      "regionId": "mm-tf",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-termina-field-bio-baba-grotto",
+      "name": "Termina Field Bio Baba Grotto",
+      "game": "mm",
+      "regionId": "mm-tf",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-termina-field-dodongo-grotto",
+      "name": "Termina Field Dodongo Grotto",
+      "game": "mm",
+      "regionId": "mm-tf",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-termina-field-pillar-grotto",
+      "name": "Termina Field Pillar Grotto",
+      "game": "mm",
+      "regionId": "mm-tf",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-termina-field-scrub",
+      "name": "Termina Field Scrub",
+      "game": "mm",
+      "regionId": "mm-tf",
+      "type": "scrub",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-termina-field-gossip-stones-hp",
+      "name": "Termina Field Gossip Stones HP",
+      "game": "mm",
+      "regionId": "mm-tf",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-road-to-southern-swamp-hp",
+      "name": "Road to Southern Swamp HP",
+      "game": "mm",
+      "regionId": "mm-swamp-road",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-swamp-archery-reward-1",
+      "name": "Swamp Archery Reward 1",
+      "game": "mm",
+      "regionId": "mm-swamp-road",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-swamp-archery-reward-2",
+      "name": "Swamp Archery Reward 2",
+      "game": "mm",
+      "regionId": "mm-swamp-road",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-road-to-southern-swamp-grotto",
+      "name": "Road to Southern Swamp Grotto",
+      "game": "mm",
+      "regionId": "mm-swamp-road",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-deku-palace-hp",
+      "name": "Deku Palace HP",
+      "game": "mm",
+      "regionId": "mm-palace",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-deku-palace-sonata-of-awakening",
+      "name": "Deku Palace Sonata of Awakening",
+      "game": "mm",
+      "regionId": "mm-palace",
+      "type": "song",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-deku-palace-grotto-chest",
+      "name": "Deku Palace Grotto Chest",
+      "game": "mm",
+      "regionId": "mm-palace",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-deku-shrine-mask-of-scents",
+      "name": "Deku Shrine Mask of Scents",
+      "game": "mm",
+      "regionId": "mm-palace",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-goron-elder",
+      "name": "Goron Elder",
+      "game": "mm",
+      "regionId": "mm-twins",
+      "type": "song",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-twin-islands-underwater-chest-1",
+      "name": "Twin Islands Underwater Chest 1",
+      "game": "mm",
+      "regionId": "mm-twins",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-twin-islands-underwater-chest-2",
+      "name": "Twin Islands Underwater Chest 2",
+      "game": "mm",
+      "regionId": "mm-twins",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-twin-islands-ramp-grotto-chest",
+      "name": "Twin Islands Ramp Grotto Chest",
+      "game": "mm",
+      "regionId": "mm-twins",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-twin-islands-frozen-grotto-chest",
+      "name": "Twin Islands Frozen Grotto Chest",
+      "game": "mm",
+      "regionId": "mm-twins",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-goron-race-reward",
+      "name": "Goron Race Reward",
+      "game": "mm",
+      "regionId": "mm-twins",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-goron-village-hp",
+      "name": "Goron Village HP",
+      "game": "mm",
+      "regionId": "mm-gv",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-goron-village-scrub-deed",
+      "name": "Goron Village Scrub Deed",
+      "game": "mm",
+      "regionId": "mm-gv",
+      "type": "scrub",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-goron-village-scrub-bomb-bag",
+      "name": "Goron Village Scrub Bomb Bag",
+      "game": "mm",
+      "regionId": "mm-gv",
+      "type": "scrub",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-goron-powder-keg",
+      "name": "Goron Powder Keg",
+      "game": "mm",
+      "regionId": "mm-gv",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "goron_mask"
+      ]
+    },
+    {
+      "id": "mm-lone-peak-shrine-lens-chest",
+      "name": "Lone Peak Shrine Lens Chest",
+      "game": "mm",
+      "regionId": "mm-gv",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "lens"
+      ]
+    },
+    {
+      "id": "mm-lone-peak-shrine-boulder-chest",
+      "name": "Lone Peak Shrine Boulder Chest",
+      "game": "mm",
+      "regionId": "mm-gv",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-lone-peak-shrine-invisible-chest",
+      "name": "Lone Peak Shrine Invisible Chest",
+      "game": "mm",
+      "regionId": "mm-gv",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-goron-baby",
+      "name": "Goron Baby",
+      "game": "mm",
+      "regionId": "mm-gv",
+      "type": "song",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-path-to-snowhead-hp",
+      "name": "Path to Snowhead HP",
+      "game": "mm",
+      "regionId": "mm-snowhead-road",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-path-to-snowhead-grotto",
+      "name": "Path to Snowhead Grotto",
+      "game": "mm",
+      "regionId": "mm-snowhead-road",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-romani-ranch-epona-song",
+      "name": "Romani Ranch Epona Song",
+      "game": "mm",
+      "regionId": "mm-ranch",
+      "type": "song",
+      "age": "any",
+      "needs": [
+        "ocarina"
+      ]
+    },
+    {
+      "id": "mm-romani-ranch-aliens",
+      "name": "Romani Ranch Aliens",
+      "game": "mm",
+      "regionId": "mm-ranch",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-romani-ranch-cremia-escort",
+      "name": "Romani Ranch Cremia Escort",
+      "game": "mm",
+      "regionId": "mm-ranch",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-cucco-shack-bunny-mask",
+      "name": "Cucco Shack Bunny Mask",
+      "game": "mm",
+      "regionId": "mm-ranch",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-doggy-racetrack-chest",
+      "name": "Doggy Racetrack Chest",
+      "game": "mm",
+      "regionId": "mm-ranch",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-doggy-racetrack-hp",
+      "name": "Doggy Racetrack HP",
+      "game": "mm",
+      "regionId": "mm-ranch",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-pinnacle-rock-chest-1",
+      "name": "Pinnacle Rock Chest 1",
+      "game": "mm",
+      "regionId": "mm-pinnacle",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "zora_mask"
+      ]
+    },
+    {
+      "id": "mm-pinnacle-rock-chest-2",
+      "name": "Pinnacle Rock Chest 2",
+      "game": "mm",
+      "regionId": "mm-pinnacle",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "zora_mask"
+      ]
+    },
+    {
+      "id": "mm-pinnacle-rock-hp",
+      "name": "Pinnacle Rock HP",
+      "game": "mm",
+      "regionId": "mm-pinnacle",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "zora_mask"
+      ]
+    },
+    {
+      "id": "mm-zora-hall-scene-lights",
+      "name": "Zora Hall Scene Lights",
+      "game": "mm",
+      "regionId": "mm-zora-hall",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "zora_mask"
+      ]
+    },
+    {
+      "id": "mm-zora-hall-evan-hp",
+      "name": "Zora Hall Evan HP",
+      "game": "mm",
+      "regionId": "mm-zora-hall",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "zora_mask"
+      ]
+    },
+    {
+      "id": "mm-zora-hall-scrub-hp",
+      "name": "Zora Hall Scrub HP",
+      "game": "mm",
+      "regionId": "mm-zora-hall",
+      "type": "scrub",
+      "age": "any",
+      "needs": [
+        "zora_mask"
+      ]
+    },
+    {
+      "id": "mm-zora-hall-scrub-deed",
+      "name": "Zora Hall Scrub Deed",
+      "game": "mm",
+      "regionId": "mm-zora-hall",
+      "type": "scrub",
+      "age": "any",
+      "needs": [
+        "zora_mask"
+      ]
+    },
+    {
+      "id": "mm-road-to-ikana-chest",
+      "name": "Road to Ikana Chest",
+      "game": "mm",
+      "regionId": "mm-ikana-road",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-road-to-ikana-grotto",
+      "name": "Road to Ikana Grotto",
+      "game": "mm",
+      "regionId": "mm-ikana-road",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-road-to-ikana-stone-mask",
+      "name": "Road to Ikana Stone Mask",
+      "game": "mm",
+      "regionId": "mm-ikana-road",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-ikana-graveyard-captain-mask",
+      "name": "Ikana Graveyard Captain Mask",
+      "game": "mm",
+      "regionId": "mm-ikana-gy",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-ikana-graveyard-grotto",
+      "name": "Ikana Graveyard Grotto",
+      "game": "mm",
+      "regionId": "mm-ikana-gy",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-beneath-the-graveyard-chest",
+      "name": "Beneath The Graveyard Chest",
+      "game": "mm",
+      "regionId": "mm-ikana-gy",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-beneath-the-graveyard-song-of-storms",
+      "name": "Beneath The Graveyard Song of Storms",
+      "game": "mm",
+      "regionId": "mm-ikana-gy",
+      "type": "song",
+      "age": "any",
+      "needs": [
+        "song_of_storms"
+      ]
+    },
+    {
+      "id": "mm-beneath-the-graveyard-hp",
+      "name": "Beneath The Graveyard HP",
+      "game": "mm",
+      "regionId": "mm-ikana-gy",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-beneath-the-graveyard-dampe-chest",
+      "name": "Beneath The Graveyard Dampe Chest",
+      "game": "mm",
+      "regionId": "mm-ikana-gy",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-ancient-castle-of-ikana-hp",
+      "name": "Ancient Castle of Ikana HP",
+      "game": "mm",
+      "regionId": "mm-ikana-castle",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "elegy"
+      ]
+    },
+    {
+      "id": "mm-ancient-castle-of-ikana-song-emptiness",
+      "name": "Ancient Castle of Ikana Song Emptiness",
+      "game": "mm",
+      "regionId": "mm-ikana-castle",
+      "type": "song",
+      "age": "any",
+      "needs": [
+        "elegy"
+      ]
+    },
+    {
+      "id": "mm-woodfall-temple-map",
+      "name": "Woodfall Temple Map",
+      "game": "mm",
+      "regionId": "mm-woodfall-temple",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "deku_mask",
+        "bow"
+      ]
+    },
+    {
+      "id": "mm-woodfall-temple-compass",
+      "name": "Woodfall Temple Compass",
+      "game": "mm",
+      "regionId": "mm-woodfall-temple",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "deku_mask",
+        "bow"
+      ]
+    },
+    {
+      "id": "mm-woodfall-temple-bow",
+      "name": "Woodfall Temple Bow",
+      "game": "mm",
+      "regionId": "mm-woodfall-temple",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "bow",
+        "deku_mask"
+      ]
+    },
+    {
+      "id": "mm-woodfall-temple-boss-container",
+      "name": "Woodfall Temple Boss Container",
+      "game": "mm",
+      "regionId": "mm-woodfall-temple",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "deku_mask",
+        "bow"
+      ]
+    },
+    {
+      "id": "mm-woodfall-temple-boss",
+      "name": "Woodfall Temple Boss",
+      "game": "mm",
+      "regionId": "mm-woodfall-temple",
+      "type": "dungeonReward",
+      "age": "any",
+      "needs": [
+        "deku_mask",
+        "bow"
+      ]
+    },
+    {
+      "id": "mm-snowhead-temple-map",
+      "name": "Snowhead Temple Map",
+      "game": "mm",
+      "regionId": "mm-snowhead-temple",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "goron_mask"
+      ]
+    },
+    {
+      "id": "mm-snowhead-temple-compass",
+      "name": "Snowhead Temple Compass",
+      "game": "mm",
+      "regionId": "mm-snowhead-temple",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "goron_mask"
+      ]
+    },
+    {
+      "id": "mm-snowhead-temple-fire-arrow",
+      "name": "Snowhead Temple Fire Arrow",
+      "game": "mm",
+      "regionId": "mm-snowhead-temple",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "bow",
+        "magic",
+        "goron_mask"
+      ]
+    },
+    {
+      "id": "mm-snowhead-temple-boss-hc",
+      "name": "Snowhead Temple Boss HC",
+      "game": "mm",
+      "regionId": "mm-snowhead-temple",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "goron_mask"
+      ]
+    },
+    {
+      "id": "mm-snowhead-temple-boss",
+      "name": "Snowhead Temple Boss",
+      "game": "mm",
+      "regionId": "mm-snowhead-temple",
+      "type": "dungeonReward",
+      "age": "any",
+      "needs": [
+        "goron_mask"
+      ]
+    },
+    {
+      "id": "mm-great-bay-temple-map",
+      "name": "Great Bay Temple Map",
+      "game": "mm",
+      "regionId": "mm-gbt",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "zora_mask",
+        "hookshot"
+      ]
+    },
+    {
+      "id": "mm-great-bay-temple-compass",
+      "name": "Great Bay Temple Compass",
+      "game": "mm",
+      "regionId": "mm-gbt",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "zora_mask",
+        "hookshot"
+      ]
+    },
+    {
+      "id": "mm-great-bay-temple-ice-arrow",
+      "name": "Great Bay Temple Ice Arrow",
+      "game": "mm",
+      "regionId": "mm-gbt",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "zora_mask",
+        "hookshot"
+      ]
+    },
+    {
+      "id": "mm-great-bay-temple-boss-hc",
+      "name": "Great Bay Temple Boss HC",
+      "game": "mm",
+      "regionId": "mm-gbt",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "zora_mask",
+        "hookshot"
+      ]
+    },
+    {
+      "id": "mm-great-bay-temple-boss",
+      "name": "Great Bay Temple Boss",
+      "game": "mm",
+      "regionId": "mm-gbt",
+      "type": "dungeonReward",
+      "age": "any",
+      "needs": [
+        "zora_mask",
+        "hookshot"
+      ]
+    },
+    {
+      "id": "mm-stone-tower-temple-map",
+      "name": "Stone Tower Temple Map",
+      "game": "mm",
+      "regionId": "mm-stt",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "elegy"
+      ]
+    },
+    {
+      "id": "mm-stone-tower-temple-compass",
+      "name": "Stone Tower Temple Compass",
+      "game": "mm",
+      "regionId": "mm-stt",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "elegy"
+      ]
+    },
+    {
+      "id": "mm-stone-tower-temple-light-arrow",
+      "name": "Stone Tower Temple Light Arrow",
+      "game": "mm",
+      "regionId": "mm-stt",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "elegy"
+      ]
+    },
+    {
+      "id": "mm-stone-tower-temple-inverted-giant-mask",
+      "name": "Stone Tower Temple Inverted Giant Mask",
+      "game": "mm",
+      "regionId": "mm-stt",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "elegy"
+      ]
+    },
+    {
+      "id": "mm-stone-tower-temple-inverted-boss-hc",
+      "name": "Stone Tower Temple Inverted Boss HC",
+      "game": "mm",
+      "regionId": "mm-stt",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "elegy"
+      ]
+    },
+    {
+      "id": "mm-stone-tower-temple-inverted-boss",
+      "name": "Stone Tower Temple Inverted Boss",
+      "game": "mm",
+      "regionId": "mm-stt",
+      "type": "dungeonReward",
+      "age": "any",
+      "needs": [
+        "elegy"
+      ]
+    },
+    {
+      "id": "mm-pirate-fortress-entrance-chest-1",
+      "name": "Pirate Fortress Entrance Chest 1",
+      "game": "mm",
+      "regionId": "mm-pf-ext",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "zora_mask"
+      ]
+    },
+    {
+      "id": "mm-pirate-fortress-entrance-chest-2",
+      "name": "Pirate Fortress Entrance Chest 2",
+      "game": "mm",
+      "regionId": "mm-pf-ext",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "zora_mask"
+      ]
+    },
+    {
+      "id": "mm-pirate-fortress-entrance-chest-3",
+      "name": "Pirate Fortress Entrance Chest 3",
+      "game": "mm",
+      "regionId": "mm-pf-ext",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "zora_mask"
+      ]
+    },
+    {
+      "id": "mm-pirate-fortress-sewers-chest-1",
+      "name": "Pirate Fortress Sewers Chest 1",
+      "game": "mm",
+      "regionId": "mm-pf-sew",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "zora_mask"
+      ]
+    },
+    {
+      "id": "mm-pirate-fortress-sewers-chest-2",
+      "name": "Pirate Fortress Sewers Chest 2",
+      "game": "mm",
+      "regionId": "mm-pf-sew",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "zora_mask"
+      ]
+    },
+    {
+      "id": "mm-pirate-fortress-sewers-chest-3",
+      "name": "Pirate Fortress Sewers Chest 3",
+      "game": "mm",
+      "regionId": "mm-pf-sew",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "zora_mask"
+      ]
+    },
+    {
+      "id": "mm-pirate-fortress-sewers-hp",
+      "name": "Pirate Fortress Sewers HP",
+      "game": "mm",
+      "regionId": "mm-pf-sew",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "zora_mask"
+      ]
+    },
+    {
+      "id": "mm-pirate-fortress-interior-lower-chest",
+      "name": "Pirate Fortress Interior Lower Chest",
+      "game": "mm",
+      "regionId": "mm-pf-int",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "zora_mask"
+      ]
+    },
+    {
+      "id": "mm-pirate-fortress-interior-upper-chest",
+      "name": "Pirate Fortress Interior Upper Chest",
+      "game": "mm",
+      "regionId": "mm-pf-int",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "zora_mask"
+      ]
+    },
+    {
+      "id": "mm-pirate-fortress-interior-hookshot",
+      "name": "Pirate Fortress Interior Hookshot",
+      "game": "mm",
+      "regionId": "mm-pf-int",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "hookshot",
+        "zora_mask"
+      ]
+    },
+    {
+      "id": "mm-pirate-fortress-interior-aquarium",
+      "name": "Pirate Fortress Interior Aquarium",
+      "game": "mm",
+      "regionId": "mm-pf-int",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "zora_mask"
+      ]
+    },
+    {
+      "id": "mm-pirate-fortress-interior-silver-rupee-chest",
+      "name": "Pirate Fortress Interior Silver Rupee Chest",
+      "game": "mm",
+      "regionId": "mm-pf-int",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "zora_mask"
+      ]
+    },
+    {
+      "id": "mm-beneath-the-well-keese-chest",
+      "name": "Beneath The Well Keese Chest",
+      "game": "mm",
+      "regionId": "mm-ikana-well",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "elegy"
+      ]
+    },
+    {
+      "id": "mm-beneath-the-well-skulltulla-chest",
+      "name": "Beneath The Well Skulltulla Chest",
+      "game": "mm",
+      "regionId": "mm-ikana-well",
+      "type": "skullReward",
+      "age": "any",
+      "needs": [
+        "elegy"
+      ]
+    },
+    {
+      "id": "mm-beneath-the-well-mirror-shield",
+      "name": "Beneath The Well Mirror Shield",
+      "game": "mm",
+      "regionId": "mm-ikana-well",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "elegy"
+      ]
+    },
+    {
+      "id": "mm-secret-shrine-hp-chest",
+      "name": "Secret Shrine HP Chest",
+      "game": "mm",
+      "regionId": "mm-secret",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "elegy"
+      ]
+    },
+    {
+      "id": "mm-secret-shrine-dinalfos-chest",
+      "name": "Secret Shrine Dinalfos Chest",
+      "game": "mm",
+      "regionId": "mm-secret",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "elegy"
+      ]
+    },
+    {
+      "id": "mm-secret-shrine-wizzrobe-chest",
+      "name": "Secret Shrine Wizzrobe Chest",
+      "game": "mm",
+      "regionId": "mm-secret",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "elegy"
+      ]
+    },
+    {
+      "id": "mm-secret-shrine-wart-chest",
+      "name": "Secret Shrine Wart Chest",
+      "game": "mm",
+      "regionId": "mm-secret",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "elegy"
+      ]
+    },
+    {
+      "id": "mm-secret-shrine-garo-master-chest",
+      "name": "Secret Shrine Garo Master Chest",
+      "game": "mm",
+      "regionId": "mm-secret",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "elegy"
+      ]
+    },
+    {
+      "id": "mm-swamp-spider-house-mask-of-truth",
+      "name": "Swamp Spider House Mask of Truth",
+      "game": "mm",
+      "regionId": "mm-swamp-spider",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-ocean-spider-house-wallet",
+      "name": "Ocean Spider House Wallet",
+      "game": "mm",
+      "regionId": "mm-ocean-spider",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-ocean-spider-house-chest-hp",
+      "name": "Ocean Spider House Chest HP",
+      "game": "mm",
+      "regionId": "mm-ocean-spider",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-clock-tower-roof-skull-kid-ocarina",
+      "name": "Clock Tower Roof Skull Kid Ocarina",
+      "game": "mm",
+      "regionId": "mm-tower",
+      "type": "chest",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-clock-tower-roof-skull-kid-song-of-time",
+      "name": "Clock Tower Roof Skull Kid Song of Time",
+      "game": "mm",
+      "regionId": "mm-tower",
+      "type": "song",
+      "age": "any",
+      "needs": []
+    },
+    {
+      "id": "mm-moon-fierce-deity-mask",
+      "name": "Moon Fierce Deity Mask",
+      "game": "mm",
+      "regionId": "mm-moon",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "oath",
+        "odolwa",
+        "goht",
+        "gyorg",
+        "twinmold"
+      ]
+    },
+    {
+      "id": "mm-moon-trial-deku-hp",
+      "name": "Moon Trial Deku HP",
+      "game": "mm",
+      "regionId": "mm-moon",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "oath",
+        "odolwa",
+        "goht",
+        "gyorg",
+        "twinmold"
+      ]
+    },
+    {
+      "id": "mm-moon-trial-goron-hp",
+      "name": "Moon Trial Goron HP",
+      "game": "mm",
+      "regionId": "mm-moon",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "oath",
+        "odolwa",
+        "goht",
+        "gyorg",
+        "twinmold"
+      ]
+    },
+    {
+      "id": "mm-moon-trial-zora-hp",
+      "name": "Moon Trial Zora HP",
+      "game": "mm",
+      "regionId": "mm-moon",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "oath",
+        "odolwa",
+        "goht",
+        "gyorg",
+        "twinmold"
+      ]
+    },
+    {
+      "id": "mm-moon-trial-link-garo-master-chest",
+      "name": "Moon Trial Link Garo Master Chest",
+      "game": "mm",
+      "regionId": "mm-moon",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "oath",
+        "odolwa",
+        "goht",
+        "gyorg",
+        "twinmold"
+      ]
+    },
+    {
+      "id": "mm-moon-trial-link-iron-knuckle-chest",
+      "name": "Moon Trial Link Iron Knuckle Chest",
+      "game": "mm",
+      "regionId": "mm-moon",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "oath",
+        "odolwa",
+        "goht",
+        "gyorg",
+        "twinmold"
+      ]
+    },
+    {
+      "id": "mm-moon-trial-link-hp",
+      "name": "Moon Trial Link HP",
+      "game": "mm",
+      "regionId": "mm-moon",
+      "type": "chest",
+      "age": "any",
+      "needs": [
+        "oath",
+        "odolwa",
+        "goht",
+        "gyorg",
+        "twinmold"
+      ]
+    }
+  ],
+  "itemPool": {
+    "progression": [
+      "kokiri_sword",
+      "slingshot",
+      "bombs",
+      "bow",
+      "hookshot",
+      "longshot",
+      "hammer",
+      "boomerang",
+      "lens",
+      "iron_boots",
+      "hover_boots",
+      "strength",
+      "silver_scale",
+      "golden_scale",
+      "magic",
+      "dins",
+      "farores",
+      "nayrus",
+      "fire_arrows",
+      "light_arrows",
+      "ocarina",
+      "song_of_time",
+      "song_of_storms",
+      "saria",
+      "epona",
+      "suns_song",
+      "zelda_lullaby",
+      "minuet",
+      "bolero",
+      "serenade",
+      "nocturne",
+      "requiem",
+      "prelude",
+      "gerudo_card",
+      "bottle",
+      "deku_mask",
+      "goron_mask",
+      "zora_mask",
+      "song_of_healing",
+      "soaring",
+      "sonata",
+      "lullaby",
+      "nwbn",
+      "elegy",
+      "oath",
+      "bow_mm",
+      "hookshot_mm",
+      "fire_arrow",
+      "ice_arrow",
+      "light_arrow",
+      "mirror_shield",
+      "powder_keg",
+      "lens_mm",
+      "garo_mask",
+      "stone_mask",
+      "seahorse",
+      "room_key",
+      "letter_kafei",
+      "kokiri_emerald",
+      "goron_ruby",
+      "zora_sapphire",
+      "forest_medallion",
+      "fire_medallion",
+      "water_medallion",
+      "shadow_medallion",
+      "spirit_medallion",
+      "light_medallion",
+      "odolwa",
+      "goht",
+      "gyorg",
+      "twinmold"
+    ],
+    "junk": [
+      "junk_1",
+      "junk_2",
+      "junk_3",
+      "junk_4",
+      "junk_5",
+      "junk_6",
+      "junk_7",
+      "junk_8",
+      "junk_9",
+      "junk_10",
+      "junk_11",
+      "junk_12",
+      "junk_13",
+      "junk_14",
+      "junk_15",
+      "junk_16",
+      "junk_17",
+      "junk_18",
+      "junk_19",
+      "junk_20",
+      "junk_21",
+      "junk_22",
+      "junk_23",
+      "junk_24",
+      "junk_25",
+      "junk_26",
+      "junk_27",
+      "junk_28",
+      "junk_29",
+      "junk_30",
+      "junk_31",
+      "junk_32",
+      "junk_33",
+      "junk_34",
+      "junk_35",
+      "junk_36",
+      "junk_37",
+      "junk_38",
+      "junk_39",
+      "junk_40",
+      "junk_41",
+      "junk_42",
+      "junk_43",
+      "junk_44",
+      "junk_45",
+      "junk_46",
+      "junk_47",
+      "junk_48",
+      "junk_49",
+      "junk_50",
+      "junk_51",
+      "junk_52",
+      "junk_53",
+      "junk_54",
+      "junk_55",
+      "junk_56",
+      "junk_57",
+      "junk_58",
+      "junk_59",
+      "junk_60",
+      "junk_61",
+      "junk_62",
+      "junk_63",
+      "junk_64",
+      "junk_65",
+      "junk_66",
+      "junk_67",
+      "junk_68",
+      "junk_69",
+      "junk_70",
+      "junk_71",
+      "junk_72",
+      "junk_73",
+      "junk_74",
+      "junk_75",
+      "junk_76",
+      "junk_77",
+      "junk_78",
+      "junk_79"
+    ]
+  }
+}

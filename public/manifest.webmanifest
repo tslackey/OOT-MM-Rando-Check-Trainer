@@ -1,0 +1,15 @@
+{
+  "name": "OoTMM Check Trainer",
+  "short_name": "Check Trainer",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#10150f",
+  "theme_color": "#10150f",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

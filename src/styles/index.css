@@ -1,0 +1,318 @@
+:root {
+  --bg: #10150f;
+  --bg-2: #182117;
+  --paper: #1f2a1d;
+  --ink: #f3ead3;
+  --muted: #b7c0a8;
+  --line: #3b4a34;
+  --gold: #e2c170;
+  --gold-dark: #b8892d;
+  --bad: #e07058;
+  --ok: #9ad17a;
+  --shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+  color: var(--ink);
+  background: var(--bg);
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(226, 193, 112, 0.16), transparent 32%),
+    radial-gradient(circle at bottom right, rgba(80, 120, 70, 0.2), transparent 40%),
+    var(--bg);
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  border: 1px solid var(--gold);
+  background: var(--gold);
+  color: #1a1408;
+  border-radius: 999px;
+  padding: 0.62rem 1.05rem;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+button:hover:not(:disabled) {
+  background: var(--gold-dark);
+  border-color: var(--gold-dark);
+  color: var(--ink);
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+button.ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+button.danger {
+  border-color: var(--bad);
+  color: var(--bad);
+}
+
+.shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.nav {
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.7rem 0.8rem calc(0.7rem + env(safe-area-inset-top));
+  position: sticky;
+  top: 0;
+  background: rgba(16, 21, 15, 0.92);
+  backdrop-filter: blur(10px);
+  z-index: 4;
+}
+
+.nav-btn {
+  background: transparent;
+  color: var(--muted);
+  border-color: transparent;
+  padding: 0.45rem 0.75rem;
+}
+
+.nav-btn.active {
+  background: var(--paper);
+  color: var(--gold);
+  border-color: var(--line);
+}
+
+.page {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0.6rem 1rem 5rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.hero h1,
+.page h1 {
+  font-size: clamp(1.6rem, 4vw, 2.3rem);
+  margin: 0.2rem 0 0.4rem;
+  letter-spacing: 0.01em;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.72rem;
+  color: var(--gold);
+  margin: 0;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 1rem 1.1rem;
+  box-shadow: var(--shadow);
+}
+
+.resume,
+.spread {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.actions,
+.row-actions,
+.practice-foot,
+.btn-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.btn-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+}
+
+.go-btn {
+  border-radius: 14px;
+  text-align: left;
+  background: var(--bg-2);
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+.go-btn:hover:not(:disabled) {
+  border-color: var(--gold);
+  background: #243221;
+  color: var(--gold);
+}
+
+.config-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.config-row h2,
+.card h2,
+.practice h2 {
+  margin: 0 0 0.35rem;
+  font-size: 1.1rem;
+}
+
+.field,
+fieldset label,
+.card label {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0.45rem 0;
+}
+
+fieldset.card {
+  border: 1px solid var(--line);
+}
+
+input,
+select {
+  background: var(--bg);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.55rem 0.7rem;
+}
+
+.practice-top,
+.chart-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.meters {
+  display: grid;
+  justify-items: end;
+  font-variant-numeric: tabular-nums;
+  color: var(--gold);
+}
+
+.bad {
+  color: var(--bad);
+}
+
+.flash {
+  padding: 0.7rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+}
+
+.flash.ok {
+  background: rgba(154, 209, 122, 0.12);
+  color: var(--ok);
+}
+
+.flash.bad {
+  background: rgba(224, 112, 88, 0.16);
+  color: var(--bad);
+}
+
+.inventory {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.chip {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.practice-foot {
+  position: sticky;
+  bottom: 0;
+  padding: 0.6rem 0 calc(0.6rem + env(safe-area-inset-bottom));
+  background: linear-gradient(transparent, var(--bg) 30%);
+}
+
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.8rem;
+}
+
+.chart-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 0.9rem;
+}
+
+.chart {
+  width: 100%;
+  color: var(--gold);
+}
+
+.chart-caption,
+.history span {
+  font-size: 0.85rem;
+}
+
+.history {
+  padding-left: 1.1rem;
+}
+
+.history li {
+  display: grid;
+  margin: 0.45rem 0;
+}
+
+.plain {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.boot {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+}
+
+.peek {
+  max-height: 240px;
+  overflow: auto;
+}

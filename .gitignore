@@ -141,3 +141,13 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# Capacitor native shells (add locally)
+android/
+ios/
+
+# OS / editor
+.DS_Store
+.idea/
+*.local
+
