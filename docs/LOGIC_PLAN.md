@@ -6,7 +6,7 @@ operator standing in this practice region, does this location or exit hold?**
 
 This is **not** a fill-time solver and **not** a claim of official OoTR.
 
-**Status:** Phase 0–3 is in the app. `src/logic/` evaluates vendored OoTR vanilla World JSON as the practice penalty oracle, including intra-dungeon BFS, `at()` gated on reachable subregions, stacked keys, visit-time events, and Door of Time / starting-age time travel. `world.json` remains the coarse Go to / Check map (OoT only). Compile coverage and `State.py` methods live in `src/logic/ootrPort.test.ts`. Later work: wrap a tracker search (`randomizer-graph-tool`), imported trick settings, MQ, entrance shuffle. Claim slices in `docs/TASKS.md`. Fill-style either-age checks are an optional config flag, off by default.
+**Status:** Phase 0–3 is in the app. `src/logic/` evaluates vendored OoTR vanilla World JSON as the practice penalty oracle, including intra-dungeon BFS, `at()` gated on reachable subregions, stacked keys, visit-time events, and Door of Time / starting-age time travel. `world.json` remains the coarse Go to / Check map (OoT only). Compile coverage and `State.py` methods live in `src/logic/ootrPort.test.ts`. Practice penalties wrap `@mracsys/randomizer-graph-tool` (8.3.0 Release cache). Later: imported trick settings, MQ, entrance shuffle. Claim slices in `docs/TASKS.md`. Fill-style either-age checks are an optional config flag, off by default.
 
 ## Status
 

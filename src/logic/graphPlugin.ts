@@ -1,7 +1,7 @@
 import { WorldGraphFactory, type GraphPlugin } from "@mracsys/randomizer-graph-tool";
 import type { RandoConfig } from "../data/types";
 import { GRAPH_CACHE, GRAPH_VERSION } from "./graphCache";
-import { graphItemCount, graphItemName, registerGraphItemNames } from "./graphItems";
+import { graphItemAliases, graphItemCount, graphItemName, INNATE_GRAPH_ITEMS, registerGraphItemNames } from "./graphItems";
 import type { LogicAge } from "./state";
 
 export type GraphSpot = {
@@ -80,6 +80,7 @@ function applySettings(world: GraphWorldLike, inventory: Iterable<string>, confi
   world.settings.zora_fountain = openZora ? "open" : "closed";
   world.settings.open_door_of_time = openDot;
   world.settings.starting_age = config?.startingAge ?? "child";
+  world.settings.bridge = "vanilla";
   world.settings.shuffle_individual_ocarina_notes = false;
   world.settings.gold_skulls_ignore_daytime = false;
   if (world.skipped_trials) {
@@ -105,10 +106,12 @@ export function prepareGraphWorld(
   const world = graph.worlds[0];
   applySettings(world, inventory, config);
   world.state.reset();
+  for (const name of INNATE_GRAPH_ITEMS) collectNamed(world, graph, name);
   for (const id of inventory) {
     const name = graphItemName(id);
     if (!name) continue;
     collectNamed(world, graph, name, graphItemCount(id));
+    for (const alias of graphItemAliases(name)) collectNamed(world, graph, alias);
   }
   for (const event of events ?? []) {
     collectNamed(world, graph, event);

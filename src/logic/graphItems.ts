@@ -33,3 +33,25 @@ export function graphItemName(id: string): string | undefined {
 export function graphItemCount(id: string): number {
   return TRAINER_TO_OOTR[id]?.count ?? 1;
 }
+
+/** Shop/drop names 8.3 compiled helpers use instead of the equipment item. */
+const SHOP_ALIASES: Record<string, string[]> = {
+  "Deku Shield": ["Buy Deku Shield", "Deku Shield Drop"],
+  "Hylian Shield": ["Buy Hylian Shield"],
+  "Deku Nut Drop": ["Buy Deku Nut (5)", "Buy Deku Nut (10)"],
+  "Deku Stick Drop": ["Buy Deku Stick (1)"],
+};
+
+export function graphItemAliases(name: string): string[] {
+  return SHOP_ALIASES[name] ?? [];
+}
+
+export const INNATE_GRAPH_ITEMS = [
+  "Goron Tunic",
+  "Zora Tunic",
+  "Ocarina A Button",
+  "Ocarina C up Button",
+  "Ocarina C down Button",
+  "Ocarina C left Button",
+  "Ocarina C right Button",
+];
