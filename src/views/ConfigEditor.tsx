@@ -243,6 +243,18 @@ export function ConfigEditor() {
           />
           Hide locked paths (easier)
         </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={Boolean(config.eitherAgeLogic)}
+            onChange={(event) => update({ eitherAgeLogic: event.target.checked })}
+          />
+          Count either age after Door of Time (easier)
+        </label>
+        <p className="muted">
+          Off by default. When on, a check in this room is in logic if the other age could do it here after opening the
+          Door of Time. Go to / Check buttons stay identical.
+        </p>
       </fieldset>
     </div>
   );

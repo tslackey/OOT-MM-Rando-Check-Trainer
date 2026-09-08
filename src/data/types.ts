@@ -79,6 +79,8 @@ export interface RandoConfig {
   peekPenaltySeconds: number;
   hideCompleted: boolean;
   hideLocked: boolean;
+  /** Off by default. If on, a check is in logic when the other age could do it here after Door of Time. */
+  eitherAgeLogic?: boolean;
   spawn: "auto" | string;
   childSpawn: "auto" | string;
   adultSpawn: "auto" | string;

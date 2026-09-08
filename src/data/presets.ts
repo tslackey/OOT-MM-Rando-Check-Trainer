@@ -40,6 +40,7 @@ export function createConfig(partial: Partial<RandoConfig> = {}, defaults?: Rand
     peekPenaltySeconds: partial.peekPenaltySeconds ?? training.peekPenaltySeconds,
     hideCompleted: partial.hideCompleted ?? training.hideCompleted,
     hideLocked: partial.hideLocked ?? training.hideLocked,
+    eitherAgeLogic: partial.eitherAgeLogic ?? false,
     spawn: partial.spawn ?? "auto",
     childSpawn: partial.childSpawn ?? "auto",
     adultSpawn: partial.adultSpawn ?? "auto",

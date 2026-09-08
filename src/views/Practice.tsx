@@ -216,8 +216,8 @@ export function Practice() {
                 <h3>{group.title}</h3>
                 <div className="inventory">
                   {group.items.map((item) => (
-                    <span key={item} className="chip">
-                      {labeledItem(item)}
+                    <span key={item.id} className="chip">
+                      {item.count > 1 ? `${labeledItem(item.id)} ×${item.count}` : labeledItem(item.id)}
                     </span>
                   ))}
                 </div>

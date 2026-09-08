@@ -9,10 +9,10 @@ export interface LogicState {
   events: Set<string>;
   settings: Record<string, unknown>;
   bindings: Record<string, string>;
-  /** Logic regions reached inside the current practice node. Used by `at()`. */
-  reachable: Set<string>;
-  /** Practice region the operator is standing in while evaluating local rules. */
-  practiceId?: string;
+  /** Logic-region names reached by the current intra-practice BFS. */
+  reachable?: Set<string>;
+  /** Practice region id the current BFS is expanding, for `at()` gating. */
+  searchPracticeId?: string;
 }
 
 const TRIALS = ["Forest", "Fire", "Water", "Shadow", "Spirit", "Light"] as const;
@@ -58,7 +58,10 @@ export function emptySettings(config?: RandoConfig, inventory: Iterable<string> 
     chicken_count: 7,
     warp_songs: true,
     disable_trade_revert: false,
-    gold_skulls_ignore_daytime: true,
+    // Trainer has no clock: at_night is treated as "waited." Do not also
+    // ignore daytime, or a closed-forest child can collect KF night GS.
+    gold_skulls_ignore_daytime: false,
+    had_night_start: false,
     logic_grottos_without_agony: false,
     entrance_shuffle: false,
     triforce_goal_per_world: 0,
@@ -159,8 +162,18 @@ export function makeState(opts: {
       addItem(items, id.replace(/[^A-Za-z0-9]+/g, "_").replace(/^_|_$/g, ""), 1);
     }
   }
-  // Vanilla abilities the trainer does not shuffle.
-  for (const innate of ["Climb", "Grab", "Swim", "Crawl", "Open_Chest", "Speak_Kokiri"]) {
+  // Vanilla abilities the trainer does not shuffle. Tunics are innate because
+  // this app has no heat/dive timer and does not place tunic checks.
+  for (const innate of [
+    "Climb",
+    "Grab",
+    "Swim",
+    "Crawl",
+    "Open_Chest",
+    "Speak_Kokiri",
+    "Goron_Tunic",
+    "Zora_Tunic",
+  ]) {
     if (!items.has(innate)) items.set(innate, 1);
   }
   if (!opts.config?.randoSettings || (opts.config.randoSettings["Shuffle Ocarina Buttons"] ?? "Off").toLowerCase() !== "on") {
@@ -175,6 +188,7 @@ export function makeState(opts: {
     settings: opts.settings ?? emptySettings(opts.config, opts.inventory ?? []),
     bindings: {},
     reachable: new Set(),
+    searchPracticeId: undefined,
   };
 }
 
@@ -191,5 +205,10 @@ export function addEvent(state: LogicState, name: string): void {
 }
 
 export function withAge(state: LogicState, age: LogicAge): LogicState {
-  return { ...state, age, bindings: { ...state.bindings }, reachable: new Set(state.reachable) };
+  return {
+    ...state,
+    age,
+    bindings: { ...state.bindings },
+    reachable: state.reachable ? new Set(state.reachable) : undefined,
+  };
 }

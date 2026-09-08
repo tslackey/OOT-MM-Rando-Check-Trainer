@@ -66,7 +66,7 @@ Fixture: `src/lib/fixtures/ootr-spoiler-sample.json`.
 3. **Peek is expensive.** Showing remaining checks must add `peekPenaltySeconds`.
 4. **Autosave everything** that the operator would lose if they closed the tab: configs, default preset, active run, history.
 5. **Pages deploy.** `.github/workflows/pages.yml` tests, builds `dist/`, and deploys to GitHub Pages. `.gitlab-ci.yml` does the same for GitLab Pages. Vite `base` is `./`. The HTML template is stamped at the top with the GitLab Pages build number (`CI_PIPELINE_IID`, or the GitHub run number when that is the pipeline).
-6. **Logic stays a subset.** `world.json` is the coarse Go to / Check map. In-logic penalties come from vendored OoTR World JSON + helpers (`src/logic`). Do not claim the trainer **is** OoTR. Remaining gaps are in `docs/LOGIC_PLAN.md` (MQ, entrance shuffle, dual-age fill).
+6. **Logic stays a subset.** `world.json` is the coarse Go to / Check map. In-logic penalties come from vendored OoTR World JSON + helpers (`src/logic`), including intra-dungeon BFS, stacked keys, and visit-time events. Do not claim the trainer **is** OoTR. Remaining gaps are in `docs/LOGIC_PLAN.md` (MQ, entrance shuffle).
 
 ## Commands
 
@@ -85,15 +85,15 @@ CI is the Pages workflow on `main` (test + lint, then build, then deploy).
 - Keep this repo OoT-focused.
 - MM trainer: new app, same Capacitor/Pages pattern, not a second game toggle here.
 - Native shells (`npx cap add android|ios`) only when asked.
-- **Logic:** Practice penalties need the same reachability a **logic tracker** already computes (TOoTR / `randomizer-graph-tool` / OoTR `Search.py`). Wrap that engine; do not grow a second RuleParser and do not paint Go/Check by availability. Until the wrap lands, `src/logic/` is a restricted subset. See `docs/LOGIC_PLAN.md`. Port World JSON cases into `src/logic/ootrPort.test.ts` instead of inventing heuristic fixtures.
+- **Logic:** Practice travel/check penalties use the OoTR vanilla oracle in `src/logic/` (phase 0–3 of `docs/LOGIC_PLAN.md`: intra-dungeon BFS, keys, visit-time events, Door of Time). The next slice is wrapping a tracker search (TOoTR / `randomizer-graph-tool`) instead of growing a second RuleParser. Do not paint Go/Check by availability. Port World JSON cases into `src/logic/ootrPort.test.ts` instead of inventing heuristic fixtures. MQ and entrance shuffle are later phases.
 - Optional later: MQ, entrance shuffle, junk sanity types, tighter aliases.
 
 ## Tests that must stay green
 
 - `src/lib/importRando.test.ts` — settings mapping, location match, spawn entrances, export round-trip
 - `src/lib/spoiler.test.ts` — generated spoiler, shuffled spawns not always Kokiri
-- `src/lib/session.test.ts` — illegal travel penalty, legal adjacent travel, double-check penalty, respawn, Farore's Wind
+- `src/lib/session.test.ts` — illegal travel penalty, legal adjacent travel, double-check penalty, respawn, Farore's Wind, Gohma forest escape, Door of Time
 - `src/data/world.test.ts` — OoT spawn, no cross-game flag
-- `src/logic/oracle.test.ts` — masks, windmill SoS, closed forest, Forest lobby, KF sword
+- `src/logic/oracle.test.ts` — masks, windmill SoS, closed forest, Forest lobby, KF sword, Gohma forest escape, DoT, night GS, either-age flag
 - `src/logic/ootrPort.test.ts` — every vendored helper/World rule compiles; State.py + LogicHelpers + World JSON cases
 - `src/lib/scoring.test.ts`, `src/lib/shuffle.test.ts`

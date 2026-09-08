@@ -139,7 +139,16 @@ function evalName(name: string, state: LogicState, depth: number): unknown {
 
 function evalCall(name: string, args: Expr[], state: LogicState, depth: number): unknown {
   if (name === "here" && args[0]) return evalRule(args[0], state, depth + 1);
-  if (name === "at") return evalAt(args, state, depth);
+  if (name === "at") {
+    const dest = regionArg(args[0]);
+    const inner = args[1] ?? { type: "const" as const, value: true };
+    if (state.reachable && dest) {
+      if (state.reachable.has(dest)) return evalRule(inner, state, depth + 1);
+      const destPractice = practiceIdFor(dest);
+      if (!destPractice || destPractice === state.searchPracticeId) return false;
+    }
+    return evalRule(inner, state, depth + 1);
+  }
   if (name === "has_bottle") return hasBottle(state);
   if (name === "has_soul") return true;
   if (name === "has_all_notes_for_song") return !state.settings.shuffle_individual_ocarina_notes;
@@ -190,25 +199,6 @@ function evalCall(name: string, args: Expr[], state: LogicState, depth: number):
   return false;
 }
 
-function evalAt(args: Expr[], state: LogicState, depth: number): boolean {
-  const dest = regionName(args[0], state);
-  const rule = args[1];
-  if (!dest || !rule) return false;
-  const destPractice = practiceIdFor(dest);
-  if (destPractice && state.practiceId && destPractice === state.practiceId && !state.reachable.has(dest)) {
-    return false;
-  }
-  return asBool(evalRule(rule, state, depth + 1), state);
-}
-
-function regionName(expr: Expr | undefined, state: LogicState): string | undefined {
-  if (!expr) return undefined;
-  if (expr.type === "const" && typeof expr.value === "string") return expr.value;
-  if (expr.type === "name") return resolveIdent(expr.name, state);
-  const value = evalRule(expr, state);
-  return typeof value === "string" ? value : undefined;
-}
-
 function hasBottle(state: LogicState): boolean {
   if (BOTTLE_ITEMS.some((name) => hasItem(state, name))) return true;
   return (state.items.get("Rutos_Letter") ?? 0) >= 2;
@@ -250,6 +240,13 @@ function itemName(value: unknown, expr: Expr): string {
   if (typeof value === "string") return value;
   if (expr.type === "name") return expr.name;
   return String(value);
+}
+
+function regionArg(expr: Expr | undefined): string {
+  if (!expr) return "";
+  if (expr.type === "const" && typeof expr.value === "string") return expr.value;
+  if (expr.type === "name") return expr.name.replaceAll("_", " ");
+  return "";
 }
 
 function countItems(state: LogicState, names: string[]): number {

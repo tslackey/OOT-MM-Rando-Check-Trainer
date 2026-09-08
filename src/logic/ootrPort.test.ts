@@ -177,10 +177,12 @@ describe("OoTR World JSON location and exit cases", () => {
     expect(locationNamedInLogic("Deku Tree Map Chest", "oot-deku", [], "child")).toBe(true);
   });
 
-  it("Forest Temple First Room Chest is True in the lobby; bow chest is not", () => {
+  it("Forest Temple First Room Chest is True in the lobby; Map Chest needs Song of Time", () => {
     expect(locationNamedInLogic("Forest Temple First Room Chest", "oot-forest", [], "adult")).toBe(true);
-    expect(checkInLogic(CHECK_BY_ID["oot-forest-temple-map"], [], "adult", "oot-forest")).toBe(true);
-    expect(locationNamedInLogic("Forest Temple Map Chest", "oot-forest", [], "adult")).toBe(false);
+    expect(checkInLogic(CHECK_BY_ID["oot-forest-temple-map"], [], "adult", "oot-forest")).toBe(false);
+    expect(locationNamedInLogic("Forest Temple Map Chest", "oot-forest", ["ocarina", "song_of_time"], "adult")).toBe(
+      true,
+    );
     expect(checkInLogic(CHECK_BY_ID["oot-forest-temple-bow"], [], "adult", "oot-forest")).toBe(false);
   });
 
@@ -228,9 +230,8 @@ describe("OoTR World JSON location and exit cases", () => {
       true,
     );
     const skipped = makeState({ age: "adult", inventory: [] });
-    skipped.practiceId = "oot-ganon";
-    skipped.reachable.add("Ganons Castle Lobby");
-    skipped.reachable.add("Ganons Castle Main");
+    skipped.searchPracticeId = "oot-ganon";
+    skipped.reachable = new Set(["Ganons Castle Lobby", "Ganons Castle Main"]);
     expect(evalText("skipped_trials[Forest] and skipped_trials[Fire]", skipped)).toBe(true);
   });
 });
