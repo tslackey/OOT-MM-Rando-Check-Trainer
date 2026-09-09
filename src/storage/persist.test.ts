@@ -96,6 +96,27 @@ describe("persisted run slots", () => {
     expect(session?.placement["mm-initial-song-of-healing"]).toBeUndefined();
   });
 
+  it("strips leftover junk filler from inventory", () => {
+    const session = {
+      ...staleSession(),
+      currentRegionId: "oot-kokiri",
+      childSpawnId: "oot-kokiri",
+      adultSpawnId: "oot-tot",
+      inventory: ["ocarina", "junk_1", "junk_2", "saria"],
+      enabledCheckIds: ["oot-graveyard-royal-tomb-song"],
+      collectedCheckIds: [],
+      placement: { "oot-graveyard-royal-tomb-song": "saria" },
+    };
+    const next = normalizeState({
+      version: 2,
+      configs: [],
+      sessions: [],
+      activeSessions: [session],
+      currentSessionId: session.id,
+    });
+    expect(next.activeSessions[0]?.inventory).toEqual(["ocarina", "saria"]);
+  });
+
   it("keeps the changelog view and falls back for unknown views", () => {
     expect(normalizeState({ ...emptyState(), view: "changelog" }).view).toBe("changelog");
     expect(normalizeState({ ...emptyState(), view: "not-a-view" as "home" }).view).toBe("home");

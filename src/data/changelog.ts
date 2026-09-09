@@ -19,6 +19,13 @@ export const CHANGELOG_REPO = "tslackey/OOT-MM-Rando-Check-Trainer";
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: "2026-09-09",
+    title: "Practice inventory matches pause-menu order",
+    summary:
+      "The Inventory tab lists Items, Equipment, and Songs in vanilla pause-menu order, with keys and quest rewards in their own groups. Junk stays off the inventory list.",
+    pending: true,
+  },
+  {
     date: "2026-09-08",
     title: "Changelog in the app",
     summary:

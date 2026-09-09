@@ -53,6 +53,11 @@ export function isMajoraItem(item: string): boolean {
   return MM_ITEMS.has(item);
 }
 
+/** Filler and leftover MM ids are not trainer inventory. */
+export function isJunkItem(item: string): boolean {
+  return item.startsWith("junk_") || isMajoraItem(item);
+}
+
 function ootOnlyWorld(data: WorldData): WorldData {
   const regions = data.regions.filter((region) => region.game === "oot");
   const regionIds = new Set(regions.map((region) => region.id));
@@ -320,6 +325,6 @@ export const ITEM_LABELS: Record<string, string> = {
 };
 
 export function itemLabel(id: string): string {
-  if (id.startsWith("junk_") || isMajoraItem(id)) return "Junk";
+  if (isJunkItem(id)) return "Junk";
   return ITEM_LABELS[id] ?? id.replaceAll("_", " ");
 }

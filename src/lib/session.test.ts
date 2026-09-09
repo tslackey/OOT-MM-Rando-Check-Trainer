@@ -129,6 +129,22 @@ describe("practice session", () => {
     expect(next.lastFlash?.text).toBe("Got Junk");
     expect(next.lastFlash?.text.toLowerCase()).not.toContain(" mm");
     expect(itemLabel("hookshot_mm")).toBe("Junk");
+    expect(next.inventory).not.toContain("hookshot_mm");
+  });
+
+  it("does not put junk filler in inventory", () => {
+    const config = createConfig({ spawn: "oot-kokiri", games: { oot: true, mm: false } });
+    let session = createSession(config, 1);
+    const sword = CHECK_BY_ID["oot-kokiri-forest-kokiri-sword-chest"];
+    session = {
+      ...session,
+      placement: { ...session.placement, [sword.id]: "junk_3" },
+    };
+    const before = [...session.inventory];
+    const next = collectCheck(session, config, sword);
+    expect(next.lastFlash?.text).toBe("Got junk");
+    expect(next.inventory).toEqual(before);
+    expect(next.inventory.some((item) => item.startsWith("junk_"))).toBe(false);
   });
 
   it("stacks duplicate small keys in inventory", () => {

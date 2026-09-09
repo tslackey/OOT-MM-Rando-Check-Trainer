@@ -8,6 +8,7 @@ import {
   enabledChecks,
   flagsFor,
   hasAll,
+  isJunkItem,
   isMajoraItem,
   reachableRegionIds,
   REGION_BY_ID,
@@ -123,5 +124,8 @@ describe("world logic", () => {
     expect(WORLD.itemPool.progression.some(isMajoraItem)).toBe(false);
     expect(WORLD.checks.some((check) => check.id.startsWith("mm-"))).toBe(false);
     expect(REGION_BY_ID["mm-sct"]).toBeUndefined();
+    expect(isJunkItem("junk_1")).toBe(true);
+    expect(isJunkItem("hookshot_mm")).toBe(true);
+    expect(isJunkItem("ocarina")).toBe(false);
   });
 });

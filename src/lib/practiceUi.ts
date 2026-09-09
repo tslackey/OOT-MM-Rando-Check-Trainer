@@ -6,6 +6,7 @@ import {
   availableWarps,
   canUseConnection,
   checkInLogic,
+  isJunkItem,
   itemLabel,
   REGION_BY_ID,
   sessionEvents,
@@ -23,22 +24,75 @@ export interface SpecialWarp {
 
 const HIDDEN_INVENTORY = new Set(["cross_game"]);
 
-const SONG_ITEMS = new Set([
+export type InventoryGroupTitle = "Items" | "Equipment" | "Songs" | "Keys" | "Quest";
+
+const GROUP_ORDER: InventoryGroupTitle[] = ["Items", "Equipment", "Songs", "Keys", "Quest"];
+
+/** C-button / Select Item screen, left-to-right then top-to-bottom. */
+const ITEM_ORDER = [
+  "sticks",
+  "nuts",
+  "bombs",
+  "bow",
+  "fire_arrows",
+  "dins",
+  "slingshot",
+  "ocarina",
+  "bombchu",
+  "hookshot",
+  "longshot",
+  "ice_arrows",
+  "farores",
+  "boomerang",
+  "lens",
+  "beans",
+  "hammer",
+  "light_arrows",
+  "nayrus",
+  "bottle",
+  "skull_mask",
+  "mask_of_truth",
+];
+
+/** Swords, shields, boots, then strength / scale / magic upgrades. */
+const EQUIPMENT_ORDER = [
+  "kokiri_sword",
+  "master_sword",
+  "biggoron_sword",
+  "deku_shield",
+  "hylian_shield",
+  "mirror_shield",
+  "kokiri_tunic",
+  "goron_tunic",
+  "zora_tunic",
+  "kokiri_boots",
+  "iron_boots",
+  "hover_boots",
+  "strength",
+  "silver_gauntlets",
+  "golden_gauntlets",
+  "silver_scale",
+  "golden_scale",
+  "magic",
+];
+
+/** Quest-status song rows: child songs, then warp songs. */
+const SONG_ORDER = [
+  "zelda_lullaby",
+  "epona",
+  "saria",
+  "suns_song",
   "song_of_time",
   "song_of_storms",
-  "saria",
-  "epona",
-  "suns_song",
-  "zelda_lullaby",
   "minuet",
   "bolero",
   "serenade",
-  "nocturne",
   "requiem",
+  "nocturne",
   "prelude",
-]);
+];
 
-const REWARD_ITEMS = new Set([
+const QUEST_ORDER = [
   "kokiri_emerald",
   "goron_ruby",
   "zora_sapphire",
@@ -48,7 +102,72 @@ const REWARD_ITEMS = new Set([
   "shadow_medallion",
   "spirit_medallion",
   "light_medallion",
-]);
+  "gerudo_card",
+  "gs_tokens",
+];
+
+const SONG_ITEMS = new Set(SONG_ORDER);
+const EQUIPMENT_ITEMS = new Set(EQUIPMENT_ORDER);
+const QUEST_ITEMS = new Set(QUEST_ORDER);
+const ITEM_ITEMS = new Set(ITEM_ORDER);
+
+const DUNGEON_KEY_ORDER = [
+  "forest",
+  "fire",
+  "water",
+  "shadow",
+  "spirit",
+  "well",
+  "bottom_of_the_well",
+  "gtg",
+  "gerudo_training",
+  "ganon",
+  "hideout",
+  "treasure",
+];
+
+function isKeyItem(id: string): boolean {
+  return (
+    id.startsWith("small_key_") ||
+    id.startsWith("boss_key_") ||
+    id === "hideout_small_key" ||
+    id.startsWith("key_ring_")
+  );
+}
+
+function orderIndex(id: string, order: readonly string[]): number {
+  const index = order.indexOf(id);
+  return index === -1 ? 1000 : index;
+}
+
+function keySortIndex(id: string): number {
+  const dungeon = DUNGEON_KEY_ORDER.findIndex((token) => id.includes(token));
+  const dungeonIdx = dungeon === -1 ? 99 : dungeon;
+  const isBoss = id.startsWith("boss_key_") ? 1 : 0;
+  return dungeonIdx * 2 + isBoss;
+}
+
+function classifyItem(id: string): InventoryGroupTitle {
+  if (SONG_ITEMS.has(id)) return "Songs";
+  if (isKeyItem(id)) return "Keys";
+  if (QUEST_ITEMS.has(id)) return "Quest";
+  if (EQUIPMENT_ITEMS.has(id)) return "Equipment";
+  if (ITEM_ITEMS.has(id)) return "Items";
+  return "Items";
+}
+
+function sortGroup(title: InventoryGroupTitle, items: { id: string; count: number }[]): { id: string; count: number }[] {
+  return [...items].sort((left, right) => {
+    let delta = 0;
+    if (title === "Songs") delta = orderIndex(left.id, SONG_ORDER) - orderIndex(right.id, SONG_ORDER);
+    else if (title === "Equipment") delta = orderIndex(left.id, EQUIPMENT_ORDER) - orderIndex(right.id, EQUIPMENT_ORDER);
+    else if (title === "Quest") delta = orderIndex(left.id, QUEST_ORDER) - orderIndex(right.id, QUEST_ORDER);
+    else if (title === "Keys") delta = keySortIndex(left.id) - keySortIndex(right.id);
+    else delta = orderIndex(left.id, ITEM_ORDER) - orderIndex(right.id, ITEM_ORDER);
+    if (delta !== 0) return delta;
+    return itemLabel(left.id).localeCompare(itemLabel(right.id));
+  });
+}
 
 export function visibleRegionChecks(session: PracticeSession, config?: RandoConfig): WorldCheck[] {
   const collected = new Set(session.collectedCheckIds);
@@ -109,14 +228,20 @@ export function canShowWarpTab(session: PracticeSession, config: RandoConfig): b
 }
 
 export function visibleInventory(inventory: string[]): string[] {
-  return inventory.filter((item) => !item.startsWith("open_") && !HIDDEN_INVENTORY.has(item));
+  return inventory.filter(
+    (item) => !item.startsWith("open_") && !HIDDEN_INVENTORY.has(item) && !isJunkItem(item),
+  );
 }
 
-export function inventoryGroups(inventory: string[]): { title: string; items: { id: string; count: number }[] }[] {
-  const groups: Record<string, { id: string; count: number }[]> = {
+export function inventoryGroups(
+  inventory: string[],
+): { title: InventoryGroupTitle; items: { id: string; count: number }[] }[] {
+  const groups: Record<InventoryGroupTitle, { id: string; count: number }[]> = {
+    Items: [],
     Equipment: [],
     Songs: [],
-    Rewards: [],
+    Keys: [],
+    Quest: [],
   };
   const seen = new Map<string, { id: string; count: number }>();
   for (const item of visibleInventory(inventory)) {
@@ -127,13 +252,12 @@ export function inventoryGroups(inventory: string[]): { title: string; items: { 
     }
     const entry = { id: item, count: 1 };
     seen.set(item, entry);
-    if (SONG_ITEMS.has(item)) groups.Songs.push(entry);
-    else if (REWARD_ITEMS.has(item)) groups.Rewards.push(entry);
-    else groups.Equipment.push(entry);
+    groups[classifyItem(item)].push(entry);
   }
-  return Object.entries(groups)
-    .filter(([, items]) => items.length)
-    .map(([title, items]) => ({ title, items }));
+  return GROUP_ORDER.filter((title) => groups[title].length).map((title) => ({
+    title,
+    items: sortGroup(title, groups[title]),
+  }));
 }
 
 export function isWrong(session: PracticeSession, id: string): boolean {

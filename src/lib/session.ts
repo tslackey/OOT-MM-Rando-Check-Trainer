@@ -15,6 +15,7 @@ import {
   checkInLogic,
   enabledChecks,
   flagsFor,
+  isJunkItem,
   itemLabel,
   REGION_BY_ID,
   sessionEvents,
@@ -359,7 +360,7 @@ export function collectCheck(
   const item = session.placement[check.id] ?? "junk_1";
   const collected = [...session.collectedCheckIds, check.id];
   const inventory =
-    isStackableTrainerId(item) || !session.inventory.includes(item)
+    !isJunkItem(item) && (isStackableTrainerId(item) || !session.inventory.includes(item))
       ? [...session.inventory, item]
       : session.inventory;
   const done = collected.length >= session.enabledCheckIds.length;

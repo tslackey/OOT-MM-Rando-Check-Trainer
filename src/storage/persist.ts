@@ -1,6 +1,6 @@
 import { PRESETS } from "../data/presets";
 import { isViewId, MAX_ACTIVE_SESSIONS, type PersistedState, type PracticeSession, type RandoConfig } from "../data/types";
-import { CHECK_BY_ID, isMajoraItem, REGION_BY_ID } from "../data/world";
+import { CHECK_BY_ID, isJunkItem, isMajoraItem, REGION_BY_ID } from "../data/world";
 
 export const STORAGE_KEY = "ootmm-check-trainer-v1";
 
@@ -27,7 +27,7 @@ function normalizeSession(session: PracticeSession): PracticeSession {
     enabledCheckIds,
     collectedCheckIds,
     placement,
-    inventory: session.inventory.filter((item) => !isMajoraItem(item)),
+    inventory: session.inventory.filter((item) => !isJunkItem(item)),
     wrongIds: session.wrongIds ?? [],
     childSpawnId: ootRegion(session.childSpawnId, currentRegionId),
     adultSpawnId: ootRegion(session.adultSpawnId, "oot-tot"),
