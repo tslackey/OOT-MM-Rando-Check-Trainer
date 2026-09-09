@@ -23,6 +23,7 @@ export const CHANGELOG: ChangelogEntry[] = [
     title: "Imported rainbow bridge, LACS, and Ganon boss key",
     summary:
       "A pasted spoiler’s Rainbow Bridge, Light Arrow Cutscene, and Ganon’s Boss Key settings (including counts) now drive Ganon’s door and those checks instead of always using vanilla.",
+    pr: 15,
     pending: true,
   },
   {
