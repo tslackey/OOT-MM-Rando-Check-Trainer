@@ -23,6 +23,7 @@ export const CHANGELOG: ChangelogEntry[] = [
     title: "Shuffle Open Chest is an ability, not a check type",
     summary:
       "Imported Shuffle Open Chest (Off / On / Progressive) is the progressive open-small-then-open-big item. Standard locations stay in the check list; opening them needs that ability when the setting is on.",
+    pr: 16,
     pending: true,
   },
   {

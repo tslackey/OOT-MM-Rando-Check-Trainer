@@ -77,7 +77,7 @@ Do these **after** L-A, unless a row says it is independent.
 | L-C1 | Rainbow bridge / Ganon boss key / LACS counts from imported `settings` | done | cloud agent | — | [#15](https://github.com/tslackey/OOT-MM-Rando-Check-Trainer/pull/15) | Merged. |
 | L-C2 | Gerudo Fortress: normal / fast / open | open | — | — | — | |
 | L-C3 | Tricks: default off; honor `logic_*` from a spoiler. No glitched logic. | open | — | — | — | |
-| L-C4 | Shuffle Open Chest is a progressive ability (small then large), not a check type | claimed | cloud agent | [bc-01a0832d-6462-748a-ac50-8994317f5ae9](https://cursor.com/agents/bc-01a0832d-6462-748a-ac50-8994317f5ae9) | `cursor/shuffle-open-chest-5ae9` | Overlay on graph Chest spots. Vanilla 8.3 has no this setting. |
+| L-C4 | Shuffle Open Chest is a progressive ability (small then large), not a check type | claimed | cloud agent | [bc-01a0832d-6462-748a-ac50-8994317f5ae9](https://cursor.com/agents/bc-01a0832d-6462-748a-ac50-8994317f5ae9) | `cursor/shuffle-open-chest-5ae9` [#16](https://github.com/tslackey/OOT-MM-Rando-Check-Trainer/pull/16) | Overlay on graph Chest spots. Vanilla 8.3 has no this setting. |
 | L-INV | Trainer inventory rarely carries `Piece_of_Heart` or bottled contents; heart-bridge imports look locked | open | — | — | — | Independent of wrap. |
 | L-KEY | Remaining `(Small_Key_*, n)` mappings that still lock a dungeon | open | — | — | — | Forest/Fire/Water/Shadow/Spirit/Well/GTG/Ganon/hideout already map. Fix only with a failing World JSON case. |
 | L-SHOP | `Buy_Deku_Shield` etc. are not granted just because a chest gave `Deku_Shield` | open | — | — | — | `has_shield` already accepts owned `Deku_Shield`. Shop-sanity only. |
