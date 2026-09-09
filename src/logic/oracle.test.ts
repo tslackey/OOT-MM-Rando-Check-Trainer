@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { createConfig } from "../data/presets";
 import { CHECK_BY_ID, canUseConnection, checkInLogic, WORLD } from "../data/world";
+import sample from "../lib/fixtures/ootr-spoiler-sample.json";
+import { importRandoFile } from "../lib/importRando";
+import { prepareGraphWorld } from "./graphPlugin";
 import { doorOfTimeOpen, locationNamedInLogic } from "./oracle";
 
 function edge(from: string, to: string) {
@@ -130,5 +133,95 @@ describe("OoTR practice oracle", () => {
     expect(checkInLogic(windmill, ["ocarina"], "child", "oot-kak", on)).toBe(true);
     expect(checkInLogic(windmill, ["ocarina"], "child", "oot-kak", locked)).toBe(false);
     expect(checkInLogic(windmill, ["ocarina", "song_of_time"], "child", "oot-kak", locked)).toBe(true);
+  });
+
+  it("uses imported rainbow bridge condition and counts for Ganon's door", () => {
+    const toGanon = edge("oot-ganon-out", "oot-ganon");
+    const sixRewards = [
+      "kokiri_emerald",
+      "goron_ruby",
+      "zora_sapphire",
+      "forest_medallion",
+      "fire_medallion",
+      "water_medallion",
+    ];
+    const imported = importRandoFile(JSON.stringify(sample), "spoiler.json").config;
+    expect(canUseConnection(toGanon, sixRewards, "adult", imported)).toBe(true);
+    expect(canUseConnection(toGanon, sixRewards.slice(0, 5), "adult", imported)).toBe(false);
+    expect(canUseConnection(toGanon, sixRewards, "adult")).toBe(false);
+
+    const open = createConfig({ randoSettings: { "Rainbow Bridge": "Open" } });
+    expect(canUseConnection(toGanon, [], "adult", open)).toBe(true);
+
+    const stones = createConfig({
+      randoSettings: { "Rainbow Bridge": "Stones", "Bridge Stone Count": "3" },
+    });
+    expect(canUseConnection(toGanon, ["kokiri_emerald", "goron_ruby", "zora_sapphire"], "adult", stones)).toBe(true);
+    expect(canUseConnection(toGanon, ["kokiri_emerald", "goron_ruby"], "adult", stones)).toBe(false);
+  });
+
+  it("uses imported LACS condition for the Temple of Time light arrows", () => {
+    const vanilla = createConfig({ randoSettings: { "LACS Condition": "Vanilla" } });
+    expect(locationNamedInLogic("ToT Light Arrows Cutscene", "oot-tot", ["shadow_medallion"], "adult", vanilla)).toBe(
+      false,
+    );
+    expect(
+      locationNamedInLogic(
+        "ToT Light Arrows Cutscene",
+        "oot-tot",
+        ["shadow_medallion", "spirit_medallion"],
+        "adult",
+        vanilla,
+      ),
+    ).toBe(true);
+
+    const stones = createConfig({
+      randoSettings: { "LACS Condition": "Stones", "LACS Stone Count": "3" },
+    });
+    expect(locationNamedInLogic("ToT Light Arrows Cutscene", "oot-tot", ["kokiri_emerald", "goron_ruby"], "adult", stones)).toBe(
+      false,
+    );
+    expect(
+      locationNamedInLogic(
+        "ToT Light Arrows Cutscene",
+        "oot-tot",
+        ["kokiri_emerald", "goron_ruby", "zora_sapphire"],
+        "adult",
+        stones,
+      ),
+    ).toBe(true);
+  });
+
+  it("uses imported Ganon boss key condition on Gift from Sages", () => {
+    const meds = createConfig({
+      randoSettings: {
+        "Ganon's Boss Key": "Medallions",
+        "Ganon's Boss Key Medallion Count": "6",
+      },
+    });
+    const world = prepareGraphWorld(
+      ["forest_medallion", "fire_medallion", "water_medallion", "shadow_medallion", "spirit_medallion"],
+      meds,
+    );
+    const loc = world.get_location("Gift from Sages");
+    expect(loc.access_rule(world.state, { spot: loc, age: "adult" })).toBe(false);
+
+    const enough = prepareGraphWorld(
+      [
+        "forest_medallion",
+        "fire_medallion",
+        "water_medallion",
+        "shadow_medallion",
+        "spirit_medallion",
+        "light_medallion",
+      ],
+      meds,
+    );
+    const ready = enough.get_location("Gift from Sages");
+    expect(ready.access_rule(enough.state, { spot: ready, age: "adult" })).toBe(true);
+
+    const vanilla = prepareGraphWorld([], createConfig());
+    const gift = vanilla.get_location("Gift from Sages");
+    expect(gift.access_rule(vanilla.state, { spot: gift, age: "adult" })).toBe(true);
   });
 });

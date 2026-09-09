@@ -290,7 +290,8 @@ From imported OoTR JSON, wire into helpers:
 
 - Closed Forest / Open Deku / Zora King / Door of Time / starting age
   (already partially mapped in `importRando.ts`)
-- Rainbow bridge / Ganon BK / LACS conditions
+- Rainbow bridge / Ganon BK / LACS conditions and counts (L-C1: imported
+  `settings` feed the graph oracle; vanilla remains the no-import default)
 - Gerudo Fortress (normal / fast / open)
 - Shops / scrubs / tokens / trade shuffle (already affect which checks exist)
 

@@ -2,6 +2,7 @@ import { WorldGraphFactory, type GraphPlugin } from "@mracsys/randomizer-graph-t
 import type { RandoConfig } from "../data/types";
 import { GRAPH_CACHE, GRAPH_VERSION } from "./graphCache";
 import { graphItemAliases, graphItemCount, graphItemName, INNATE_GRAPH_ITEMS, registerGraphItemNames } from "./graphItems";
+import { applyImportedLogicSettings, VANILLA_BRIDGE_SETTINGS } from "./importedSettings";
 import type { LogicAge } from "./state";
 
 export type GraphSpot = {
@@ -35,6 +36,8 @@ export type GraphState = {
 
 export type GraphWorldLike = {
   settings: Record<string, unknown>;
+  /** Graph-tool copies this off settings at construct; compiled BK rules read the world field. */
+  shuffle_ganon_bosskey?: string;
   skipped_trials?: Record<string, boolean>;
   state: GraphState;
   collect_checked_only: boolean;
@@ -80,9 +83,14 @@ function applySettings(world: GraphWorldLike, inventory: Iterable<string>, confi
   world.settings.zora_fountain = openZora ? "open" : "closed";
   world.settings.open_door_of_time = openDot;
   world.settings.starting_age = config?.startingAge ?? "child";
-  world.settings.bridge = "vanilla";
   world.settings.shuffle_individual_ocarina_notes = false;
   world.settings.gold_skulls_ignore_daytime = false;
+  Object.assign(world.settings, VANILLA_BRIDGE_SETTINGS);
+  applyImportedLogicSettings(world.settings, config?.randoSettings);
+  // Ganon BK rules compile against world.shuffle_ganon_bosskey, not world.settings.
+  world.shuffle_ganon_bosskey = String(
+    world.settings.shuffle_ganon_bosskey ?? VANILLA_BRIDGE_SETTINGS.shuffle_ganon_bosskey,
+  );
   if (world.skipped_trials) {
     for (const trial of Object.keys(world.skipped_trials)) world.skipped_trials[trial] = true;
   }
