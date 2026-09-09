@@ -224,4 +224,28 @@ describe("OoTR practice oracle", () => {
     const gift = vanilla.get_location("Gift from Sages");
     expect(gift.access_rule(vanilla.state, { spot: gift, age: "adult" })).toBe(true);
   });
+
+  it("treats Shuffle Open Chest as a progressive ability, not a check type", () => {
+    const prog = createConfig({ randoSettings: { "Shuffle Open Chest": "Progressive" } });
+    expect(locationNamedInLogic("KF Kokiri Sword Chest", "oot-kokiri", [], "child", prog)).toBe(false);
+    expect(locationNamedInLogic("KF Kokiri Sword Chest", "oot-kokiri", ["open_chest"], "child", prog)).toBe(true);
+    expect(locationNamedInLogic("Deku Tree Slingshot Chest", "oot-deku", ["deku_shield", "open_chest"], "child", prog)).toBe(
+      false,
+    );
+    expect(
+      locationNamedInLogic(
+        "Deku Tree Slingshot Chest",
+        "oot-deku",
+        ["deku_shield", "open_chest", "open_chest"],
+        "child",
+        prog,
+      ),
+    ).toBe(true);
+
+    const on = createConfig({ randoSettings: { "Shuffle Open Chest": "On" } });
+    expect(locationNamedInLogic("Deku Tree Slingshot Chest", "oot-deku", ["deku_shield", "open_chest"], "child", on)).toBe(
+      true,
+    );
+    expect(locationNamedInLogic("KF Kokiri Sword Chest", "oot-kokiri", [], "child")).toBe(true);
+  });
 });

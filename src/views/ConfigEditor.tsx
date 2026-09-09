@@ -110,6 +110,10 @@ export function ConfigEditor() {
 
       <fieldset className="card">
         <legend>Check types</legend>
+        <p className="muted">
+          Which locations appear as Check buttons. Shuffle Open Chest (from an imported spoiler) is a
+          separate progressive ability to open small, then large, chests.
+        </p>
         {CHECK_TYPES.map((entry) => (
           <label key={entry.id}>
             <input

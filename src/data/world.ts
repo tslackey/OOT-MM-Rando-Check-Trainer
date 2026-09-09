@@ -300,6 +300,8 @@ export const ITEM_LABELS: Record<string, string> = {
   open_zora: "Open Zora",
   open_door_of_time: "Open Door of Time",
   gs_tokens: "Skulltula tokens",
+  open_chest: "Open Chests",
+  open_chests: "Open Chests",
   small_key_forest: "Forest Temple Small Key",
   small_key_fire: "Fire Temple Small Key",
   small_key_water: "Water Temple Small Key",

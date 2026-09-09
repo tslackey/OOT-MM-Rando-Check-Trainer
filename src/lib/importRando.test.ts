@@ -22,6 +22,7 @@ describe("OoTR JSON import", () => {
     expect(result.config.randoSettings?.["Rainbow Bridge"]).toBe("Dungeon rewards");
     expect(result.config.randoSettings?.["Bridge Reward Count"]).toBe("6");
     expect(result.config.randoSettings?.["Ganon's Boss Key"]).toBe("Vanilla");
+    expect(result.config.randoSettings?.["Shuffle Open Chest"]).toBe("Progressive");
     expect(result.config.randoSeed).toBe("6951318300");
     expect(result.config.startingItems).not.toContain("ocarina");
   });
@@ -39,6 +40,8 @@ describe("OoTR JSON import", () => {
   it("maps dungeon small keys onto stackable trainer ids", () => {
     expect(mapItem("Small Key (Forest Temple)")).toBe("small_key_forest");
     expect(mapItem("Boss Key (Fire Temple)")).toBe("boss_key_fire");
+    expect(mapItem("Open Chests")).toBe("open_chest");
+    expect(mapItem("Open Big Chests")).toBe("open_chest");
     expect(matchLocation("Forest Temple Map Chest")).toBe("oot-forest-temple-map");
     expect(matchLocation("Fire Temple Megaton Hammer Chest")).toBe("oot-fire-temple-hammer");
   });

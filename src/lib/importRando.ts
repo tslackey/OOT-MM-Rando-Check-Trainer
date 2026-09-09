@@ -224,6 +224,9 @@ const ITEM_IDS: Record<string, string> = {
   "Small Key (Treasure Chest Game)": "small_key_treasure",
   "Silver Gauntlets": "silver_gauntlets",
   "Golden Gauntlets": "golden_gauntlets",
+  "Open Chests": "open_chest",
+  "Open Chest": "open_chest",
+  "Open Big Chests": "open_chest",
 };
 
 function on(value: string | undefined): boolean {

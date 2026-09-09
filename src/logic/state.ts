@@ -156,17 +156,20 @@ export function makeState(opts: {
   }
   // Vanilla abilities the trainer does not shuffle. Tunics are innate because
   // this app has no heat/dive timer and does not place tunic checks.
-  for (const innate of [
+  // Open Chest is innate unless Ackbar Shuffle Open Chest is On / Progressive.
+  const shuffleOpenChest = (opts.config?.randoSettings?.["Shuffle Open Chest"] ?? "Off").toLowerCase();
+  const innate = [
     "Climb",
     "Grab",
     "Swim",
     "Crawl",
-    "Open_Chest",
     "Speak_Kokiri",
     "Goron_Tunic",
     "Zora_Tunic",
-  ]) {
-    if (!items.has(innate)) items.set(innate, 1);
+  ];
+  if (shuffleOpenChest !== "on" && !shuffleOpenChest.includes("progressive")) innate.push("Open_Chest");
+  for (const name of innate) {
+    if (!items.has(name)) items.set(name, 1);
   }
   if (!opts.config?.randoSettings || (opts.config.randoSettings["Shuffle Ocarina Buttons"] ?? "Off").toLowerCase() !== "on") {
     for (const btn of ["Ocarina_A_Button", "Ocarina_C_down_Button", "Ocarina_C_right_Button", "Ocarina_C_left_Button", "Ocarina_C_up_Button"]) {

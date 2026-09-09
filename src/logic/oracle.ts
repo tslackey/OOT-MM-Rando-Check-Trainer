@@ -4,6 +4,7 @@ import { doorOfTimeFromGraph, prepareGraphWorld } from "./graphPlugin";
 import { expandGraphLocal, graphCanExitTo, graphEventNames, graphLocationInRegion, graphWarpInLogic } from "./graphSearch";
 import { DEFEAT_EVENTS, WARP_SONGS } from "./inventoryMap";
 import { entryRegion } from "./mapPractice";
+import { chestAbilityAllows } from "./openChest";
 import { expandLocal } from "./search";
 import { makeState, type LogicAge, type LogicState } from "./state";
 
@@ -56,7 +57,16 @@ export function checkLocationInLogic(
   const ootr = check.ootrLocation;
   if (ootr) {
     const world = prepareGraphWorld(inventory, config, events);
-    return graphLocationInRegion(world, ootr, currentRegionId, age, eitherAgeAllowed(inventory, config, events));
+    if (!graphLocationInRegion(world, ootr, currentRegionId, age, eitherAgeAllowed(inventory, config, events))) {
+      return false;
+    }
+    let locType: string | undefined;
+    try {
+      locType = world.get_location(ootr).type;
+    } catch {
+      locType = undefined;
+    }
+    return chestAbilityAllows(ootr, locType, inventory, config);
   }
   if (check.age !== "any" && check.age !== age && !eitherAgeAllowed(inventory, config, events)) return false;
   const owned = new Set(inventory);
@@ -72,7 +82,14 @@ export function locationNamedInLogic(
   events?: Iterable<string>,
 ): boolean {
   const world = prepareGraphWorld(inventory, config, events);
-  return graphLocationInRegion(world, ootrLocation, practiceId, age, false);
+  if (!graphLocationInRegion(world, ootrLocation, practiceId, age, false)) return false;
+  let locType: string | undefined;
+  try {
+    locType = world.get_location(ootrLocation).type;
+  } catch {
+    locType = undefined;
+  }
+  return chestAbilityAllows(ootrLocation, locType, inventory, config);
 }
 
 export function warpInLogic(warp: Warp, inventory: string[], age: LogicAge, config?: RandoConfig, events?: Iterable<string>): boolean {
