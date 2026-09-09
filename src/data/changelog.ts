@@ -23,6 +23,7 @@ export const CHANGELOG: ChangelogEntry[] = [
     title: "Practice inventory matches pause-menu order",
     summary:
       "The Inventory tab lists Items, Equipment, and Songs in vanilla pause-menu order, with keys and quest rewards in their own groups. Junk stays off the inventory list.",
+    pr: 17,
     pending: true,
   },
   {
