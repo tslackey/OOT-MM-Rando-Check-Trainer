@@ -204,6 +204,35 @@ describe("practice session", () => {
     expect(session.collectedCheckIds).toContain(hp.id);
   });
 
+  it("records Drain Well when child visits Kakariko with Song of Storms", () => {
+    const config = createConfig({ spawn: "oot-kak", childSpawn: "oot-kak" });
+    let session = createSession(config, 1);
+    const dry = travelTo(session, config, "oot-well");
+    expect(dry.currentRegionId).toBe("oot-kak");
+    expect(dry.penalties).toBe(1);
+
+    session = { ...session, inventory: [...session.inventory, "ocarina", "song_of_storms"] };
+    const drained = travelTo(session, config, "oot-well");
+    expect(drained.currentRegionId).toBe("oot-well");
+    expect(drained.logicEvents).toContain("Drain Well");
+    expect(drained.penalties).toBe(0);
+  });
+
+  it("registers Epona at the ranch so Gerudo Valley can be crossed later", () => {
+    const config = createConfig({
+      startingAge: "adult",
+      adultSpawn: "oot-llr",
+      startingItems: ["ocarina", "epona"],
+    });
+    let session = createSession(config, 1);
+    expect(session.logicEvents).toContain("Epona");
+    session = travelTo(session, config, "oot-field");
+    session = travelTo(session, config, "oot-gv");
+    session = travelTo(session, config, "oot-gf");
+    expect(session.currentRegionId).toBe("oot-gf");
+    expect(session.penalties).toBe(0);
+  });
+
   it("requires Song of Time to swap age when the Door of Time is closed", () => {
     const config = createConfig({ openDoorOfTime: false, spawn: "oot-tot", startingAge: "child" });
     let session = createSession(config, 1);

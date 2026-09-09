@@ -80,7 +80,15 @@ describe("OoTR practice oracle", () => {
     const toWell = edge("oot-kak", "oot-well");
     expect(canUseConnection(toWell, ["ocarina"], "child")).toBe(false);
     expect(canUseConnection(toWell, ["ocarina", "song_of_storms"], "child")).toBe(true);
+    expect(canUseConnection(toWell, [], "child", undefined, ["Drain Well"])).toBe(true);
     expect(canUseConnection(toWell, ["ocarina", "song_of_storms"], "adult")).toBe(false);
+  });
+
+  it("needs the Epona event to cross Gerudo Valley without longshot", () => {
+    const toFortress = edge("oot-gv", "oot-gf");
+    expect(canUseConnection(toFortress, ["ocarina", "epona"], "adult")).toBe(false);
+    expect(canUseConnection(toFortress, ["ocarina", "epona"], "adult", undefined, ["Epona"])).toBe(true);
+    expect(canUseConnection(toFortress, ["longshot"], "adult")).toBe(true);
   });
 
   it("opens the Door of Time from settings or Song of Time", () => {

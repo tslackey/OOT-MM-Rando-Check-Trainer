@@ -101,9 +101,9 @@ CI is the Pages workflow on `main` (test + lint, then build, then deploy).
 
 - `src/lib/importRando.test.ts` — settings mapping, location match, spawn entrances, export round-trip
 - `src/lib/spoiler.test.ts` — generated spoiler, shuffled spawns not always Kokiri
-- `src/lib/session.test.ts` — illegal travel penalty, legal adjacent travel, double-check penalty, respawn, Farore's Wind, Gohma forest escape, Door of Time
+- `src/lib/session.test.ts` — illegal travel penalty, legal adjacent travel, double-check penalty, respawn, Farore's Wind, Gohma forest escape, well drain, Epona persist, Door of Time
 - `src/data/world.test.ts` — OoT spawn, no cross-game flag
-- `src/logic/oracle.test.ts` — masks, windmill SoS, closed forest, Forest lobby, KF sword, Gohma forest escape, DoT, night GS, either-age flag
+- `src/logic/oracle.test.ts` — masks, windmill SoS, closed forest, Forest lobby, KF sword, Gohma forest escape, DoT, night GS, either-age flag, Epona valley
 - `src/logic/ootrPort.test.ts` — every vendored helper/World rule compiles; State.py + LogicHelpers + World JSON cases
 - `src/lib/scoring.test.ts`, `src/lib/shuffle.test.ts`
 - `src/lib/buildInfo.test.ts` — changelog rows, Pages build/PR stamp
