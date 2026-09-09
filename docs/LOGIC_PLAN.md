@@ -214,7 +214,9 @@ edges. Do not add more helper stubs unless a practice bug needs them.
 
 ### Slice C — settings the importer already stores
 
-- Rainbow bridge / Ganon BK / LACS counts (partially wired).
+- Rainbow bridge / Ganon BK / LACS counts (L-C1, landed).
+- Shuffle Open Chest is a progressive *ability* (small then large), not a
+  location category (L-C4).
 - Gerudo Fortress (normal / fast / open).
 - Tricks: default off; honor `logic_*` from a spoiler.
 - MQ and entrance shuffle stay later. Entrance shuffle would rewrite the
@@ -292,6 +294,8 @@ From imported OoTR JSON, wire into helpers:
   (already partially mapped in `importRando.ts`)
 - Rainbow bridge / Ganon BK / LACS conditions and counts (L-C1: imported
   `settings` feed the graph oracle; vanilla remains the no-import default)
+- Shuffle Open Chest (Off / On / Progressive): overlay on graph Chest spots.
+  Not the Standard checks toggle.
 - Gerudo Fortress (normal / fast / open)
 - Shops / scrubs / tokens / trade shuffle (already affect which checks exist)
 

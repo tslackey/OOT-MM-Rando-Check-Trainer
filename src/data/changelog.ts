@@ -20,11 +20,17 @@ export const CHANGELOG_REPO = "tslackey/OOT-MM-Rando-Check-Trainer";
 export const CHANGELOG: ChangelogEntry[] = [
   {
     date: "2026-09-09",
+    title: "Shuffle Open Chest is an ability, not a check type",
+    summary:
+      "Imported Shuffle Open Chest (Off / On / Progressive) is the progressive open-small-then-open-big item. Standard locations stay in the check list; opening them needs that ability when the setting is on.",
+    pending: true,
+  },
+  {
+    date: "2026-09-09",
     title: "Imported rainbow bridge, LACS, and Ganon boss key",
     summary:
       "A pasted spoiler’s Rainbow Bridge, Light Arrow Cutscene, and Ganon’s Boss Key settings (including counts) now drive Ganon’s door and those checks instead of always using vanilla.",
     pr: 15,
-    pending: true,
   },
   {
     date: "2026-09-08",

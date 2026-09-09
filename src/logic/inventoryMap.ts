@@ -84,6 +84,8 @@ export const TRAINER_TO_OOTR: Record<string, { name: string; count: number }> = 
   boss_key_ganons_castle: { name: "Boss_Key_Ganons_Castle", count: 1 },
   silver_gauntlets: { name: "Progressive_Strength_Upgrade", count: 2 },
   golden_gauntlets: { name: "Progressive_Strength_Upgrade", count: 3 },
+  open_chest: { name: "Open_Chest", count: 1 },
+  open_chests: { name: "Open_Chest", count: 1 },
 };
 
 export const WARP_SONGS: Record<string, { song: string; needsLeaveForest: boolean; dest: string }> = {
@@ -114,7 +116,7 @@ export function addItem(items: Map<string, number>, name: string, count: number)
   items.set(name, Math.max(items.get(name) ?? 0, count));
 }
 
-const STACKABLE_OOTR = /^(Small_Key_|Boss_Key_|Hideout_Small_Key|Key_Ring_|Gold_Skulltula_Token|Triforce_Piece)/;
+const STACKABLE_OOTR = /^(Small_Key_|Boss_Key_|Hideout_Small_Key|Key_Ring_|Gold_Skulltula_Token|Triforce_Piece|Open_Chest)/;
 
 export function isStackableOotrName(name: string): boolean {
   return STACKABLE_OOTR.test(name);
@@ -125,6 +127,8 @@ export function isStackableTrainerId(id: string): boolean {
     id.startsWith("small_key_") ||
     id.startsWith("boss_key_") ||
     id === "hideout_small_key" ||
-    id === "gs_tokens"
+    id === "gs_tokens" ||
+    id === "open_chest" ||
+    id === "open_chests"
   );
 }

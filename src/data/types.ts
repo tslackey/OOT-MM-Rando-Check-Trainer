@@ -60,7 +60,7 @@ export interface WorldData {
 }
 
 export const CHECK_TYPES: { id: CheckType; label: string }[] = [
-  { id: "chest", label: "Chests & NPCs" },
+  { id: "chest", label: "Standard checks" },
   { id: "song", label: "Songs" },
   { id: "dungeonReward", label: "Dungeon rewards" },
   { id: "scrub", label: "Business scrubs" },

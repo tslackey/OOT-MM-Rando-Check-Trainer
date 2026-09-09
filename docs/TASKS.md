@@ -49,6 +49,7 @@ This run (writing the board, then starting the wrap):
 | L-3 | Events, Door of Time, optional `eitherAgeLogic` (phase 3) | [#9](https://github.com/tslackey/OOT-MM-Rando-Check-Trainer/pull/9) |
 | L-4 | Port World JSON / LogicHelpers / `State.py` tests; stop stubbing compile / bottles / hearts / trials | [#10](https://github.com/tslackey/OOT-MM-Rando-Check-Trainer/pull/10) |
 | L-DOC | Claimable task board + steering pointer | [#11](https://github.com/tslackey/OOT-MM-Rando-Check-Trainer/pull/11) |
+| L-C1 | Rainbow bridge / Ganon boss key / LACS counts from imported `settings` | [#15](https://github.com/tslackey/OOT-MM-Rando-Check-Trainer/pull/15) |
 
 `src/logic/` is still a **subset**. `world.json` is still the coarse Go / Check map.
 
@@ -73,9 +74,10 @@ Do these **after** L-A, unless a row says it is independent.
 | --- | --- | --- | --- | --- | --- | --- |
 | L-B | Keep compile-every-rule green for as long as we still own the parser | open | — | — | — | Subsumed by L-A4 once the wrap replaces compile. Independent only if L-A is abandoned. |
 | L-C | Honor settings the importer already stores | open | — | — | — | Parent. Claim children. |
-| L-C1 | Rainbow bridge / Ganon boss key / LACS counts from imported `settings` | claimed | cloud agent | [bc-01a0832d-6462-748a-ac50-8994317f5ae9](https://cursor.com/agents/bc-01a0832d-6462-748a-ac50-8994317f5ae9) | `cursor/imported-bridge-lacs-5ae9` [#15](https://github.com/tslackey/OOT-MM-Rando-Check-Trainer/pull/15) | Graph oracle was hardcoding vanilla bridge. Honor imported condition + counts. |
+| L-C1 | Rainbow bridge / Ganon boss key / LACS counts from imported `settings` | done | cloud agent | — | [#15](https://github.com/tslackey/OOT-MM-Rando-Check-Trainer/pull/15) | Merged. |
 | L-C2 | Gerudo Fortress: normal / fast / open | open | — | — | — | |
 | L-C3 | Tricks: default off; honor `logic_*` from a spoiler. No glitched logic. | open | — | — | — | |
+| L-C4 | Shuffle Open Chest is a progressive ability (small then large), not a check type | claimed | cloud agent | [bc-01a0832d-6462-748a-ac50-8994317f5ae9](https://cursor.com/agents/bc-01a0832d-6462-748a-ac50-8994317f5ae9) | `cursor/shuffle-open-chest-5ae9` | Overlay on graph Chest spots. Vanilla 8.3 has no this setting. |
 | L-INV | Trainer inventory rarely carries `Piece_of_Heart` or bottled contents; heart-bridge imports look locked | open | — | — | — | Independent of wrap. |
 | L-KEY | Remaining `(Small_Key_*, n)` mappings that still lock a dungeon | open | — | — | — | Forest/Fire/Water/Shadow/Spirit/Well/GTG/Ganon/hideout already map. Fix only with a failing World JSON case. |
 | L-SHOP | `Buy_Deku_Shield` etc. are not granted just because a chest gave `Deku_Shield` | open | — | — | — | `has_shield` already accepts owned `Deku_Shield`. Shop-sanity only. |
