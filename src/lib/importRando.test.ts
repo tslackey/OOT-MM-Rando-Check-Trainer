@@ -19,6 +19,9 @@ describe("OoTR JSON import", () => {
     expect(result.config.checkTypes.skullReward).toBe(true);
     expect(result.config.checkTypes.trade).toBe(false);
     expect(result.config.randoSettings?.["Closed Forest"]).toBe("On");
+    expect(result.config.randoSettings?.["Rainbow Bridge"]).toBe("Dungeon rewards");
+    expect(result.config.randoSettings?.["Bridge Reward Count"]).toBe("6");
+    expect(result.config.randoSettings?.["Ganon's Boss Key"]).toBe("Vanilla");
     expect(result.config.randoSeed).toBe("6951318300");
     expect(result.config.startingItems).not.toContain("ocarina");
   });

@@ -19,12 +19,19 @@ export const CHANGELOG_REPO = "tslackey/OOT-MM-Rando-Check-Trainer";
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: "2026-09-09",
+    title: "Imported rainbow bridge, LACS, and Ganon boss key",
+    summary:
+      "A pasted spoiler’s Rainbow Bridge, Light Arrow Cutscene, and Ganon’s Boss Key settings (including counts) now drive Ganon’s door and those checks instead of always using vanilla.",
+    pr: 15,
+    pending: true,
+  },
+  {
     date: "2026-09-08",
     title: "Changelog in the app",
     summary:
       "The Pages build stamp and a Changes tab list each shipped pull request next to the build number that published it.",
     pr: 13,
-    pending: true,
   },
   {
     date: "2026-09-08",

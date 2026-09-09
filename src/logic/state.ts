@@ -1,4 +1,5 @@
 import type { Age, RandoConfig } from "../data/types";
+import { applyImportedLogicSettings } from "./importedSettings";
 import { TRAINER_TO_OOTR, addItem } from "./inventoryMap";
 
 export type LogicAge = Exclude<Age, "any">;
@@ -125,16 +126,7 @@ function applyImportedSettings(settings: Record<string, unknown>, imported: Reco
     else if (v.includes("open")) settings.gerudo_fortress = "open";
     else settings.gerudo_fortress = "normal";
   }
-  if (imported["Rainbow Bridge"]) {
-    const v = imported["Rainbow Bridge"].toLowerCase();
-    if (v.includes("open")) settings.bridge = "open";
-    else if (v.includes("vanilla")) settings.bridge = "vanilla";
-    else if (v.includes("stone")) settings.bridge = "stones";
-    else if (v.includes("medallion")) settings.bridge = "medallions";
-    else if (v.includes("dungeon")) settings.bridge = "dungeons";
-    else if (v.includes("token")) settings.bridge = "tokens";
-    else if (v.includes("heart")) settings.bridge = "hearts";
-  }
+  applyImportedLogicSettings(settings, imported);
   if (imported["Ganon's Trials"]?.toLowerCase().includes("skip")) {
     const skipped = settings.skipped_trials as Record<string, boolean>;
     for (const trial of TRIALS) skipped[trial] = true;

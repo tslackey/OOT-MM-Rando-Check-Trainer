@@ -63,7 +63,7 @@ This run (writing the board, then starting the wrap):
 | L-A4 | Keep `ootrPort.test.ts` + `oracle.test.ts` + session tests green while swapping the backend | done | cloud agent | — | same as L-A | 106 tests green. |
 | L-A5 | Accept Babel bundle weight or lazy-load the graph on first Practice start | done | cloud agent | — | same as L-A | First oracle call builds the graph. Pages `base` stays `./`. |
 
-`main` still uses the restricted evaluator until #12 merges. This branch is the graph-tool wrap.
+`#12` is on `main`. Practice penalties use the graph wrap.
 
 ## Open (claim here)
 
@@ -73,7 +73,7 @@ Do these **after** L-A, unless a row says it is independent.
 | --- | --- | --- | --- | --- | --- | --- |
 | L-B | Keep compile-every-rule green for as long as we still own the parser | open | — | — | — | Subsumed by L-A4 once the wrap replaces compile. Independent only if L-A is abandoned. |
 | L-C | Honor settings the importer already stores | open | — | — | — | Parent. Claim children. |
-| L-C1 | Rainbow bridge / Ganon boss key / LACS counts from imported `settings` | open | — | — | — | Partially wired. After or with L-A. |
+| L-C1 | Rainbow bridge / Ganon boss key / LACS counts from imported `settings` | claimed | cloud agent | [bc-01a0832d-6462-748a-ac50-8994317f5ae9](https://cursor.com/agents/bc-01a0832d-6462-748a-ac50-8994317f5ae9) | `cursor/imported-bridge-lacs-5ae9` [#15](https://github.com/tslackey/OOT-MM-Rando-Check-Trainer/pull/15) | Graph oracle was hardcoding vanilla bridge. Honor imported condition + counts. |
 | L-C2 | Gerudo Fortress: normal / fast / open | open | — | — | — | |
 | L-C3 | Tricks: default off; honor `logic_*` from a spoiler. No glitched logic. | open | — | — | — | |
 | L-INV | Trainer inventory rarely carries `Piece_of_Heart` or bottled contents; heart-bridge imports look locked | open | — | — | — | Independent of wrap. |
@@ -98,6 +98,6 @@ Do these **after** L-A, unless a row says it is independent.
 
 ## Suggested next claim after L-A
 
-1. **L-C1** or **L-C2** — imported settings the operator already pasted.
+1. **L-C2** — Gerudo Fortress (normal / fast / open) from imported settings.
 2. **L-INV** — if heart / bottle bridges show as locked on real spoilers.
 3. **L-MQ** / **L-ENT** — only with a human asking for those modes.
